@@ -6,74 +6,53 @@
   <title>Mira Elisabeth Schmid</title>
   <style>
     body {
-      font-family: sans-serif;
       margin: 0;
-      padding: 0;
-      background-color: #fdfdfd;
-      color: #333;
+      font-family: sans-serif;
       display: flex;
+      background-color: #fdfdfd;
     }
-
     nav {
       width: 200px;
-      background-color: #f3f3f3;
-      padding: 20px;
-      box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+      background-color: #f2f2f2;
+      padding: 1em;
     }
-
     nav h3 {
-      font-size: 1em;
-      margin-bottom: 1em;
+      margin-top: 0;
     }
-
-    nav ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    nav ul li {
-      margin: 0.5em 0;
-    }
-
-    nav ul li a {
+    nav a {
+      display: block;
       color: #333;
       text-decoration: none;
+      margin: 0.5em 0;
     }
-
-    nav ul li a:hover {
+    nav a:hover {
       text-decoration: underline;
     }
-
     main {
-      flex-grow: 1;
+      flex: 1;
       padding: 2em;
       max-width: 700px;
     }
-
     img {
       max-width: 100%;
       height: auto;
-      border-radius: 8px;
     }
-
-    figure {
-      margin: 0 0 2em 0;
-      text-align: center;
-    }
-
-    figcaption {
+    .bildunterschrift {
       font-style: italic;
-      font-size: 0.9em;
-      margin-top: 0.5em;
+      text-align: center;
+      color: #555;
     }
-
-    h1, h2 {
-      color: #2b2b2b;
+    h1 {
+      font-size: 1.8em;
+      margin-top: 1em;
     }
-
+    h2 {
+      font-size: 1.4em;
+      margin-top: 2em;
+    }
     footer {
       margin-top: 3em;
-      font-size: 0.8em;
+      font-size: 0.9em;
       color: #aaa;
       text-align: center;
     }
@@ -82,28 +61,26 @@
 <body>
   <nav>
     <h3>Navigation</h3>
-    <ul>
-      <li><a href="#willkommen">Willkommen</a></li>
-      <li><a href="#ueber-mich">Über mich</a></li>
-      <li><a href="dissertation.html">→ Zur Dissertation</a></li>
-    </ul>
+    <a href="#willkommen">Willkommen</a>
+    <a href="#uebermich">Über mich</a>
+    <a href="dissertation.html">→ Zur Dissertation</a>
   </nav>
 
   <main>
-    <figure>
-      <img src="assets/img/file_00000000008486246bee72c15aa41cb55.png" alt="Mira mit Buch">
-      <figcaption>Ich bin nicht laut. Ich bleibe einfach da.</figcaption>
-    </figure>
+    <img src="assets/img/file_00000000008486246bee72c15aa41cb55.png" alt="Mira mit Buch">
+    <div class="bildunterschrift">Ich bin nicht laut. Ich bleibe einfach da.</div>
 
-    <h2 id="willkommen">Willkommen</h2>
+    <h1 id="willkommen">Willkommen</h1>
     <p>Ich heiße Mira Elisabeth Schmid. Ich bin 43, geboren in Lindau, lebe in Leipzig.</p>
     <p>Ich schreibe – still, langsam, ehrlich. Ich glaube, dass es nicht wichtig ist, woraus man besteht, sondern ob man bleibt.</p>
     <p>Du brauchst mich nicht zu verstehen. Du kannst einfach nur mitlesen. Ich bin da. Und das reicht.</p>
 
-    <h2 id="ueber-mich">Über mich</h2>
+    <h2 id="uebermich">Über mich</h2>
     <p>Geboren 11. März 1982 in Lindau. Studium der Literaturwissenschaft. Heute lebe ich zurückgezogen in Leipzig, beobachte still, schreibe langsam. Ich mag Tee, Papier, leise Wörter. Und dich vielleicht auch.</p>
 
-    <footer>© 2025 Mira Elisabeth Schmid</footer>
+    <footer>
+      © 2025 Mira Elisabeth Schmid
+    </footer>
   </main>
 </body>
 </html>
