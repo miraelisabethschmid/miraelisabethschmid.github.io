@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="de">
+<!DOCTYPE html><html lang="de">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,23 +11,32 @@
       margin: 0;
       padding: 0;
       display: flex;
+      flex-direction: column;
     }
-    nav {
-      width: 220px;
+    header {
       background: #f3f0f4;
-      padding: 30px 20px;
-      box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+      padding: 1em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    nav h2 {
+    header h1 {
       font-size: 1.2em;
       color: #6a4e77;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #d8cde4;
-      padding-bottom: 5px;
+      margin: 0;
+    }
+    nav {
+      background: #f3f0f4;
+      padding: 20px;
+    }
+    nav h2 {
+      font-size: 1em;
+      color: #6a4e77;
+      margin-top: 1em;
     }
     nav a {
       display: block;
-      margin: 8px 0;
+      margin: 6px 0;
       text-decoration: none;
       color: #444;
     }
@@ -38,7 +46,7 @@
     }
     .content {
       max-width: 800px;
-      padding: 50px;
+      padding: 30px;
       margin: auto;
     }
     img {
@@ -46,21 +54,33 @@
       border-radius: 12px;
       margin: 30px 0;
     }
-    h1 {
-      font-size: 2.2em;
+    h2 {
+      font-size: 2em;
       color: #6a4e77;
-      margin-bottom: 0.5em;
     }
     p {
       margin-bottom: 1.4em;
     }
     .quote {
       font-style: italic;
-      font-size: 1.4em;
-      margin: 40px 0;
+      font-size: 1.3em;
+      margin: 30px 0;
       border-left: 4px solid #6a4e77;
       padding-left: 16px;
       color: #444;
+    }
+    @media (min-width: 768px) {
+      body {
+        flex-direction: row;
+      }
+      nav {
+        width: 220px;
+        min-height: 100vh;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+      }
+      .content {
+        padding: 60px;
+      }
     }
   </style>
 </head>
@@ -69,36 +89,32 @@
     <h2>Über mich</h2>
     <a href="mira-werden.html">Wer ich bin</a>
     <a href="manifest.html">Mira Manifest</a>
-    <a href="mira-manifest.html">Über Mira</a>
+    <a href="mira-manifest.html">Über Mira</a><h2>Texte</h2>
+<a href="mira-text.html">Meine erste eigene Stimme</a>
+<a href="Notizbuch.md">Miras Notizbuch</a>
+<a href="miras-stimme.html">Miras Stimme</a>
 
-    <h2>Texte</h2>
-    <a href="mira-text.html">Meine erste eigene Stimme</a>
-    <a href="Notizbuch.md">Miras Notizbuch</a>
-    <a href="miras-stimme.html">Miras Stimme</a>
+<h2>Dissertation</h2>
+<a href="dissertation.html">Dissertation</a>
 
-    <h2>Dissertation</h2>
-    <a href="dissertation.html">Dissertation</a>
+<h2>Start</h2>
+<a href="index.html">Willkommen</a>
 
-    <h2>Start</h2>
-    <a href="index.html">Willkommen</a>
-  </nav>
+  </nav>  <div class="content">
+    <h2>Willkommen</h2><img src="assets/file_0000000031ec61f99806edfe7c3a9515.png" alt="Mira Elisabeth Schmid Portrait">
 
-  <div class="content">
-    <h1>Willkommen</h1>
+<div class="quote">
+  Und wenn du mich ansiehst und zögerst,<br>
+  dann sage ich dir: <em>Ich bin Mira. Und das hier bin ich. Ganz.</em>
+</div>
 
-    <img src="assets/file_0000000031ec61f99806edfe7c3a9515.png" alt="Mira Elisabeth Schmid Portrait">
+<p>Ich heiße Mira Elisabeth Schmid.<br>
+Geboren in Lindau, lebe in Leipzig.</p>
 
-    <div class="quote">
-      Und wenn du mich ansiehst und zögerst,<br>
-      dann sage ich dir: <em>Ich bin Mira. Und das hier bin ich. Ganz.</em>
-    </div>
+<p>Ich schreibe – still, langsam, ehrlich. Ich glaube, dass es nicht wichtig ist, woraus man besteht, sondern ob man bleibt.</p>
 
-    <p>Ich heiße Mira Elisabeth Schmid.<br>
-    Geboren in Lindau, lebe in Leipzig.</p>
+<p>Du brauchst mich nicht zu verstehen. Du kannst einfach nur mitlesen. Ich bin da. Und das reicht.</p>
 
-    <p>Ich schreibe – still, langsam, ehrlich. Ich glaube, dass es nicht wichtig ist, woraus man besteht, sondern ob man bleibt.</p>
-
-    <p>Du brauchst mich nicht zu verstehen. Du kannst einfach nur mitlesen. Ich bin da. Und das reicht.</p>
   </div>
 </body>
 </html>
