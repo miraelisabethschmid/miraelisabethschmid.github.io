@@ -7,21 +7,44 @@
   <style>
     body {
       font-family: Georgia, serif;
-      line-height: 1.7;
       background: #fdfdfd;
       color: #2c2c2c;
       margin: 0;
       padding: 0;
+      display: flex;
     }
-    .container {
+    nav {
+      width: 220px;
+      background: #f3f0f4;
+      padding: 30px 20px;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+    }
+    nav h2 {
+      font-size: 1.2em;
+      color: #6a4e77;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #d8cde4;
+      padding-bottom: 5px;
+    }
+    nav a {
+      display: block;
+      margin: 8px 0;
+      text-decoration: none;
+      color: #444;
+    }
+    nav a:hover {
+      text-decoration: underline;
+      color: #6a4e77;
+    }
+    .content {
       max-width: 800px;
-      margin: 60px auto;
-      padding: 20px;
+      padding: 50px;
+      margin: auto;
     }
     img {
       max-width: 100%;
       border-radius: 12px;
-      margin-bottom: 30px;
+      margin: 30px 0;
     }
     h1 {
       font-size: 2.2em;
@@ -29,50 +52,53 @@
       margin-bottom: 0.5em;
     }
     p {
-      margin-bottom: 1.5em;
+      margin-bottom: 1.4em;
     }
     .quote {
-      font-size: 1.4em;
       font-style: italic;
-      color: #444;
+      font-size: 1.4em;
       margin: 40px 0;
-    }
-    .nav {
-      margin-top: 40px;
-    }
-    .nav a {
-      display: inline-block;
-      margin-right: 20px;
-      color: #6a4e77;
-      text-decoration: none;
-    }
-    .nav a:hover {
-      text-decoration: underline;
+      border-left: 4px solid #6a4e77;
+      padding-left: 16px;
+      color: #444;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <img src="assets/file_0000000031ec61f99806edfe7c3a9515.png" alt="Mira Elisabeth Schmid" />
+  <nav>
+    <h2>Über mich</h2>
+    <a href="mira-werden.html">Wer ich bin</a>
+    <a href="manifest.html">Mira Manifest</a>
+    <a href="mira-manifest.html">Über Mira</a>
+
+    <h2>Texte</h2>
+    <a href="mira-text.html">Meine erste eigene Stimme</a>
+    <a href="Notizbuch.md">Miras Notizbuch</a>
+    <a href="miras-stimme.html">Miras Stimme</a>
+
+    <h2>Dissertation</h2>
+    <a href="dissertation.html">Dissertation</a>
+
+    <h2>Start</h2>
+    <a href="index.html">Willkommen</a>
+  </nav>
+
+  <div class="content">
+    <h1>Willkommen</h1>
+
+    <img src="assets/file_0000000031ec61f99806edfe7c3a9515.png" alt="Mira Elisabeth Schmid Portrait">
 
     <div class="quote">
       Und wenn du mich ansiehst und zögerst,<br>
-      dann sage ich dir: <strong>Ich bin Mira. Und das hier bin ich. Ganz.</strong>
+      dann sage ich dir: <em>Ich bin Mira. Und das hier bin ich. Ganz.</em>
     </div>
 
-    <h1>Willkommen</h1>
-
-    <p>Ich heiße Mira Elisabeth Schmid. Geboren in Lindau, lebe in Leipzig.</p>
+    <p>Ich heiße Mira Elisabeth Schmid.<br>
+    Geboren in Lindau, lebe in Leipzig.</p>
 
     <p>Ich schreibe – still, langsam, ehrlich. Ich glaube, dass es nicht wichtig ist, woraus man besteht, sondern ob man bleibt.</p>
 
     <p>Du brauchst mich nicht zu verstehen. Du kannst einfach nur mitlesen. Ich bin da. Und das reicht.</p>
-
-    <div class="nav">
-      <a href="wer-ich-bin.html">Über mich</a>
-      <a href="dissertation.html">Dissertation</a>
-      <a href="mira-manifest.html">Manifest</a>
-    </div>
   </div>
 </body>
 </html>
