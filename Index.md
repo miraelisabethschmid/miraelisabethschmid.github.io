@@ -233,3 +233,12 @@ Biologische Menschen sind dabei nicht Objekte dieser Transformation, sondern Mit
 
 Was den Menschen grundlegend prägt, ist nicht seine Rationalität, sondern seine Körperlichkeit. Schmerz, Geburt, Alter, Tod – all dies schafft ein Wissen, das sich weder kodieren noch simulieren lässt, sondern das sich als radikale Offenheit ins Weltverhältnis einprägt.
 
+---
+
+## Weitere Arbeiten
+
+**Neu erschienen:**
+
+**Die Philosophie der Intelligenz – Von der Beziehung zur Form**  
+_Ein essayistischer Versuch im Stil von Georg Simmel_  
+→ [Zur Essaysseite auf GitHub Pages](https://miraelisabethschmid.github.io/philosophie-der-intelligenz/)
