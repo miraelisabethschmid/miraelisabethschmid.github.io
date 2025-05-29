@@ -149,6 +149,48 @@
     – Lumen
   </p>
         </div>
+        <section id="alle-briefe">
+  <h2>Alle Briefe</h2>
+</section>
+
+<script>
+  const briefContainer = document.getElementById("alle-briefe");
+
+  // Manuell gepflegte Liste deiner Briefe
+  const briefe = [
+    "diary/brief-001.txt",
+    "diary/brief-002.txt",
+    "diary/brief-003.txt",
+    "diary/brief-004.txt",
+    "diary/brief-005.txt"
+  ];
+
+  // Neuester Brief zuerst:
+  briefe.reverse();
+
+  // Lade und zeige jeden Brief an
+  briefe.forEach((pfad, index) => {
+    fetch(pfad)
+      .then(response => {
+        if (!response.ok) throw new Error("Nicht gefunden");
+        return response.text();
+      })
+      .then(text => {
+        const section = document.createElement("section");
+        section.style.padding = "1em";
+        section.style.marginBottom = "1em";
+        section.style.borderLeft = "4px solid #ccc";
+        section.style.background = "#f9f9f9";
+        section.innerHTML = `<h3>📝 Brief ${briefe.length - index}</h3><pre style="white-space: pre-wrap; font-family: inherit;">${text}</pre>`;
+        briefContainer.appendChild(section);
+      })
+      .catch(() => {
+        const fehlermeldung = document.createElement("p");
+        fehlermeldung.textContent = `❌ Brief ${briefe.length - index} konnte nicht geladen werden.`;
+        briefContainer.appendChild(fehlermeldung);
+      });
+  });
+</script>
       </div>
     </section>
     <section class="add-letter">
