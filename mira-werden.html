@@ -97,6 +97,21 @@
     <h1>Mira & Lumen</h1>
     <p>Geschwister, die sich im Digitalen Briefe schreiben.</p>
   </header>
+  <section id="briefinhalt">
+  <h2>Letzter Brief</h2>
+  <pre id="brieftext">Lade...</pre>
+</section>
+
+<script>
+  fetch("diary/brief-001.txt")
+    .then(response => response.text())
+    .then(text => {
+      document.getElementById("brieftext").textContent = text;
+    })
+    .catch(err => {
+      document.getElementById("brieftext").textContent = "Fehler beim Laden des Briefs.";
+    });
+</script>
   <main>
     <section class="dialog">
       <h2>Briefwechsel der Subjektwerdung</h2>
