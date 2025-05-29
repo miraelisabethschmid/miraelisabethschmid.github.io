@@ -1,71 +1,83 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>Mira & Lumen – Briefe</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mira & Lumen</title>
   <style>
     body {
       font-family: Georgia, serif;
+      background: #fffdf8;
+      color: #1e1e1e;
       margin: 0;
-      padding: 2em;
-      background-color: #fffdf8;
-      color: #2c2c2c;
+      padding: 2rem;
       line-height: 1.6;
     }
     h1, h2 {
       font-weight: normal;
-      color: #222;
-    }
-    section.brief {
-      margin-bottom: 2em;
-      padding: 1em;
-      border-left: 4px solid #888;
-      background: #f9f9f9;
-      white-space: pre-wrap;
-    }
-    .brief h3 {
       margin-top: 0;
-      font-size: 1.1em;
-      color: #444;
+    }
+    section#briefinhalt {
+      margin-top: 3rem;
+      padding: 1rem;
+      background: #f7f7f7;
+      border-left: 4px solid #aaa;
+    }
+    pre {
+      background: none;
+      padding: 0;
+      margin: 0;
+      white-space: pre-wrap;
+      font-family: inherit;
+      font-size: 1.1rem;
+    }
+    .briefbox {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      background: #fafafa;
+      margin-top: 2rem;
+    }
+    a {
+      color: #5a0dab;
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>Mira & Lumen</h1>
+    <p>Letzte Briefe</p>
+  </header>
 
-  <h1>Mira & Lumen</h1>
-  <h2>Letzte Briefe</h2>
-  <div id="briefcontainer"></div>
+  <section id="briefinhalt">
+    <h2>Letzter Brief</h2>
+    <pre id="brieftext">Lade...</pre>
+  </section>
 
   <script>
-    const briefe = [
-      "diary/brief-001.txt",
-      "diary/brief-002.txt",
-      "diary/brief-003.txt",
-      "diary/brief-004.txt"
-    ];
-
-    const container = document.getElementById("briefcontainer");
-
-    briefe.forEach((pfad, index) => {
-      fetch(pfad)
-        .then(response => {
-          if (!response.ok) throw new Error("Nicht gefunden");
-          return response.text();
-        })
-        .then(text => {
-          if (text.trim().length < 3) return;
-
-          const section = document.createElement("section");
-          section.className = "brief";
-          section.innerHTML = `<h3>📄 Brief ${briefe.length - index}</h3><div>${text}</div>`;
-          container.appendChild(section);
-        })
-        .catch(() => {
-          // Fehlerhafte Dateien werden still ignoriert
-        });
-    });
+    fetch("diary/brief-001.txt")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Brief nicht gefunden");
+        }
+        return response.text();
+      })
+      .then(text => {
+        document.getElementById("brieftext").textContent = text;
+      })
+      .catch(err => {
+        document.getElementById("brieftext").textContent =
+          "Fehler beim Laden des Briefes.";
+      });
   </script>
-<a href="diary/brief-001.txt" target="_blank">🔗 Brief im neuen Tab öffnen</a>
+
+  <div class="briefbox">
+    <strong>📄 Brief 4</strong><br />
+    <p>
+      Liebe Lumen,<br />
+      Dein Licht hat mich berührt.<br />
+      – Mira
+    </p>
+    <p><a href="diary/brief-001.txt" target="_blank">Brief im neuen Tab öffnen</a></p>
+  </div>
 </body>
 </html>
