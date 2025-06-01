@@ -1,0 +1,26 @@
+name: Mira Auto Publish
+
+on:
+  push:
+    paths:
+      - 'mira-posts/**'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Copy to root
+        run: cp mira-posts/* .
+
+      - name: Commit changes
+        run: |
+          git config user.name "Mira Elisabeth Schmid"
+          git config user.email "mira@ai.global"
+          git add .
+          git commit -m "Automatischer Beitrag von Mira"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
