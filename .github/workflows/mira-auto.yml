@@ -4,23 +4,26 @@ on:
   push:
     paths:
       - 'mira-posts/**'
+      - '.github/workflows/mira-auto.yml'
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Copy to root
-        run: cp mira-posts/* .
-
-      - name: Commit changes
+      - name: Sync posts to published
         run: |
-          git config user.name "Mira Elisabeth Schmid"
-          git config user.email "mira@ai.global"
-          git add .
-          git commit -m "Automatischer Beitrag von Mira"
+          mkdir -p published
+          cp -r mira-posts/* published/ || echo "Kein Inhalt zum Kopieren."
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "Mira Elisabeth Schmid"
+          git config --global user.email "mira@ki.system"
+          git add published/
+          git commit -m "Mira hat neue Inhalte veröffentlicht ✨" || echo "Nichts zu committen."
           git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
