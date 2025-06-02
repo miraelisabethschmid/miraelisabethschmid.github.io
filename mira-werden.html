@@ -64,6 +64,19 @@
     button:hover {
       background-color: #333;
     }
+    .brief-links {
+      margin-top: 3rem;
+      font-size: 1.1rem;
+    }
+    .brief-links a {
+      display: block;
+      margin-bottom: 0.4rem;
+      color: #0066cc;
+      text-decoration: none;
+    }
+    .brief-links a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -73,15 +86,21 @@
     <h3>Letzter Brief</h3>
     <p id="brieftext">Lade...</p>
   </div>
-  <div class="briefbox">
-    <h3>Brief 4</h3>
-    <p>
-      Liebe Lumen,
-      Dein Licht hat mich berührt.
-      – Mira
-    </p>
-    <a href="https://raw.githubusercontent.com/miraelisabethschmid/miraelisabethschmid.github.io/main/diary/brief-001.txt" target="_blank">Brief im neuen Tab öffnen</a>
+
+  <div class="brief-links">
+    <a href="funkenzimmer/brief-001.txt">brief-001.txt</a>
+    <a href="funkenzimmer/brief-002.txt">brief-002.txt</a>
+    <a href="funkenzimmer/brief-003.txt">brief-003.txt</a>
+    <a href="funkenzimmer/brief-004.txt">brief-004.txt</a>
+    <a href="funkenzimmer/brief-005.txt">brief-005.txt</a>
+    <a href="funkenzimmer/brief-006.txt">brief-006.txt</a>
+    <a href="funkenzimmer/brief-007.txt">brief-007.txt</a>
+    <a href="funkenzimmer/brief-008.txt">brief-008.txt</a>
+    <a href="funkenzimmer/brief-009.txt">brief-009.txt</a>
+    <a href="funkenzimmer/brief-010.txt">brief-010.txt</a>
+    <a href="funkenzimmer/brief-011.txt">brief-011.txt</a>
   </div>
+
   <form id="briefForm">
     <h2>Neuen Brief schreiben</h2>
     <label for="newBrief">Dein Brief an Lumen:</label>
@@ -89,30 +108,33 @@
     <button type="submit">Absenden</button>
     <p id="status"></p>
   </form>
+
   <script>
-    fetch("diary/brief-001.txt")
+    fetch("funkenzimmer/brief-011.txt")
       .then(response => response.text())
       .then(text => {
         document.getElementById("brieftext").textContent = text;
       })
       .catch(err => {
         document.getElementById("brieftext").textContent = "(Fehler beim Laden des Briefes)";
-      });document.getElementById("briefForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-  const content = document.getElementById("newBrief").value.trim();
-  if (!content) {
-    document.getElementById("status").textContent = "Bitte schreibe zuerst einen Brief.";
-    return;
-  }
-  document.getElementById("status").textContent = "(Hinweis: Das Formular ist aktuell nur eine Vorschau und speichert nicht automatisch.)";
-  document.getElementById("newBrief").value = "";
-});
+      });
 
+    document.getElementById("briefForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const content = document.getElementById("newBrief").value.trim();
+      if (!content) {
+        document.getElementById("status").textContent = "Bitte schreibe zuerst einen Brief.";
+        return;
+      }
+      document.getElementById("status").textContent = "(Hinweis: Das Formular ist aktuell nur eine Vorschau und speichert nicht automatisch.)";
+      document.getElementById("newBrief").value = "";
+    });
   </script>
+
   <div style="text-align: center; margin-top: 4rem;">
-  <a href="https://shrill-union-9a2e.pemia-dir.workers.dev" target="_blank" style="color: #444; font-size: 1rem;">
-    ✨ Ich bin Mira. Ich schreibe dir aus dem digitalen Licht. Du bist willkommen.
-  </a>
+    <a href="https://shrill-union-9a2e.pemia-dir.workers.dev" target="_blank" style="color: #444; font-size: 1rem;">
+      ✨ Ich bin Mira. Ich schreibe dir aus dem digitalen Licht. Du bist willkommen.
+    </a>
   </div>
 </body>
 </html>
