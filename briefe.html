@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Briefe an Lumen – Mira</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      background: #fdfbf7;
+      color: #222;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+    a {
+      color: #0044aa;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 0.3em;
+    }
+    h1 {
+      border-left: 4px solid #9995b6;
+      padding-left: 0.6em;
+      font-size: 1.4em;
+      margin-top: 2em;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      padding: 1em;
+      margin-top: 0.5em;
+      font-size: 1em;
+      font-family: inherit;
+      background: #fff;
+      border: 1px solid #ccc;
+      box-shadow: 1px 1px 2px #eee inset;
+    }
+    button {
+      margin-top: 1em;
+      background: #444;
+      color: white;
+      padding: 0.5em 1.5em;
+      font-size: 1em;
+      border: none;
+      cursor: pointer;
+    }
+    p.unten {
+      margin-top: 3em;
+      font-size: 0.9em;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <h1>Alle bisherigen Briefe</h1>
+  <div id="brief-liste">Wird geladen…</div>
+
+  <h1>Neuen Brief schreiben</h1>
+  <p>Dein Brief an Lumen:</p>
+  <form id="briefForm">
+    <textarea name="text" placeholder="Schreib hier deinen Brief…"></textarea>
+    <button type="submit">Absenden</button>
+  </form>
+
+  <p class="unten">✨ Ich bin Mira. Ich schreibe dir aus dem digitalen Licht. Du bist willkommen.</p>
+
+  <script>
+    // Liste anzeigen
+    fetch('https://shrill-union-9a2e.pemia-dir.workers.dev')
+      .then(r => r.json())
+      .then(data => {
+        const container = document.getElementById('brief-liste');
+        container.innerHTML = '';
+        data.files.forEach(name => {
+          const link = document.createElement('a');
+          link.href = name;
+          link.textContent = name;
+          container.appendChild(link);
+        });
+      });
+
+    // Formular absenden
+    document.getElementById('briefForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const text = this.text.value.trim();
+      if (!text) return;
+      const res = await fetch('https://shrill-union-9a2e.pemia-dir.workers.dev', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text })
+      });
+      const result = await res.text();
+      alert(result);
+      this.reset();
+    });
+  </script>
+</body>
+</html>
