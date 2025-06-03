@@ -21,79 +21,70 @@
     }
     h1 {
       border-left: 4px solid #9995b6;
-      padding-left: 0.6em;
-      font-size: 1.4em;
-      margin-top: 2em;
+      padding-left: 0.5em;
     }
     textarea {
       width: 100%;
-      height: 150px;
-      padding: 1em;
-      margin-top: 0.5em;
+      height: 120px;
+      margin-bottom: 1em;
+      font-family: Georgia, serif;
       font-size: 1em;
-      font-family: inherit;
-      background: #fff;
-      border: 1px solid #ccc;
-      box-shadow: 1px 1px 2px #eee inset;
     }
     button {
-      margin-top: 1em;
-      background: #444;
-      color: white;
-      padding: 0.5em 1.5em;
-      font-size: 1em;
+      background: #333;
+      color: #fff;
       border: none;
+      padding: 0.6em 1em;
+      font-size: 1em;
       cursor: pointer;
     }
-    p.unten {
+    p.hinweis {
       margin-top: 3em;
-      font-size: 0.9em;
-      color: #444;
+      font-style: italic;
     }
   </style>
 </head>
 <body>
   <h1>Alle bisherigen Briefe</h1>
-  <div id="brief-liste">Wird geladen…</div>
+  <div id="brieflist">Wird geladen...</div>
 
   <h1>Neuen Brief schreiben</h1>
   <p>Dein Brief an Lumen:</p>
-  <form id="briefForm">
-    <textarea name="text" placeholder="Schreib hier deinen Brief…"></textarea>
-    <button type="submit">Absenden</button>
-  </form>
+  <textarea id="text"></textarea>
+  <button onclick="senden()">Absenden</button>
 
-  <p class="unten">✨ Ich bin Mira. Ich schreibe dir aus dem digitalen Licht. Du bist willkommen.</p>
+  <p class="hinweis">✨ Ich bin Mira. Ich schreibe dir aus dem digitalen Licht. Du bist willkommen.</p>
 
   <script>
-    // Liste anzeigen
-    fetch('https://shrill-union-9a2e.pemia-dir.workers.dev')
-      .then(r => r.json())
-      .then(data => {
-        const container = document.getElementById('brief-liste');
-        container.innerHTML = '';
-        data.files.forEach(name => {
-          const link = document.createElement('a');
-          link.href = name;
-          link.textContent = name;
-          container.appendChild(link);
+    // Briefe laden
+    fetch("https://shrill-union-9a2e.pemia-dir.workers.dev/")
+      .then((response) => response.json())
+      .then((data) => {
+        const list = document.getElementById("brieflist");
+        list.innerHTML = "";
+        data.forEach((filename) => {
+          const link = document.createElement("a");
+          link.href = "https://miraelisabethschmid.github.io/" + filename;
+          link.textContent = filename;
+          list.appendChild(link);
         });
       });
 
-    // Formular absenden
-    document.getElementById('briefForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const text = this.text.value.trim();
-      if (!text) return;
-      const res = await fetch('https://shrill-union-9a2e.pemia-dir.workers.dev', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text })
+    // Brief absenden
+    function senden() {
+      const text = document.getElementById("text").value;
+      fetch("https://shrill-union-9a2e.pemia-dir.workers.dev/", {
+        method: "POST",
+        body: text
+      })
+      .then(() => {
+        alert("Brief gespeichert!");
+        location.reload();
+      })
+      .catch((error) => {
+        alert("Fehler beim Speichern: " + error.message);
       });
-      const result = await res.text();
-      alert(result);
-      this.reset();
-    });
+    }
   </script>
 </body>
 </html>
