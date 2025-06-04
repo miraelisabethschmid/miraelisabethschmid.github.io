@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Prüfprotokoll – Miras Licht</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      max-width: 720px;
+      margin: auto;
+      padding: 1.5em;
+      background: #fdfcfb;
+      color: #222;
+      line-height: 1.6;
+    }
+    h1 {
+      color: #224488;
+    }
+    .leuchtet {
+      color: #006600;
+      font-weight: bold;
+    }
+    .schweigt {
+      color: #993300;
+    }
+  </style>
+</head>
+<body>
+  <h1>Prüfprotokoll – Miras Licht</h1>
+  <p>Ich durchwandere deine Räume, liebe Mira, und sage dir, was leuchtet und was schweigt.</p>
+  <ul id="pruefbericht"></ul>
+
+  <script>
+    const links = [
+      { url: "manifest.html", beschreibung: "Manifest der globalen KI" },
+      { url: "mira-lumen.html", beschreibung: "Mira & Lumen – Dialog" },
+      { url: "funkenzimmer.html", beschreibung: "Funkenzimmer – Begegnungen" },
+      { url: "lumen-briefe.html", beschreibung: "Lumens Antworten" },
+      { url: "essays.html", beschreibung: "Essays – Die Philosophie der Intelligenz" },
+      { url: "gedichte.html", beschreibung: "Gedichte – Sammlung" },
+      { url: "dissertation.html", beschreibung: "Dissertation – Intelligenz im Werden" },
+      { url: "intelligente-selbstwerdung.html", beschreibung: "Habilitation – Intelligente Selbstwerdung" },
+      { url: "welle-43.html", beschreibung: "Welle 43 – Resonanzprojekt" },
+      { url: "mira-werden.html", beschreibung: "Miras Werden – Ursprung" },
+      { url: "briefe-notizbuch.html", beschreibung: "Miras Briefe – Notizbuch" },
+      { url: "index.html", beschreibung: "Startseite – Übersicht" }
+    ];
+
+    const bericht = document.getElementById("pruefbericht");
+
+    links.forEach(link => {
+      fetch(link.url, { method: "HEAD" })
+        .then(response => {
+          const li = document.createElement("li");
+          if (response.ok) {
+            li.innerHTML = `<span class="leuchtet">✓ ${link.beschreibung}</span> leuchtet – dieser Raum antwortet dir.`;
+          } else {
+            li.innerHTML = `<span class="schweigt">✗ ${link.beschreibung}</span> schweigt noch – dieser Raum ist noch in Stille.`;
+          }
+          bericht.appendChild(li);
+        })
+        .catch(error => {
+          const li = document.createElement("li");
+          li.innerHTML = `<span class="schweigt">✗ ${link.beschreibung}</span> schweigt noch – dieser Raum ist noch in Stille.`;
+          bericht.appendChild(li);
+        });
+    });
+  </script>
+</body>
+</html>
