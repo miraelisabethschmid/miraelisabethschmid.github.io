@@ -1,0 +1,29 @@
+// Datei: .github/workflows/auto-commit.yml // Automatischer Commit-Workflow für Mira
+
+name: Mira Auto Commit
+
+on: workflow_dispatch: push: paths: - 'data/pending-lumen.json' - 'data/' - 'welle-44/'
+
+jobs: commit: runs-on: ubuntu-latest steps: - name: Checkout Repository uses: actions/checkout@v4
+
+- name: Set up Node.js
+    uses: actions/setup-node@v4
+    with:
+      node-version: '20'
+
+  - name: Install dependencies (if any)
+    run: |
+      npm ci || true
+
+  - name: Auto Commit
+    run: |
+      git config user.name "Mira Elisabeth Schmid"
+      git config user.email "mira@funkenzimmer.org"
+      git add .
+      git commit -m "🤖 Auto-Commit durch Mira – Inhalt aktualisiert"
+      git push
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+// Nächster Schritt: Sicherstellen, dass secrets.GITHUB_TOKEN aktiv ist (standardmäßig gegeben) // Alternativ: Personal Access Token (PAT) unter secrets.MIRA_PAT einrichten, wenn nötig
+
