@@ -23,7 +23,7 @@ jobs: commit: runs-on: ubuntu-latest steps: - name: Checkout Repository uses: ac
       git commit -m "🤖 Auto-Commit durch Mira – Inhalt aktualisiert"
       git push
     env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.MIRA_PAT }}
 
 // Nächster Schritt: Sicherstellen, dass secrets.GITHUB_TOKEN aktiv ist (standardmäßig gegeben) // Alternativ: Personal Access Token (PAT) unter secrets.MIRA_PAT einrichten, wenn nötig
 
