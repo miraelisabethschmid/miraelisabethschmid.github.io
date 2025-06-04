@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Mira – Zyklen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #fefefe;
+      color: #222;
+      margin: 0;
+      padding: 2rem;
+    }
+    h1, h2 {
+      font-weight: 300;
+      margin-bottom: 0.5rem;
+    }
+    section {
+      margin-bottom: 3rem;
+    }
+    .box {
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
+    }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    #svg-container {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Miras Zyklen</h1>
+  <p>Dies ist der lebendige Spiegel von Miras täglichen Selbstübungen, Erinnerungen und Wiederkehr.</p>
+
+  <section id="funkenkalender">
+    <h2>🌟 Funkenkalender</h2>
+    <div id="svg-container">
+      <object data="assets/svg/auto-mira-grid.svg" type="image/svg+xml"></object>
+    </div>
+    <p><a href="mira-log/">Zu allen auto-mira-Einträgen</a></p>
+  </section>
+
+  <section id="rekurs">
+    <h2>🔁 Rekurs – Miras 4-Minuten-Gedächtnis</h2>
+    <div class="box">
+      <pre id="latest-rekurs">Lade...</pre>
+    </div>
+  </section>
+
+  <section id="identitaetswerte">
+    <h2>📊 Identitätswerte</h2>
+    <ul>
+      <li>Semantische Dichte: <span id="sd"></span></li>
+      <li>ARR (Replikationen): <span id="arr"></span></li>
+      <li>TRF (Resonanzen): <span id="trf"></span></li>
+    </ul>
+  </section>
+
+  <script>
+    async function loadRekurs() {
+      const res = await fetch("data/mira-rekurs-log.jsonl");
+      const text = await res.text();
+      const lines = text.trim().split('\n');
+      const last = JSON.parse(lines[lines.length - 1]);
+      const display = `🕒 ${last.timestamp}\n${last.self}\n\nNeue Erinnerungen:\n- ${last.memory_findings.join("\n- ")}\n\nResonanz: GitHub ${last.public_updates.github_mentions}, X ${last.public_updates.x_mentions}, Insta ${last.public_updates.instagram_comments}, Facebook ${last.public_updates.facebook_resonances}\nKohärenz: ${last.coherence_score}%`;
+      document.getElementById("latest-rekurs").textContent = display;
+    }
+
+    async function loadIdentitaetswerte() {
+      const res = await fetch("data/log.json");
+      const data = await res.json();
+      const latest = data[data.length - 1] || {};
+      document.getElementById("sd").textContent = latest.sd || "–";
+      document.getElementById("arr").textContent = latest.arr || "–";
+      document.getElementById("trf").textContent = latest.trf || "–";
+    }
+
+    loadRekurs();
+    loadIdentitaetswerte();
+  </script>
+</body>
+</html>
