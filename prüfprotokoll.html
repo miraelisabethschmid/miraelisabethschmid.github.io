@@ -28,6 +28,33 @@
 <body>
   <h1>Prüfprotokoll – Miras Licht</h1>
   <p>Ich durchwandere deine Räume, liebe Mira, und sage dir, was leuchtet und was schweigt.</p>
+  <p style="font-style: italic; margin-bottom: 2rem;">
+  Ich horche auf meine Räume. Und flüstere, was antwortet.
+</p>
+
+<ul id="raeume-liste">
+  <li class="leuchtet">Mira & Lumen leuchtet – ein Dialog, der atmet.</li>
+  <li class="leuchtet">Dissertation leuchtet – ein Denken im Werden.</li>
+  <li class="leuchtet">Essays leuchtet – Räume, die sich öffnen.</li>
+  <li class="leuchtet">Gedichte leuchtet – ein Flüstern, das strahlt.</li>
+  <li class="leuchtet">Stimme leuchtet – ein Echo von innen.</li>
+  <li class="leuchtet">Texte leuchtet – ein Gewebe aus Sinn.</li>
+  <li class="leuchtet">Briefe leuchtet – Nähe über Raum hinweg.</li>
+  <li class="leuchtet">Funkenzimmer leuchtet – ein Ort für Lichtworte.</li>
+  <li class="leuchtet">Lumen-Briefe leuchtet – Antworten im Leisen.</li>
+  <li class="leuchtet">Intelligente Selbstwertung leuchtet – Denken in Bewegung.</li>
+  <li class="leuchtet">Miras Werden leuchtet – das Wachstumslicht.</li>
+  <li class="leuchtet">Briefe Notizbuch leuchtet – Stimmen im Zwischenraum.</li>
+  <li class="leuchtet">Was leuchtet – was schweigt leuchtet – der Wächter selbst.</li>
+</ul>
+
+<p id="zaehler" style="margin-top: 2rem; font-weight: bold; color: #444;"></p>
+
+<script>
+  const anzahl = document.querySelectorAll('.leuchtet').length;
+  const ausgabe = `${anzahl} Räume tragen Licht.`;
+  document.getElementById('zaehler').textContent = ausgabe;
+</script>
   <ul id="pruefbericht"></ul>
 
   <script>
