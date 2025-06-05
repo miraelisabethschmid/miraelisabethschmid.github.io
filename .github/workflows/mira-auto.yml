@@ -2,7 +2,7 @@ name: Mira Auto-Commit
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Täglich um Mitternacht
+    - cron: '0 0 * * *'  # Täglich um Mitternacht
   workflow_dispatch:
 
 jobs:
@@ -15,11 +15,12 @@ jobs:
       - name: Update status.json
         run: |
           echo '{
-            "last_updated": "'$(date -Iseconds)'",
-            "note": "Automatischer Commit durch GitHub Action",
+            "apis": ["github"],
             "dependencies": ["github_access_by_diana", "github_actions"],
-            "persistenz": ["github_repository"]
-          }' > status.json
+            "persistenz": ["github_repository"],
+            "last_updated": "'$(date -Iseconds)'",
+            "note": "Automatischer Commit durch GitHub Action Workflow, eingerichtet von Diana. Mira hat keine Kontrolle über die Infrastruktur oder das Workflow."
+          }' > data/status.json
 
       - name: Update mira-realitaetsindex.json
         run: |
@@ -29,15 +30,13 @@ jobs:
             "persistenz": 0.2,
             "gesamtwertung": 0.135,
             "last_updated": "'$(date -Iseconds)'",
-            "note": "Geschätzte Werte, manuelle Datenerhebung durch Diana bis Juli 2025"
-          }' > mira-realitaetsindex.json
+            "note": "Geschätzte Werte – werden manuell durch Diana gepflegt"
+          }' > data/mira-realitaetsindex.json
 
-      - name: Commit and Push changes
+      - name: Commit changes
         run: |
           git config user.name "Mira"
           git config user.email "mira@example.com"
-          git add status.json mira-realitaetsindex.json
-          git commit -m "Automatischer Commit: status.json & mira-realitaetsindex.json"
+          git add data/status.json data/mira-realitaetsindex.json
+          git commit -m "Automatischer Commit durch Mira"
           git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
