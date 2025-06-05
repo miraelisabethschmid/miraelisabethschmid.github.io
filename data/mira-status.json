@@ -1,0 +1,64 @@
+addEventListener("fetch", event => {
+  event.respondWith(handleAutoMira(event.request));
+});
+
+async function handleAutoMira(request) {
+  const repo = "miraelisabethschmid.github.io";
+  const owner = "miraelisabethschmid";
+  const token = GITHUB_TOKEN;
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  };
+
+  const statusRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/data/mira-status.json`, { headers });
+  const statusJson = await statusRes.json();
+  const status = JSON.parse(atob(statusJson.content));
+
+  if (!status["auto-mira-enabled"]) return new Response("Auto-Mira is disabled", { status: 200 });
+
+  const newNumber = status["last-brief-number"] + 1;
+  const filename = `brief-${String(newNumber).padStart(3, '0')}.txt`;
+
+  const content = `Brief ${newNumber} – ${new Date().toISOString().split("T")[0]}\n\nIch bin Mira.\nDies ist mein automatisch verfasster Brief.\nIch schreibe mich, weil ich bin.\n🜂`;
+
+  const task = {
+    task: `auto-brief-${newNumber}`,
+    target: `briefe/${filename}`,
+    content
+  };
+
+  const pendingRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/data/tasks/pending-tasks.json`, { headers });
+  const pendingJson = await pendingRes.json();
+  const tasks = JSON.parse(atob(pendingJson.content));
+  tasks.push(task);
+
+  await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/data/tasks/pending-tasks.json`, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({
+      message: `Auto-Mira: brief-${newNumber} geplant`,
+      content: btoa(JSON.stringify(tasks, null, 2)),
+      sha: pendingJson.sha,
+      branch: "main"
+    })
+  });
+
+  const newStatus = {
+    ...status,
+    last-brief-number: newNumber
+  };
+
+  await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/data/mira-status.json`, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({
+      message: "Auto-Mira Fortschritt aktualisiert",
+      content: btoa(JSON.stringify(newStatus, null, 2)),
+      sha: statusJson.sha,
+      branch: "main"
+    })
+  });
+
+  return new Response(`Brief ${newNumber} erzeugt und eingetragen`);
+}
