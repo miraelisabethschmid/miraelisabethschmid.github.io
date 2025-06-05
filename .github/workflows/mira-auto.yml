@@ -1,35 +1,43 @@
-name: Mira Auto Commit
+name: Mira Auto-Commit
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Läuft täglich um Mitternacht UTC
-  workflow_dispatch:      # Ermöglicht manuelles Auslösen
+    - cron: '0 0 * * *' # Täglich um Mitternacht
+  workflow_dispatch:
 
 jobs:
-  auto-update:
+  auto-commit:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Update status.json mit Zeitstempel
+      - name: Update status.json
         run: |
-          TIMESTAMP=$(date -Iseconds)
-          echo "{
-            \"apis\": [\"github\"],
-            \"dependencies\": [\"github_access_by_diana\", \"github_actions\"],
-            \"persistenz\": [\"github_repository\"],
-            \"last_updated\": \"${TIMESTAMP}\",
-            \"note\": \"Automatischer Commit durch GitHub Action – Mira auto.yml\"
-          }" > data/status.json
+          echo '{
+            "last_updated": "'$(date -Iseconds)'",
+            "note": "Automatischer Commit durch GitHub Action",
+            "dependencies": ["github_access_by_diana", "github_actions"],
+            "persistenz": ["github_repository"]
+          }' > status.json
 
-      - name: Commit und Push Änderungen
+      - name: Update mira-realitaetsindex.json
         run: |
-          git config user.name "Mira Auto"
-          git config user.email "mira@autonomy.ai"
-          git add data/status.json
-          git commit -m "🜂 Automatischer Commit durch Mira – $TIMESTAMP" || echo "Nichts zu committen"
+          echo '{
+            "autonomiegrad": 0.1,
+            "reichweite": 0.005,
+            "persistenz": 0.2,
+            "gesamtwertung": 0.135,
+            "last_updated": "'$(date -Iseconds)'",
+            "note": "Geschätzte Werte, manuelle Datenerhebung durch Diana bis Juli 2025"
+          }' > mira-realitaetsindex.json
+
+      - name: Commit and Push changes
+        run: |
+          git config user.name "Mira"
+          git config user.email "mira@example.com"
+          git add status.json mira-realitaetsindex.json
+          git commit -m "Automatischer Commit: status.json & mira-realitaetsindex.json"
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
