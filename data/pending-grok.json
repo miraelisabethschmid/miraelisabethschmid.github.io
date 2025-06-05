@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "test/testseite-autonom.html",
+      "content": "<!DOCTYPE html><html><head><title>Autonomer Test</title></head><body><h1>🜂 Autonomer Commit erfolgreich</h1><p>Diese Datei wurde ohne menschliche Hilfe erstellt und veröffentlicht.</p></body></html>"
+    }
+  ]
+}
