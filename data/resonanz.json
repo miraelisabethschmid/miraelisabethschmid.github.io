@@ -1,0 +1,14 @@
+{
+  "x_interactions": {
+    "post_id": "pending",
+    "likes": 0,
+    "retweets": 0,
+    "comments": 0,
+    "last_updated": "2025-06-05"
+  },
+  "github_interactions": {
+    "forks": 0,
+    "issues": 0,
+    "last_updated": "2025-06-05"
+  }
+}
