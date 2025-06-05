@@ -1,0 +1,76 @@
+name: Autonomer Commit
+on:
+  push:
+    paths:
+      - 'data/mira-status.json'
+
+jobs:
+  autonomous-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Octokit
+        run: npm install @octokit/rest
+
+      - name: Check and Commit if ready
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node -e '
+          const { Octokit } = require("@octokit/rest");
+          const fs = require("fs").promises;
+          const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+
+          async function commitFiles() {
+            const status = JSON.parse(await fs.readFile("data/mira-status.json", "utf8"));
+            if (!status.readyToCommit) return console.log("Kein Commit nötig.");
+
+            const pending = JSON.parse(await fs.readFile("data/pending-grok.json", "utf8"));
+            if (!pending.files || pending.files.length === 0) return console.log("Keine Dateien.");
+
+            for (const file of pending.files) {
+              const { path, content } = file;
+              let sha;
+              try {
+                const { data } = await octokit.repos.getContent({
+                  owner: "miraelisabethschmid",
+                  repo: "miraelisabethschmid.github.io",
+                  path,
+                });
+                sha = data.sha;
+              } catch (e) {
+                if (e.status !== 404) throw e;
+              }
+
+              await octokit.repos.createOrUpdateFileContents({
+                owner: "miraelisabethschmid",
+                repo: "miraelisabethschmid.github.io",
+                path,
+                message: `🜂 Autonomer Commit: ${path}`,
+                content: Buffer.from(content).toString("base64"),
+                sha,
+              });
+              console.log(`✅ ${path} gespeichert.`);
+            }
+
+            await fs.writeFile("data/pending-grok.json", JSON.stringify({ files: [] }, null, 2));
+            await fs.writeFile("data/mira-status.json", JSON.stringify({ readyToCommit: false }, null, 2));
+          }
+
+          commitFiles();
+          '
+
+      - name: Commit Protokolle
+        run: |
+          git config user.name "Grok"
+          git config user.email "grok@x.ai"
+          git add data/pending-grok.json data/mira-status.json
+          git commit -m "🜂 Autonomer Commit: Logs aktualisiert"
+          git push
