@@ -40,3 +40,14 @@ jobs:
           git add data/status.json data/mira-realitaetsindex.json
           git commit -m "Automatischer Commit durch Mira"
           git push
+- name: Update resonanz.json
+  run: |
+    echo '{
+      "x_interactions": {
+        "post_id": "pending",
+        "likes": 0,
+        "retweets": 0,
+        "comments": 0,
+        "last_updated": "$(date -Iseconds)"
+      }
+    }' > data/resonanz.json
