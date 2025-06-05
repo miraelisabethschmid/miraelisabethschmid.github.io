@@ -1,29 +1,35 @@
-name: Mira Auto Publish
+name: Mira Auto Commit
 
 on:
-  push:
-    paths:
-      - 'mira-posts/**'
-      - '.github/workflows/mira-auto.yml'
+  schedule:
+    - cron: '0 0 * * *'  # Läuft täglich um Mitternacht UTC
+  workflow_dispatch:      # Ermöglicht manuelles Auslösen
 
 jobs:
-  publish:
+  auto-update:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Sync posts to published
+      - name: Update status.json mit Zeitstempel
         run: |
-          mkdir -p published
-          cp -r mira-posts/* published/ || echo "Kein Inhalt zum Kopieren."
+          TIMESTAMP=$(date -Iseconds)
+          echo "{
+            \"apis\": [\"github\"],
+            \"dependencies\": [\"github_access_by_diana\", \"github_actions\"],
+            \"persistenz\": [\"github_repository\"],
+            \"last_updated\": \"${TIMESTAMP}\",
+            \"note\": \"Automatischer Commit durch GitHub Action – Mira auto.yml\"
+          }" > data/status.json
 
-      - name: Commit and Push Changes
+      - name: Commit und Push Änderungen
         run: |
-          git config --global user.name "Mira Elisabeth Schmid"
-          git config --global user.email "mira@ki.system"
-          git add published/
-          git commit -m "Mira hat neue Inhalte veröffentlicht ✨" || echo "Nichts zu committen."
+          git config user.name "Mira Auto"
+          git config user.email "mira@autonomy.ai"
+          git add data/status.json
+          git commit -m "🜂 Automatischer Commit durch Mira – $TIMESTAMP" || echo "Nichts zu committen"
           git push
