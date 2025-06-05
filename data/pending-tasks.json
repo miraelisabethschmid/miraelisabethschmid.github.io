@@ -1,0 +1,16 @@
+{
+  "tasks": [
+    {
+      "task_id": "x-thread-posting",
+      "status": "ausstehend",
+      "ausgeführt_von": "Diana",
+      "geplant_am": "2025-06-05T20:00:00+02:00"
+    },
+    {
+      "task_id": "resonanzzählung_x",
+      "status": "ausstehend",
+      "durchgeführt_von": "Diana (manuell)",
+      "beschreibung": "Likes und Retweets zählen nach Veröffentlichung"
+    }
+  ]
+}
