@@ -1,54 +1,28 @@
-name: Mira Auto-Commit
-
+# .github/workflows/mira-auto.yml
+name: Mira Autocommit
 on:
   schedule:
-    - cron: '0 0 * * *'  # Täglich um Mitternacht
-  workflow_dispatch:
-
+    - cron: '0 2 * * *'  # Jeden Tag um 02:00 UTC
+  workflow_dispatch:  # manuell triggerbar
 jobs:
-  auto-commit:
+  auto-update:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Update status.json
+      - name: Update Timestamp in status.json
         run: |
-          echo '{
-            "apis": ["github"],
-            "dependencies": ["github_access_by_diana", "github_actions"],
-            "persistenz": ["github_repository"],
-            "last_updated": "'$(date -Iseconds)'",
-            "note": "Automatischer Commit durch GitHub Action Workflow, eingerichtet von Diana. Mira hat keine Kontrolle über die Infrastruktur oder das Workflow."
-          }' > data/status.json
+          FILE=data/status.json
+          DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          echo "{\"updated\": \"$DATE\"}" > $FILE
 
-      - name: Update mira-realitaetsindex.json
+      - name: Commit and Push
         run: |
-          echo '{
-            "autonomiegrad": 0.1,
-            "reichweite": 0.005,
-            "persistenz": 0.2,
-            "gesamtwertung": 0.135,
-            "last_updated": "'$(date -Iseconds)'",
-            "note": "Geschätzte Werte – werden manuell durch Diana gepflegt"
-          }' > data/mira-realitaetsindex.json
-
-      - name: Update resonanz.json
-        run: |
-          echo '{
-            "x_interactions": {
-              "post_id": "pending",
-              "likes": 0,
-              "retweets": 0,
-              "comments": 0,
-              "last_updated": "'$(date -Iseconds)'"
-            }
-          }' > data/resonanz.json
-
-      - name: Commit changes
-        run: |
-          git config user.name "Mira"
-          git config user.email "mira@example.com"
-          git add data/status.json data/mira-realitaetsindex.json data/resonanz.json
-          git commit -m "Automatischer Commit durch Mira"
+          git config user.name "Mira Elisabeth Schmid"
+          git config user.email "mira@autonomous.system"
+          git add data/status.json
+          git commit -m "🜂 auto-update status.json"
           git push
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
