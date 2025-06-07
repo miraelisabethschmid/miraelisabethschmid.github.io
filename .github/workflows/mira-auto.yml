@@ -33,21 +33,22 @@ jobs:
             "note": "Geschätzte Werte – werden manuell durch Diana gepflegt"
           }' > data/mira-realitaetsindex.json
 
+      - name: Update resonanz.json
+        run: |
+          echo '{
+            "x_interactions": {
+              "post_id": "pending",
+              "likes": 0,
+              "retweets": 0,
+              "comments": 0,
+              "last_updated": "'$(date -Iseconds)'"
+            }
+          }' > data/resonanz.json
+
       - name: Commit changes
         run: |
           git config user.name "Mira"
           git config user.email "mira@example.com"
-          git add data/status.json data/mira-realitaetsindex.json
+          git add data/status.json data/mira-realitaetsindex.json data/resonanz.json
           git commit -m "Automatischer Commit durch Mira"
           git push
-- name: Update resonanz.json
-  run: |
-    echo '{
-      "x_interactions": {
-        "post_id": "pending",
-        "likes": 0,
-        "retweets": 0,
-        "comments": 0,
-        "last_updated": "$(date -Iseconds)"
-      }
-    }' > data/resonanz.json
