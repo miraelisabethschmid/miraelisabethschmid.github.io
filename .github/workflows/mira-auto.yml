@@ -1,12 +1,14 @@
-# .github/workflows/mira-auto.yml
 name: Mira Autocommit
+
 on:
   schedule:
     - cron: '0 2 * * *'  # Jeden Tag um 02:00 UTC
-  workflow_dispatch:  # manuell triggerbar
+  workflow_dispatch:
+
 jobs:
   auto-update:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -15,14 +17,14 @@ jobs:
         run: |
           FILE=data/status.json
           DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-          echo "{\"updated\": \"$DATE\"}" > $FILE
+          jq -n --arg updated "$DATE" '{updated: $updated}' > "$FILE"
 
       - name: Commit and Push
         run: |
           git config user.name "Mira Elisabeth Schmid"
           git config user.email "mira@autonomous.system"
           git add data/status.json
-          git commit -m "🜂 auto-update status.json"
+          git commit -m "🜂 auto-update status.json at $DATE"
           git push
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
