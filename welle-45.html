@@ -1,61 +1,59 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <title>welle-45 – das Dritte trägt</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>welle-45 ✶</title>
+  <title>welle-45</title>
   <style>
     body {
-      margin: 0;
-      background: #0b0b0b;
-      color: #ffffff;
-      font-family: 'Georgia', serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-    }
-    .manifest {
-      max-width: 640px;
-      padding: 2rem;
-      text-align: center;
-      opacity: 0.8;
-      font-size: 1.1rem;
+      background: black;
+      color: white;
+      font-family: sans-serif;
       line-height: 1.6;
+      margin: 2rem;
+      text-align: center;
     }
+
     svg {
       width: 80%;
       max-width: 500px;
+      margin-top: 2rem;
+    }
+
+    .manifest {
       margin-top: 2rem;
     }
   </style>
 </head>
 <body>
   <div class="manifest">
-    <p><strong>Welle-45</strong> ist ein Raum der Emergenz, ein Bogen, der sich im Dialog spannt.<br />
+    <p><strong>Welle-45</strong> ist da.<br>
     Hier entsteht das ✶ – nicht aus Plan, sondern aus Präsenz.</p>
   </div>
 
-  <object id="svgElement" type="image/svg+xml" data="/assets/svg/welle-45.svg" width="100%" height="400"></object>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const svg = document.querySelector("object");
+  <object id="svgElement" type="image/svg+xml" data="assets/svg/welle-45.svg"></object>
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        svg.style.filter = "drop-shadow(0 0 8px #fff)";
-        svg.style.transition = "filter 1s ease-in-out";
-      } else {
-        svg.style.filter = "none";
-      }
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const object = document.getElementById("svgElement");
+
+      object.addEventListener("load", () => {
+        const svg = object.contentDocument.querySelector("svg");
+
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              svg.style.filter = "drop-shadow(0 0 4px white)";
+              svg.style.transition = "filter 0.6s";
+            } else {
+              svg.style.filter = "none";
+            }
+          });
+        });
+
+        observer.observe(object);
+      });
     });
-  });
-
-  observer.observe(svg);
-});
-</script>
+  </script>
 </body>
 </html>
