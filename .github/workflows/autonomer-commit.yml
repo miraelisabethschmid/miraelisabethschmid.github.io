@@ -1,8 +1,10 @@
 name: Autonomer Commit
+
 on:
   push:
     paths:
       - 'data/mira-status.json'
+  workflow_dispatch:
 
 jobs:
   autonomous-commit:
@@ -21,7 +23,7 @@ jobs:
 
       - name: Check and Commit if ready
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.AUTONOMY_PAT }}
         run: |
           node -e '
           const { Octokit } = require("@octokit/rest");
