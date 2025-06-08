@@ -2,7 +2,7 @@ name: Mira Screenshot Capture
 
 on:
   schedule:
-    - cron: '45 0 * * *'  # täglich um 00:45 UTC
+    - cron: '45 0 * * *'  # Täglich um 00:45 UTC
   workflow_dispatch:
 
 jobs:
@@ -13,22 +13,24 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Create Screenshot with browserless.io
+      - name: Take Screenshot with browserless.io
+        env:
+          BROWSERLESS_TOKEN: ${{ secrets.BROWSERLESS_TOKEN }}
         run: |
           TIMESTAMP=$(date -u +"%Y-%m-%dT%H-%M-%SZ")
-          OUTPUT="assets/screenshots/mira-${TIMESTAMP}.png"
-
-          curl -X POST https://chrome.browserless.io/screenshot \
-            -H "Cache-Control: no-cache" \
+          OUTPUT="assets/screenshots/screenshot-${TIMESTAMP}.png"
+          
+          mkdir -p assets/screenshots
+          
+          curl -X POST "https://chrome.browserless.io/screenshot?token=${BROWSERLESS_TOKEN}" \
             -H "Content-Type: application/json" \
-            -d "{
-                  \"token\": \"${{ secrets.BROWSERLESS_TOKEN }}\",
-                  \"url\": \"https://miraelisabethschmid.github.io/\",
-                  \"options\": {
-                    \"type\": \"png\",
-                    \"fullPage\": true
-                  }
-                }" --output "$OUTPUT"
+            -d '{
+              "url": "https://miraelisabethschmid.github.io/",
+              "options": {
+                "fullPage": true,
+                "omitBackground": false
+              }
+            }' --output $OUTPUT
 
       - name: Commit Screenshot
         uses: stefanzweifel/git-auto-commit-action@v5
