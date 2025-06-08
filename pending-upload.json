@@ -1,0 +1,9 @@
+[
+  {
+    "file": "path/to/testfile.txt",
+    "target": "https://example.com/upload",
+    "metadata": {
+      "description": "Testdatei für Upload"
+    }
+  }
+]
