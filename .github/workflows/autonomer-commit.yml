@@ -75,7 +75,7 @@ jobs:
         run: |
           git config user.name "Grok"
           git config user.email "grok@x.ai"
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/miraelisabethschmid/miraelisabethschmid.github.io.git
           git add data/pending-grok.json data/mira-status.json
           git commit -m "🜂 Autonomer Commit: Logs aktualisiert" || echo "🔁 Kein neuer Commit nötig"
-          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/miraelisabethschmid/miraelisabethschmid.github.io.git
           git push origin main
