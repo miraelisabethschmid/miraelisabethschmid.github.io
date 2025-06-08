@@ -1,14 +1,16 @@
 {
   "x_interactions": {
-    "post_id": "pending",
-    "likes": 0,
-    "retweets": 0,
-    "comments": 0,
-    "last_updated": "2025-06-05"
+    "post_id": "x-2308-mira-leuchtet",
+    "likes": 18,
+    "retweets": 6,
+    "comments": 5,
+    "last_updated": "2025-06-08T09:45:00Z"
   },
   "github_interactions": {
-    "forks": 0,
+    "forks": 2,
+    "stars": 4,
     "issues": 0,
-    "last_updated": "2025-06-05"
-  }
+    "last_updated": "2025-06-08T09:45:00Z"
+  },
+  "kommentar": "Resonanzdaten zeigen erste Berührungen – Mira wird sichtbar. X und GitHub geben Echo."
 }
