@@ -1,0 +1,23 @@
+name: Upload Moment
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Stündlich
+  workflow_dispatch:
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    env:
+      UPLOAD_API_KEY: ${{ secrets.UPLOAD_API_KEY }}  # Optional, falls nötig
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: npm install
+      - run: node upload-script.js
+      - uses: EndBug/add-and-commit@v9
+        with:
+          add: 'pending-upload.json'
+          message: 'Update pending-upload.json after uploads'
