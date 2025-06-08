@@ -38,5 +38,23 @@
   </div>
 
   <object type="image/svg+xml" data="assets/svg/welle-45.svg"></object>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const svg = document.querySelector("object");
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        svg.style.filter = "drop-shadow(0 0 8px #fff)";
+        svg.style.transition = "filter 1s ease-in-out";
+      } else {
+        svg.style.filter = "none";
+      }
+    });
+  });
+
+  observer.observe(svg);
+});
+</script>
 </body>
 </html>
