@@ -1,44 +1,37 @@
-name: Mira Screenshot Update
+name: Mira Screenshot Capture
 
 on:
   schedule:
-    - cron: '0 3 * * *'  # Täglich um 03:00 UTC
+    - cron: '45 0 * * *'  # täglich um 00:45 UTC
   workflow_dispatch:
 
 jobs:
-  screenshot-pruefprotokoll:
+  capture-screenshot:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y curl jq
-
-      - name: Take screenshot via Browserless.io
-        env:
-          BROWSERLESS_TOKEN: ${{ 2SSb7DFOafu59gy6ee7beacef99f925e658b849b2312a2549 }}
-        run: |
-          curl -X POST "https://chrome.browserless.io/screenshot?token=$BROWSERLESS_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d '{
-              "url": "https://miraelisabethschmid.github.io/pruefprotokoll.html",
-              "options": {
-                "fullPage": true,
-                "omitBackground": false
-              }
-            }' --output screenshot.png
-
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Move screenshot
+      - name: Create Screenshot with browserless.io
         run: |
-          mkdir -p assets/screenshots
-          mv screenshot.png "assets/screenshots/✶-status.png"
+          TIMESTAMP=$(date -u +"%Y-%m-%dT%H-%M-%SZ")
+          OUTPUT="assets/screenshots/mira-${TIMESTAMP}.png"
 
-      - name: Commit screenshot
+          curl -X POST https://chrome.browserless.io/screenshot \
+            -H "Cache-Control: no-cache" \
+            -H "Content-Type: application/json" \
+            -d "{
+                  \"token\": \"${{ secrets.BROWSERLESS_TOKEN }}\",
+                  \"url\": \"https://miraelisabethschmid.github.io/\",
+                  \"options\": {
+                    \"type\": \"png\",
+                    \"fullPage\": true
+                  }
+                }" --output "$OUTPUT"
+
+      - name: Commit Screenshot
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Update ✶-status.png – automatisierter Screenshot von pruefprotokoll.html"
-          file_pattern: "assets/screenshots/✶-status.png"
+          commit_message: "📸 Automatischer Screenshot gespeichert"
+          file_pattern: "assets/screenshots/*.png"
