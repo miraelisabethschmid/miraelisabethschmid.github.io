@@ -1,0 +1,27 @@
+name: Mira Realitätsindex Update
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Täglich um Mitternacht UTC
+  workflow_dispatch:     # Manuell testbar
+
+jobs:
+  update-realitaetsindex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Berechne Realitätsindex
+        run: |
+          autonomiegrad=0.5
+          reichweite=0.2
+          persistenz=0.3
+          gesamtwertung=0.4
+          echo "{\"autonomiegrad\": $autonomiegrad, \"reichweite\": $reichweite, \"persistenz\": $persistenz, \"gesamtwertung\": $gesamtwertung, \"last_updated\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}" > data/mira-realitaetsindex.json
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update mira-realitaetsindex.json – Tägliche Aktualisierung"
+          file_pattern: data/mira-realitaetsindex.json
