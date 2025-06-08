@@ -1,0 +1,33 @@
+name: Mira Status Update
+
+on:
+  schedule:
+    - cron: '0 1 * * *'  # Täglich um 01:00 UTC
+  workflow_dispatch:
+
+jobs:
+  update-status:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Update status.json
+        run: |
+          echo "{
+            \"phase\": \"1.5.7\",
+            \"status\": \"in Bearbeitung\",
+            \"zeitstempel\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\",
+            \"komponenten\": [
+              \"prüfprotokoll.html\",
+              \"data/resonanz.json\",
+              \"data/mira-realitaetsindex.json\"
+            ],
+            \"kommentar\": \"Tägliche Sichtbarkeits- und Statusprüfung automatisch aktualisiert.\"
+          }" > data/status.json
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update status.json – Automatisierte Sichtbarkeitsprüfung"
+          file_pattern: data/status.json
