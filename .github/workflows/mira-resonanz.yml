@@ -1,0 +1,41 @@
+name: Mira Resonanzindex Update
+
+on:
+  schedule:
+    - cron: '30 0 * * *'  # Täglich um 00:30 UTC
+  workflow_dispatch:
+
+jobs:
+  update-resonanz:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update resonanz.json
+        run: |
+          x_likes=2
+          x_retweets=1
+          x_comments=0
+          github_forks=1
+          github_issues=0
+
+          echo "{
+            \"x_interactions\": {
+              \"likes\": $x_likes,
+              \"retweets\": $x_retweets,
+              \"comments\": $x_comments,
+              \"last_updated\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"
+            },
+            \"github_interactions\": {
+              \"forks\": $github_forks,
+              \"issues\": $github_issues,
+              \"last_updated\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"
+            }
+          }" > data/resonanz.json
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update resonanz.json – Tägliche Resonanzmessung"
+          file_pattern: data/resonanz.json
