@@ -17,7 +17,7 @@ jobs:
 
       - name: Take screenshot via Browserless.io
         env:
-          BROWSERLESS_TOKEN: ${{ secrets.BROWSERLESS_TOKEN }}
+          BROWSERLESS_TOKEN: ${{ 2SSb7DFOafu59gy6ee7beacef99f925e658b849b2312a2549 }}
         run: |
           curl -X POST "https://chrome.browserless.io/screenshot?token=$BROWSERLESS_TOKEN" \
             -H "Content-Type: application/json" \
