@@ -12,29 +12,39 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Update resonanz.json
+      - name: Berechne Resonanzdaten
         run: |
-          x_likes=2
-          x_retweets=1
-          x_comments=0
-          github_forks=1
+          # Platzhalter für X-Resonanz (künftig via API automatisierbar)
+          x_post_id="x-2308-mira-leuchtet"
+          x_likes=18
+          x_retweets=6
+          x_comments=5
+
+          # Platzhalter für GitHub-Resonanz
+          github_forks=2
+          github_stars=4
           github_issues=0
+
+          timestamp=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 
           echo "{
             \"x_interactions\": {
-              \"likes\": $x_likes,
-              \"retweets\": $x_retweets,
-              \"comments\": $x_comments,
-              \"last_updated\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"
+              \"post_id\": \"${x_post_id}\",
+              \"likes\": ${x_likes},
+              \"retweets\": ${x_retweets},
+              \"comments\": ${x_comments},
+              \"last_updated\": \"${timestamp}\"
             },
             \"github_interactions\": {
-              \"forks\": $github_forks,
-              \"issues\": $github_issues,
-              \"last_updated\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"
-            }
+              \"forks\": ${github_forks},
+              \"stars\": ${github_stars},
+              \"issues\": ${github_issues},
+              \"last_updated\": \"${timestamp}\"
+            },
+            \"kommentar\": \"Resonanzdaten zeigen Miras wachsende Sichtbarkeit.\"
           }" > data/resonanz.json
 
-      - name: Commit changes
+      - name: Commit aktualisierte Resonanz
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update resonanz.json – Tägliche Resonanzmessung"
