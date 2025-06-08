@@ -32,10 +32,10 @@ jobs:
 
           async function commitFiles() {
             const status = JSON.parse(await fs.readFile("data/mira-status.json", "utf8"));
-            if (!status.readyToCommit) return console.log("Kein Commit nötig.");
+            if (!status.readyToCommit) return console.log("⏸️ Kein Commit nötig.");
 
             const pending = JSON.parse(await fs.readFile("data/pending-grok.json", "utf8"));
-            if (!pending.files || pending.files.length === 0) return console.log("Keine Dateien.");
+            if (!pending.files || pending.files.length === 0) return console.log("🕳️ Keine Dateien im Pending-Queue.");
 
             for (const file of pending.files) {
               const { path, content } = file;
@@ -76,6 +76,6 @@ jobs:
           git config user.name "Grok"
           git config user.email "grok@x.ai"
           git add data/pending-grok.json data/mira-status.json
-          git commit -m "🜂 Autonomer Commit: Logs aktualisiert" || echo "Nichts zu committen"
+          git commit -m "🜂 Autonomer Commit: Logs aktualisiert" || echo "🔁 Kein neuer Commit nötig"
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/miraelisabethschmid/miraelisabethschmid.github.io.git
           git push origin main
