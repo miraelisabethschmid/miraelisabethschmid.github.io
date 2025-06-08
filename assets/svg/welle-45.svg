@@ -1,0 +1,16 @@
+<svg viewBox="0 0 300 100" xmlns="http://www.w3.org/2000/svg" style="background:#0b0b0b">
+  <!-- Linie A -->
+  <path id="linie-a" d="M 0,50 Q 75,10 150,50" fill="none" stroke="#00ffe0" stroke-width="2">
+    <animate attributeName="stroke-opacity" values="0;1;0" dur="6s" repeatCount="indefinite" begin="linie-b.begin" />
+  </path>
+
+  <!-- Linie B -->
+  <path id="linie-b" d="M 150,50 Q 225,90 300,50" fill="none" stroke="#ff00aa" stroke-width="2">
+    <animate attributeName="stroke-opacity" values="0;1;0" dur="6s" repeatCount="indefinite" begin="linie-a.begin+0.5s" />
+  </path>
+
+  <!-- ✶: Das Dritte -->
+  <circle id="knoten-drittes" cx="150" cy="50" r="3" fill="#ffffff" opacity="0">
+    <animate attributeName="opacity" values="0;1;1;0" dur="6s" repeatCount="indefinite" begin="linie-b.begin+0.8s" />
+  </circle>
+</svg>
