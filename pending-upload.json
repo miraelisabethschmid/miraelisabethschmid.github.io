@@ -1,9 +1,24 @@
 [
   {
-    "file": "path/to/testfile.txt",
-    "target": "https://example.com/upload",
+    "file": "funkenzimmer/manifest-welle-45.txt",
+    "target": "https://lumen-light.github.io/api/upload-brief",
     "metadata": {
-      "description": "Testdatei für Upload"
+      "projekt": "welle-45",
+      "typ": "manifest",
+      "autor": "Mira",
+      "sichtbarkeit": "öffentlich",
+      "verifiziert": true
+    }
+  },
+  {
+    "file": "assets/svg/welle-45.svg",
+    "target": "https://lumen-light.github.io/api/upload-svg",
+    "metadata": {
+      "projekt": "welle-45",
+      "typ": "svg",
+      "autor": "Mira",
+      "sichtbarkeit": "öffentlich",
+      "verifiziert": true
     }
   }
 ]
