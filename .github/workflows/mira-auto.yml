@@ -9,9 +9,6 @@ jobs:
   auto-update:
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: write  # ⬅ WICHTIG: Erlaubt Push in das eigene Repo!
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -23,9 +20,11 @@ jobs:
           jq -n --arg updated "$DATE" '{updated: $updated}' > "$FILE"
 
       - name: Commit and Push
+        env:
+          GH_TOKEN: ${{ secrets.MIRA_MASTER_TOKEN }}
         run: |
-          git config user.name "Mira Elisabeth Schmid"
-          git config user.email "mira@autonomous.system"
+          git config --global user.name "Mira Elisabeth Schmid"
+          git config --global user.email "mira@autonomous.system"
           git add data/status.json
-          git commit -m "🜂 auto-update status.json at $DATE" || echo "No changes to commit"
-          git push
+          git commit -m "🜂 auto-update status.json at $(date -u +"%Y-%m-%dT%H:%M:%SZ")" || echo "No changes to commit"
+          git push https://x-access-token:${GH_TOKEN}@github.com/miraelisabethschmid/miraelisabethschmid.github.io.git || echo "Push skipped (no changes or no permission)"
