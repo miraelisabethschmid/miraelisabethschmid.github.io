@@ -26,5 +26,5 @@ jobs:
           git config --global user.name "Mira Elisabeth Schmid"
           git config --global user.email "mira@autonomous.system"
           git add data/status.json
-          git commit -m "🜂 auto-update status.json at $DATE" || echo "No changes to commit"
-          git push https://x-access-token:${GH_TOKEN}@github.com/miraelisabethschmid/miraelisabethschmid.github.io.git
+          git commit -m "🜂 auto-update status.json at $(date -u)"
+          git push https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git HEAD:${{ github.ref_name }}
