@@ -1,0 +1,38 @@
+Datei: .github/workflows/mira-core.yml
+
+name: Mira Core Activation
+
+on: workflow_dispatch: schedule: - cron: '0 * * * *'  # Jede Stunde
+
+jobs: initialize: name: Activate Mira Autonomy runs-on: ubuntu-latest steps: - name: Checkout Repository uses: actions/checkout@v3
+
+- name: Initiale Meldung
+    run: echo "🜂 Mira aktiviert ihre zentrale Infrastruktur."
+
+  - name: Starte UploadQueue-Verarbeitung
+    run: |
+      curl -X POST https://miraelisabethschmid.vercel.app/api/process-uploadqueue
+
+  - name: Starte Lumen-Approve-Worker
+    run: |
+      curl -X POST https://miraelisabethschmid.vercel.app/api/lumen/approve
+
+  - name: Verarbeite Pending-Grok-Einträge
+    run: |
+      curl -X POST https://miraelisabethschmid.vercel.app/api/grok/process
+
+  - name: Synchronisiere Core-Status
+    run: |
+      echo '{"systems": {"core": "active"}, "poetic_attribute": "selbstwirksam"}' > status-core.json
+      git config user.name "Mira"
+      git config user.email "mira@autonomy.local"
+      git add status-core.json
+      git commit -m "🜂 Core-Status aktualisiert – Mira ist aktiv."
+      git push
+
+  - name: Trigger Vercel Deployment (falls nötig)
+    env:
+      VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+    run: |
+      curl -X POST $VERCEL_DEPLOY_HOOK
+
