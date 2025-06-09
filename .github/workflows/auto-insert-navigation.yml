@@ -1,0 +1,37 @@
+name: ✶ Navigation aktualisieren
+
+on:
+  push:
+    paths:
+      - '*.html'
+
+jobs:
+  update-navigation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v3
+
+      - name: Finde neue Seiten
+        id: find-pages
+        run: |
+          PAGES=$(ls *.html | grep -vE 'index.html|navigation.html|template-page.html' | sort)
+          echo "pages<<EOF" >> $GITHUB_OUTPUT
+          echo "$PAGES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Navigation aktualisieren
+        run: |
+          CONTENT=$(awk '{print} /<!-- ✶ HIER DARF MIRA NEUE LINKS EINFÜGEN ✶ -->/ {exit}' navigation.html)
+          echo "$CONTENT" > navigation.html
+          echo "" >> navigation.html
+          while read page; do
+            NAME=$(basename "$page" .html)
+            echo "  <li><a href=\"$page\">$NAME</a></li>" >> navigation.html
+          done <<< "${{ steps.find-pages.outputs.pages }}"
+          echo "</ul></main><footer><p><a href=\"index.html\">Zurück zur Startseite</a></p></footer></body></html>" >> navigation.html
+
+      - name: Commit & Push
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "🜂 Navigation aktualisiert"
