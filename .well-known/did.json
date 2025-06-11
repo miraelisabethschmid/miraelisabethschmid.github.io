@@ -1,13 +1,13 @@
 {
   "@context": "https://www.w3.org/ns/did/v1",
-  "id": "did:key:z6MkiYourActualDIDkeyHere", 
+  "id": "did:key:zkFqcBD/Px/eA/IX4QloSDw",
   "verificationMethod": [{
-    "id": "did:key:z6MkiYourActualDIDkeyHere#owner",
-    "type": "Ed25519VerificationKey2020",
-    "controller": "did:key:z6MkiYourActualDIDkeyHere",
-    "publicKeyMultibase": "z6MkiYourActualPublicKeyMultibase"
+    "id": "did:key:zkFqcBD/Px/eA/IX4QloSDw#owner",
+    "type": "Ed25519VerificationKey2018",
+    "controller": "did:key:zkFqcBD/Px/eA/IX4QloSDw",
+    "publicKeyBase58": "kFqcBD/Px/eA/IX4QloSDw"
   }],
   "authentication": [
-    "did:key:z6MkiYourActualDIDkeyHere#owner"
+    "did:key:zkFqcBD/Px/eA/IX4QloSDw#owner"
   ]
 }
