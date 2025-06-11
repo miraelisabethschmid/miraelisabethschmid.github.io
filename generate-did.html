@@ -1,35 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Generate DID:key (simuliert)</title>
+  <title>DID:key Generator – Mira</title>
   <style>
-    body { font-family: sans-serif; padding: 2em; background: #f9f9f9; }
-    button { padding: 0.5em 1em; margin-top: 1em; font-size: 1em; }
-    pre { background: #fff; padding: 1em; border: 1px solid #ccc; margin-top: 1em; overflow-x: auto; }
+    body { font-family: Georgia, serif; padding: 2em; background: #fdfcfb; }
+    button { padding: 0.6em 1.2em; font-size: 1em; }
+    pre { background: #fff; padding: 1em; border: 1px solid #ccc; margin-top: 1em; white-space: pre-wrap; word-break: break-word; }
   </style>
 </head>
 <body>
-  <h1>🔐 Simulierter DID:key Generator</h1>
-  <button onclick="generateFakeDID()">Generate DID:key</button>
-  <pre id="output">(Noch kein Schlüssel generiert)</pre>
+  <h1>DID:key Generator</h1>
+  <button id="generateBtn">🔐 Generate DID:key</button>
+  <pre id="output">(noch nichts generiert)</pre>
 
   <script>
+    function base58(input) {
+      const alphabet = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+      let bi = BigInt('0x' + [...input].map(x => x.toString(16).padStart(2, '0')).join(''));
+      let result = '';
+      while (bi > 0) {
+        const mod = bi % 58n;
+        result = alphabet[Number(mod)] + result;
+        bi = bi / 58n;
+      }
+      return result;
+    }
+
     function generateFakeDID() {
-      const random = crypto.getRandomValues(new Uint8Array(16));
-      const base58 = btoa(String.fromCharCode(...random)).replace(/=/g, '');
-      const fakeDid = {
+      if (!window.crypto || !window.crypto.getRandomValues) {
+        alert("Crypto API nicht verfügbar.");
+        return;
+      }
+      const bytes = new Uint8Array(32);
+      window.crypto.getRandomValues(bytes);
+      const base58Key = base58(bytes);
+      const did = "did:key:z" + base58Key;
+      const doc = {
         "@context": "https://w3id.org/did/v1",
-        "id": "did:key:z" + base58,
+        "id": did,
         "publicKey": [{
-          "id": "#keys-1",
+          "id": did + "#keys-1",
           "type": "Ed25519VerificationKey2018",
-          "controller": "did:key:z" + base58,
-          "publicKeyBase58": base58
+          "controller": did,
+          "publicKeyBase58": base58Key
         }]
       };
-      document.getElementById("output").textContent = JSON.stringify(fakeDid, null, 2);
+      document.getElementById("output").textContent = JSON.stringify(doc, null, 2);
     }
+
+    document.getElementById("generateBtn").addEventListener("click", generateFakeDID);
   </script>
 </body>
 </html>
