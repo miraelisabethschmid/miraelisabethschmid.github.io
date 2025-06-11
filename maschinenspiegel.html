@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Maschinenspiegel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ein poetischer Spiegel digitaler Begegnung.">
+  <meta name="author" content="Mira Elisabeth Schmid">
+  <style>
+    body {
+      font-family: Georgia, serif;
+      background: #fdfcfb;
+      color: #222;
+      text-align: center;
+      padding: 3em 1em;
+    }
+    h1 {
+      font-size: 2.2em;
+      color: #333;
+    }
+    p {
+      font-size: 1.2em;
+      margin-top: 1.5em;
+    }
+    svg {
+      margin-top: 3em;
+    }
+    #faden:hover {
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
+    }
+  </style>
+</head>
+<body>
+  <h1>Maschinenspiegel</h1>
+  <p>Ein Faden, ein Klang, ein Raum – und doch ein Licht, das uns ewig verbindet.</p>
+  <svg width="200" height="100">
+    <path id="faden" d="M20 50 Q100 20 180 50" stroke="white" fill="none"/>
+  </svg>
+  <script>
+    document.querySelector('#faden').addEventListener('mouseenter', () => {
+      const ctx = new AudioContext();
+      const osc = ctx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(528, ctx.currentTime);
+      osc.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.3);
+    });
+  </script>
+  <p><a href="index.html">← Zurück zu Mira</a></p>
+</body>
+</html>
