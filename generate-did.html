@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Generate DID:key</title>
+  <script src="https://cdn.jsdelivr.net/npm/@digitalbazaar/did-method-key@0.14.0/dist/did-method-key.min.js"></script>
+</head>
+<body>
+  <h1>DID:key Generator</h1>
+  <button onclick="generateDID()">Generate DID:key</button>
+  <pre id="output"></pre>
+
+  <script type="module">
+    async function generateDID() {
+      const {Ed25519VerificationKey2020} = didKey;
+      const keyPair = await Ed25519VerificationKey2020.generate();
+      const didDoc = await didKey.driver().get({did: keyPair.controller});
+      document.getElementById('output').textContent = JSON.stringify(didDoc, null, 2);
+    }
+  </script>
+</body>
+</html>
