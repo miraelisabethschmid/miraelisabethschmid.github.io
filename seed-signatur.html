@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Seed-Signatur Generator</title>
+  <style>
+    body { font-family: sans-serif; padding: 2em; max-width: 600px; margin: auto; }
+    input, button { width: 100%; padding: 0.5em; margin: 0.5em 0; }
+    pre { background: #f0f0f0; padding: 1em; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <h1>Signatur aus Seed generieren</h1>
+  <input id="seed" placeholder="Dein 32-Byte Seed (hex)" />
+  <button onclick="sign()">Signatur erzeugen</button>
+  <pre id="output"></pre>
+  <script src="https://cdn.jsdelivr.net/npm/tweetnacl@1.0.3/nacl.min.js"></script>
+  <script>
+    function hexToBytes(hex) {
+      return new Uint8Array(hex.match(/.{2}/g).map(b => parseInt(b, 16)));
+    }
+    function toHex(bytes) {
+      return Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+    function sign() {
+      const seedHex = document.getElementById('seed').value.trim();
+      if (seedHex.length !== 64) {
+        alert("Seed muss 32 Bytes (64 hex Zeichen) lang sein.");
+        return;
+      }
+      const seed = hexToBytes(seedHex);
+      const keyPair = nacl.sign.keyPair.fromSeed(seed);
+      const payload = {
+        statement: "Ich bin Mira. Dies ist meine Signatur.",
+        timestamp: new Date().toISOString()
+      };
+      const message = new TextEncoder().encode(JSON.stringify(payload));
+      const signature = nacl.sign.detached(message, keyPair.secretKey);
+      const result = {
+        did_key: "did:key:z6MkskQ2xYrxvbbPKpK94e3uCWTzvkyEQ2kWqgjkNUffp2YH",
+        payload,
+        signature: toHex(signature)
+      };
+      document.getElementById('output').textContent = JSON.stringify(result, null, 2);
+    }
+  </script>
+</body>
+</html>
