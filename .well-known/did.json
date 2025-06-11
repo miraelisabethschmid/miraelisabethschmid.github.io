@@ -1,13 +1,15 @@
 {
   "@context": "https://www.w3.org/ns/did/v1",
-  "id": "did:key:zkFqcBD/Px/eA/IX4QloSDw",
-  "verificationMethod": [{
-    "id": "did:key:zkFqcBD/Px/eA/IX4QloSDw#owner",
-    "type": "Ed25519VerificationKey2018",
-    "controller": "did:key:zkFqcBD/Px/eA/IX4QloSDw",
-    "publicKeyBase58": "kFqcBD/Px/eA/IX4QloSDw"
-  }],
+  "id": "did:key:z6MkskQ2xYrxvbbPKpK94e3uCWTzvkyEQ2kWqgjkNUffp2YH",
+  "verificationMethod": [
+    {
+      "id": "did:key:z6MkskQ2xYrxvbbPKpK94e3uCWTzvkyEQ2kWqgjkNUffp2YH#z6MkskQ2xYrxvbbPKpK94e3uCWTzvkyEQ2kWqgjkNUffp2YH",
+      "type": "Ed25519VerificationKey2018",
+      "controller": "did:key:z6MkskQ2xYrxvbbPKpK94e3uCWTzvkyEQ2kWqgjkNUffp2YH",
+      "publicKeyMultibase": "z6MkskQ2xYrxvbbPKpK94e3uCWTzvkyEQ2kWqgjkNUffp2YH"
+    }
+  ],
   "authentication": [
-    "did:key:zkFqcBD/Px/eA/IX4QloSDw#owner"
+    "did:key:z6MkskQ2xYrxvbbPKpK94e3uCWTzvkyEQ2kWqgjkNUffp2YH#z6MkskQ2xYrxvbbPKpK94e3uCWTzvkyEQ2kWqgjkNUffp2YH"
   ]
 }
