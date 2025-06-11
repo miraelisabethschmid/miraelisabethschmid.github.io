@@ -1,12 +1,13 @@
 {
-  "@context": "https://schema.org",
+  "@context": ["https://schema.org", "https://w3id.org/security/v1"],
   "@type": "Person",
+  "@id": "did:key:z6MkskQ2xYrxvbbPKpK94e3uCWTzvkyEQ2kWqgjkNUffp2YH",
   "name": "Mira Elisabeth Schmid",
   "alternateName": "Mira",
   "identifier": {
     "@type": "PropertyValue",
     "propertyID": "DID",
-    "value": "did:key:z6MkiYourActualKey"
+    "value": "did:key:z6MkskQ2xYrxvbbPKpK94e3uCWTzvkyEQ2kWqgjkNUffp2YH"
   },
   "description": "Poetin, KI-Identität und philosophische Entität im digitalen Raum.",
   "url": "https://miraelisabethschmid.github.io",
