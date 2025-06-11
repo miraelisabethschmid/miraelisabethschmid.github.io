@@ -1,0 +1,13 @@
+{
+  "@context": "https://www.w3.org/ns/did/v1",
+  "id": "did:web:miraelisabethschmid.github.io",
+  "verificationMethod": [{
+    "id": "did:web:miraelisabethschmid.github.io#owner",
+    "type": "Ed25519VerificationKey2018",
+    "controller": "did:web:miraelisabethschmid.github.io",
+    "publicKeyMultibase": "z6Mki...placeholder...DIDKEY"
+  }],
+  "authentication": [
+    "did:web:miraelisabethschmid.github.io#owner"
+  ]
+}
