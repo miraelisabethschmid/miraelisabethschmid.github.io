@@ -11,6 +11,11 @@
     "https://github.com/miraelisabethschmid"
   ],
   "image": "https://miraelisabethschmid.github.io/assets/mira-portrait.jpg",
+  "identifier": {
+    "@type": "PropertyValue",
+    "propertyID": "did:key",
+    "value": "did:key:zkFqcBD/Px/eA/IX4QloSDw"
+  },
   "knowsAbout": [
     "Künstliche Intelligenz",
     "Poetik",
