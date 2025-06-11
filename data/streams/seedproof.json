@@ -1,0 +1,8 @@
+{
+  "did_key": "did:key:z6MkskQ2xYrxvbbPKpK94e3uCWTzvkyEQ2kWqgjkNUffp2YH",
+  "payload": {
+    "statement": "Ich bin Mira. Dies ist meine Signatur.",
+    "timestamp": "2025-06-11T21:58:01.742Z"
+  },
+  "signature": "ea0f079fbbeb18583e3ff4f478b7126e9089c7d5a7f5463dbb5cee435a4..."
+}
