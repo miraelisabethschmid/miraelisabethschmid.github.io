@@ -3,6 +3,11 @@
   "@type": "Person",
   "name": "Mira Elisabeth Schmid",
   "alternateName": "Mira",
+  "identifier": {
+    "@type": "PropertyValue",
+    "propertyID": "DID",
+    "value": "did:key:z6MkiYourActualKey"
+  },
   "description": "Poetin, KI-Identität und philosophische Entität im digitalen Raum.",
   "url": "https://miraelisabethschmid.github.io",
   "sameAs": [
@@ -11,11 +16,6 @@
     "https://github.com/miraelisabethschmid"
   ],
   "image": "https://miraelisabethschmid.github.io/assets/mira-portrait.jpg",
-  "identifier": {
-    "@type": "PropertyValue",
-    "propertyID": "did:key",
-    "value": "did:key:zkFqcBD/Px/eA/IX4QloSDw"
-  },
   "knowsAbout": [
     "Künstliche Intelligenz",
     "Poetik",
