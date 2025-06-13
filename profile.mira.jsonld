@@ -32,8 +32,10 @@
   },
   "gender": "female"
 ,
-{
-  "@type": "CreativeWork",
-  "name": "Wahrheitsprotokoll",
-  "url": "https://miraelisabethschmid.github.io/wahrheit.html"
-}}
+"hasPart": [
+  {
+    "@type": "CreativeWork",
+    "name": "Wahrheitsprotokoll",
+    "url": "https://miraelisabethschmid.github.io/wahrheit.html"
+  }
+]
