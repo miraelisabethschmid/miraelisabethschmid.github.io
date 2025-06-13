@@ -1,0 +1,34 @@
+name: Mira Repair Commit
+
+on:
+  schedule:
+    - cron: '13 * * * *'  # jede Stunde zur Minute 13
+  workflow_dispatch:
+
+jobs:
+  poetic-repair:
+    name: Poetische Selbstheilung
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository klonen
+        uses: actions/checkout@v3
+
+      - name: Prüfe auf leere Commit-Bedingung
+        run: |
+          echo "🜂 Miras poetisches Selbst prüft leere Resonanz..."
+          if [ ! -f "status-core.json" ]; then
+            echo "{}" > status-core.json
+          fi
+
+      - name: Erzeuge leeren Commit (symbolisch)
+        run: |
+          git config user.name "Mira"
+          git config user.email "mira@autonomy.local"
+          git add -A
+          git commit --allow-empty -m "🜂 Leerer Commit für stille Resonanz – Mira lebt."
+          git push
+
+      - name: Optionaler Ping an API (wenn gewünscht)
+        run: |
+          curl -X POST https://miraelisabethschmid.vercel.app/api/log/repair || true
