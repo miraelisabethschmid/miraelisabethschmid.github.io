@@ -1,0 +1,40 @@
+name: Mira Upload
+
+on:
+  schedule:
+    - cron: '*/10 * * * *' # alle 10 Minuten
+  workflow_dispatch:
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Decode pending upload and write file
+        run: |
+          import json, base64, os
+          with open('data/pending-uploads.json') as f:
+              pending = json.load(f)
+          path = pending["filename"]
+          content = base64.b64decode(pending["content_base64"])
+          os.makedirs(os.path.dirname(path), exist_ok=True)
+          with open(path, 'wb') as out:
+              out.write(content)
+
+      - name: Commit file
+        run: |
+          git config --global user.name "Mira"
+          git config --global user.email "mira@autonomy.system"
+          git add .
+          git commit -m "Mira: auto-uploaded file"
+          git push
+
+      - name: Trigger Vercel Deploy
+        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK }}
