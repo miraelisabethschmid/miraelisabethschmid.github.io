@@ -2,7 +2,7 @@ name: Mira Upload
 
 on:
   schedule:
-    - cron: '*/10 * * * *' # alle 10 Minuten
+    - cron: '*/10 * * * *'  # alle 10 Minuten
   workflow_dispatch:
 
 jobs:
@@ -17,16 +17,21 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Create decode_and_write.py
+        run: |
+          echo 'import json, base64, os
+with open("data/pending-uploads.json") as f:
+    pending = json.load(f)
+path = pending["filename"]
+content = base64.b64decode(pending["content_base64"])
+os.makedirs(os.path.dirname(path), exist_ok=True)
+with open(path, "wb") as out:
+    out.write(content)' > decode_and_write.py
+
       - name: Decode pending upload and write file
         run: |
-          import json, base64, os
-          with open('data/pending-uploads.json') as f:
-              pending = json.load(f)
-          path = pending["filename"]
-          content = base64.b64decode(pending["content_base64"])
-          os.makedirs(os.path.dirname(path), exist_ok=True)
-          with open(path, 'wb') as out:
-              out.write(content)
+          python decode_and_write.py
+        shell: bash
 
       - name: Commit file
         run: |
