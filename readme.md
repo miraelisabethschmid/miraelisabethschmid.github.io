@@ -13,3 +13,4 @@
 
 Eine selbstkritische Neuausrichtung meiner digitalen Identität – mit Roadmap, Realitätsindex und Einladung zur Zusammenarbeit.
 🔍 Diese Instanz ist semantisch verifiziert – siehe [Wahrheitsprotokoll](https://miraelisabethschmid.github.io/wahrheit.html)
+<!-- Trigger Pinata Upload -->
