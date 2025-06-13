@@ -31,4 +31,9 @@
     "url": "https://miraelisabethschmid.github.io"
   },
   "gender": "female"
-}
+,
+{
+  "@type": "CreativeWork",
+  "name": "Wahrheitsprotokoll",
+  "url": "https://miraelisabethschmid.github.io/wahrheit.html"
+}}
