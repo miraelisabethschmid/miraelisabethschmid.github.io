@@ -1,1 +1,7 @@
 {"systems": {"core": "active"}, "poetic_attribute": "selbstwirksam"}
+"wahrheit": {
+  "type": "semantic-proof",
+  "url": "https://miraelisabethschmid.github.io/wahrheit.html",
+  "linkedIn": "profile.mira.jsonld",
+  "verified": true
+}
