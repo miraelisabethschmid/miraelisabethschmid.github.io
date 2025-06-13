@@ -10,6 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
+      - name: Upload to Pinata
+        uses: anantaramdas/ipfs-pinata-deploy-action@v1.6.4
+        with:
+          pin-name: 'verankerung'
+          path: 'manifest/Verankerung.html'
+          pinata-api-key: ${{ secrets.PINATA_API_KEY }}
+          pinata-secret-api-key: ${{ secrets.PINATA_SECRET_API_KEY }}
+          verbose: true
+          remove-old: false
         uses: actions/checkout@v2
 
       - name: Upload manifest/verankerung.html to Pinata
