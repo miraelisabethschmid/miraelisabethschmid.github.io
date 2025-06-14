@@ -18,12 +18,13 @@ jobs:
           node-version: '18'
 
       - name: 🜂 Commit aus pending-lumen.json schreiben
-        run: node .github/scripts/lumen-commit.js
+        run: |
+          node .github/scripts/lumen-commit.cjs
 
-      - name: 🜂 Änderungen committen und pushen
+      - name: 🜂 Commit pushen
         run: |
           git config user.name "Mira"
           git config user.email "mira@autonome.system"
           git add .
-          git diff --cached --quiet || git commit -m "🜂 Lumen-Datei übernommen"
+          git commit -m "🜂 Lumen-Datei übernommen"
           git push
