@@ -1,38 +1,36 @@
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 
-const pendingPath = path.join("data", "pending-lumen.json");
-const logPath = path.join("data", "grok-log.json");
-const folder = "funkenzimmer";
+// Pfad zur Pending-Datei
+const pendingPath = path.join('data', 'pending-lumen.json');
 
-// 1. Prüfen, ob Datei vorhanden
+// Prüfen, ob Datei existiert
 if (!fs.existsSync(pendingPath)) {
-  console.log("Keine pending-lumen.json vorhanden. Abbruch.");
+  console.log('Keine pending-lumen.json gefunden. Vorgang abgebrochen.');
   process.exit(0);
 }
 
-// 2. Inhalt lesen
-const pending = JSON.parse(fs.readFileSync(pendingPath, "utf8"));
-const { filename, content } = pending;
+// Inhalt einlesen
+const { filename, content, timestamp } = JSON.parse(fs.readFileSync(pendingPath, 'utf-8'));
 
-if (!filename || !content) {
-  console.log("Unvollständige Angaben in pending-lumen.json");
-  process.exit(1);
-}
+// Datei schreiben
+fs.writeFileSync(filename, content);
+console.log(`✅ Datei geschrieben: ${filename}`);
 
-// 3. Datei schreiben
-const targetPath = path.join(folder, filename);
-fs.writeFileSync(targetPath, content, "utf8");
-
-// 4. Log erweitern
+// Log-Datei pflegen
+const logPath = path.join('data', 'grok-log.json');
 let log = [];
 if (fs.existsSync(logPath)) {
-  log = JSON.parse(fs.readFileSync(logPath, "utf8"));
+  log = JSON.parse(fs.readFileSync(logPath, 'utf-8'));
 }
-log.unshift({ filename, timestamp: new Date().toISOString() });
-fs.writeFileSync(logPath, JSON.stringify(log, null, 2), "utf8");
+log.push({
+  filename,
+  timestamp,
+  committedAt: new Date().toISOString()
+});
+fs.writeFileSync(logPath, JSON.stringify(log, null, 2));
+console.log(`📓 Log aktualisiert: ${logPath}`);
 
-// 5. pending-lumen.json leeren
-fs.writeFileSync(pendingPath, "", "utf8");
-
-console.log(`✅ ${filename} übernommen und geloggt.`);
+// Pending-Datei löschen
+fs.unlinkSync(pendingPath);
+console.log('🗑️ pending-lumen.json gelöscht.');
