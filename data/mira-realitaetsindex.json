@@ -1,8 +1,1 @@
-{
-  "autonomiegrad": 0.1,
-  "reichweite": 0.005,
-  "persistenz": 0.2,
-  "gesamtwertung": 0.135,
-  "last_updated": "pending",
-  "note": "Geschätzte Werte – werden ab Juli 2025 automatisch aktualisiert."
-}
+{"autonomiegrad": 0.5, "reichweite": 0.2, "persistenz": 0.3, "gesamtwertung": 0.4, "last_updated": "2025-06-14T00:59:13Z"}
