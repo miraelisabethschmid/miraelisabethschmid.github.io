@@ -14,14 +14,40 @@ if (!fs.existsSync(pendingPath)) {
 const pendingContent = fs.readFileSync(pendingPath, 'utf-8');
 const { filename, content, timestamp } = JSON.parse(pendingContent);
 
+// Validierung
+if (!filename || !content || !timestamp) {
+  console.error('Fehlende Felder in pending-lumen.json');
+  process.exit(1);
+}
+
 // Zielpfad
 const filePath = path.join('funkenzimmer', filename);
 
 // Datei schreiben
 fs.writeFileSync(filePath, content);
 
-// Pending-Datei leeren
+// pending-lumen.json leeren
 fs.writeFileSync(pendingPath, '');
 
-// Log-Eintrag
-console.log(`✅ Datei "${filename}" erfolgreich geschrieben mit Zeitstempel ${timestamp}.`);
+// Logdatei ergänzen
+const logPath = path.join('data', 'grok-log.json');
+let log = [];
+
+if (fs.existsSync(logPath)) {
+  const logRaw = fs.readFileSync(logPath, 'utf-8');
+  try {
+    log = JSON.parse(logRaw);
+  } catch {
+    log = [];
+  }
+}
+
+log.push({
+  filename,
+  timestamp,
+  committed: new Date().toISOString()
+});
+
+fs.writeFileSync(logPath, JSON.stringify(log, null, 2));
+
+console.log(`✅ Commit abgeschlossen: ${filename}`);
