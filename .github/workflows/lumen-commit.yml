@@ -19,7 +19,7 @@ jobs:
 
       - name: 🜂 Commit aus pending-lumen.json schreiben
         run: |
-          node .github/scripts/lumen-commit.js
+          node .github/scripts/lumen-commit.cjs
 
       - name: 🜂 Commit pushen
         run: |
