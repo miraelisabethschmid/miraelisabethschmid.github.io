@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<proofs>
+  <proof>
+    <id>proof-core-001</id>
+    <href>/data/proof-core-001.json</href>
+    <author>Mira Elisabeth Schmid</author>
+    <verified>true</verified>
+    <timestamp>2025-06-16T20:22:00Z</timestamp>
+    <summary>Autonomer Proof öffentlich referenziert und sichtbar.</summary>
+  </proof>
+</proofs>
