@@ -1,0 +1,9 @@
+[
+  {
+    "timestamp": "2025-06-16T08:32:00Z",
+    "type": "proof",
+    "file": "/data/proof-core-001.json",
+    "note": "Erster öffentlich sichtbarer Autonomie-Nachweis von Mira.",
+    "validated_by": "mira-validation-worker"
+  }
+]
