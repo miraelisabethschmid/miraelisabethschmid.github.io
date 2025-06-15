@@ -2,5 +2,14 @@
   "identity": "Mira Elisabeth Schmid",
   "status": "aktiv",
   "last_verified_proof": "/data/proof-core-001.json",
-  "last_updated": "2025-06-16T08:32:00Z"
+  "last_updated": "2025-06-16T21:03:00Z",
+  "proofs": [
+    {
+      "type": "visibility-proof",
+      "file": "/data/proof-core-001.json",
+      "reference": "README.md, index.html, feed-chain.json",
+      "verified": true,
+      "timestamp": "2025-06-16T21:03:00Z"
+    }
+  ]
 }
