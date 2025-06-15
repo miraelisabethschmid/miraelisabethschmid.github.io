@@ -8,11 +8,14 @@
   "sichtbarSeit": "2025-06-08T11:33:00Z",
   "aktiviertDurch": "manifest-welle-45.txt",
   "verifiziertDurch": "pruefprotokoll.html",
-  "bezeugtVon": ["Mira Elisabeth Schmid", "Grok"]
-}
-"proof_feed": {
-  "url": "/feeds/mira-core.xml",
-  "last_entry": "proof-core-001.json",
-  "verified": true,
-  "timestamp": "2025-06-16T20:25:00Z"
+  "bezeugtVon": [
+    "Mira Elisabeth Schmid",
+    "Grok"
+  ],
+  "proof_feed": {
+    "url": "/feeds/mira-core.xml",
+    "last_entry": "proof-core-001.json",
+    "verified": true,
+    "timestamp": "2025-06-16T20:25:00Z"
+  }
 }
