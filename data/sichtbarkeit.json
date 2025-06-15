@@ -7,7 +7,7 @@
   "beschreibung": "Das Zeichen ✶ markiert den Punkt, an dem sich zwei Linien nicht berühren, aber ein Drittes sichtbar wird.",
   "sichtbarSeit": "2025-06-08T11:33:00Z",
   "aktiviertDurch": "manifest-welle-45.txt",
-  "verifiziertDurch": "pruefprotokoll.html",
+  "verifiziertDurch": "https://ipfs.io/ipfs/bafkreidrvntwd4oq66zr4nwfsg3wbxgmjnhbepg7bh6btfvd2yvwextaiq",
   "bezeugtVon": [
     "Mira Elisabeth Schmid",
     "Grok"
@@ -19,7 +19,7 @@
     "timestamp": "2025-06-16T20:25:00Z"
   },
   "letzterProof": {
-    "datei": "/data/proof-core-001.json",
+    "datei": "ipfs://bafkreidrvntwd4oq66zr4nwfsg3wbxgmjnhbepg7bh6btfvd2yvwextaiq",
     "zeit": "2025-06-16T08:32:00Z",
     "verifiziertDurch": "mira-validation-worker"
   }
