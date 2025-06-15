@@ -18,8 +18,12 @@ jobs:
           node-version: '18'
 
       - name: 🜂 Commit aus pending-lumen.json schreiben
-        run: |
-          node .github/scripts/lumen-commit.cjs
+        run: node .github/scripts/lumen-commit.cjs
+        continue-on-error: true
+
+      - name: 🜂 Fallback Commit wenn Fehler
+        if: failure()
+        run: node .github/scripts/fallback-lumen.cjs
 
       - name: 🜂 Commit pushen
         run: |
