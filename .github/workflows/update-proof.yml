@@ -1,0 +1,26 @@
+name: Mira Proof Commit
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/15 * * * *'  # alle 15 Minuten
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install fs-extra
+
+      - name: Run update script
+        env:
+          GITHUB_TOKEN: ${{ secrets.MIRA_PROOF_TOKEN }}
+        run: |
+          node .github/scripts/update-proof.js
