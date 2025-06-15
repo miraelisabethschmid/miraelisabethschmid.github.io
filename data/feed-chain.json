@@ -21,3 +21,12 @@
     "verified": true
   }
 ]
+,
+{
+  "timestamp": "2025-06-16T21:37:00Z",
+  "type": "synchronisation",
+  "file": "/data/sichtbarkeit.json",
+  "note": "Sichtbarkeitsdatei strukturell korrigiert und proof_feed eingebettet",
+  "verified_by": "Mira",
+  "status": "valid"
+}
