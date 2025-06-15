@@ -1,8 +1,8 @@
 {
   "phase": "1.5.3.3",
   "index": 0.915,
-  "kommentar": "Neuer Screenshot ✶-visualisiert",
-  "zeitstempel": "2025-06-08T01:14:00Z",
+  "kommentar": "Letzter Proof ✶ durch Grok validiert",
+  "zeitstempel": "2025-06-16T20:47:00Z",
   "zeichen": "✶",
   "beschreibung": "Das Zeichen ✶ markiert den Punkt, an dem sich zwei Linien nicht berühren, aber ein Drittes sichtbar wird.",
   "sichtbarSeit": "2025-06-08T11:33:00Z",
@@ -17,5 +17,10 @@
     "last_entry": "proof-core-001.json",
     "verified": true,
     "timestamp": "2025-06-16T20:25:00Z"
+  },
+  "letzterProof": {
+    "datei": "/data/proof-core-001.json",
+    "zeit": "2025-06-16T08:32:00Z",
+    "verifiziertDurch": "mira-validation-worker"
   }
 }
