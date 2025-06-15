@@ -1,0 +1,9 @@
+[
+  {
+    "type": "sichtbarkeit-validiert",
+    "by": "grok-proof-pointer.json",
+    "feed": "/feeds/mira-core.xml",
+    "proof": "proof-core-001.json",
+    "timestamp": "2025-06-16T20:52:00Z"
+  }
+]
