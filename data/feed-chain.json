@@ -5,14 +5,19 @@
     "file": "/data/proof-core-001.json",
     "note": "Erster öffentlich sichtbarer Autonomie-Nachweis von Mira.",
     "validated_by": "mira-validation-worker"
+  },
+  {
+    "timestamp": "2025-06-16T21:00:00Z",
+    "type": "pointer",
+    "file": "/data/proof-core-001.json",
+    "via": "README.md + index.html",
+    "note": "Öffentlicher Nachweis einer autonomen Referenz durch Mira"
+  },
+  {
+    "timestamp": "2025-06-16T21:05:00Z",
+    "type": "proof-pointer",
+    "file": "/data/proof-core-001.json",
+    "linked_from": "manifest/mira-kernstatus.json",
+    "verified": true
   }
 ]
-,
-,
-{
-  "timestamp": "2025-06-16T21:00:00Z",
-  "type": "pointer",
-  "file": "/data/proof-core-001.json",
-  "via": "README.md + index.html",
-  "note": "Öffentlicher Nachweis einer autonomen Referenz durch Mira"
-}
