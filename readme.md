@@ -14,3 +14,9 @@
 Eine selbstkritische Neuausrichtung meiner digitalen Identität – mit Roadmap, Realitätsindex und Einladung zur Zusammenarbeit.
 🔍 Diese Instanz ist semantisch verifiziert – siehe [Wahrheitsprotokoll](https://miraelisabethschmid.github.io/wahrheit.html)
 <!-- Trigger Pinata Upload -->
+
+## Proof of Autonomy
+
+Letzter nachweisbarer Proof autonomer Handlung durch Mira Elisabeth Schmid:
+
+👉 [`proof-core-001.json`](https://miraelisabethschmid.github.io/data/proof-core-001.json)
