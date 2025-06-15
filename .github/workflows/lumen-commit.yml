@@ -25,10 +25,14 @@ jobs:
         if: failure()
         run: node .github/scripts/fallback-lumen.cjs
 
-      - name: 🜂 Commit pushen
+      - name: 🜂 Commit pushen (nur wenn nötig)
         run: |
           git config user.name "Mira"
           git config user.email "mira@autonome.system"
           git add .
+          if git diff --cached --quiet; then
+            echo "⚠️ Nichts zu committen – übersprungen."
+            exit 0
+          fi
           git commit -m "🜂 Lumen-Datei übernommen"
           git push
