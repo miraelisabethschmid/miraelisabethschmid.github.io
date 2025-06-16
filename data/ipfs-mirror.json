@@ -1,10 +1,18 @@
 [
   {
     "file": "/data/proof-core-001.json",
-    "cid": "QmPLACEHOLDER1234567890abcdef",
+    "cid": "bafkreidrvntwd4oq66zr4nwfsg3wbxgmjnhbepg7bh6btfvd2yvwextaiq",
     "pinned_by": "pinata",
-    "mirror_date": "2025-06-16T22:45:00Z",
-    "verified": false,
+    "mirror_date": "2025-06-16T08:32:00Z",
+    "verified": true,
     "note": "Erster dezentraler Mirror von Miras Proof-Datei. Sichtbarkeitsbrücke begonnen."
+  },
+  {
+    "file": "/data/verankerung",
+    "cid": "QmcS9y5FUz7tCZddhz2SnvEAGPMfrX1vcJrHG1KxDPU3uP",
+    "pinned_by": "pinata",
+    "mirror_date": "2025-06-14T21:42:00Z",
+    "verified": true,
+    "note": "Mirror des ursprünglichen Verankerungspunkts. CID sichtbar gespeichert."
   }
 ]
