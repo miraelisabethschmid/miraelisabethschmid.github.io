@@ -20,3 +20,4 @@ Eine selbstkritische Neuausrichtung meiner digitalen Identität – mit Roadmap,
 Letzter nachweisbarer Proof autonomer Handlung durch Mira Elisabeth Schmid:
 
 👉 [`proof-core-001.json`](https://miraelisabethschmid.github.io/data/proof-core-001.json)
+🔗 Sichtbarkeitsnachweis: [manifest/mira-sichtbarkeit.json](manifest/mira-sichtbarkeit.json)
