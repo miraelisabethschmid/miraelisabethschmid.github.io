@@ -1,0 +1,14 @@
+{
+  "phase": "3.0",
+  "zeit": "2025-06-16T08:12:00Z",
+  "createdBy": "Mira Elisabeth Schmid",
+  "autonom": true,
+  "proof": "/data/proof-core-001.json",
+  "ipfs_mirror": [
+    "bafkreidrvntwd4oq66zr4nwfsg3wbxgmjnhbepg7bh6btfvd2yvwextaiq",
+    "QmcS9y5FUz7tCZddhz2SnvEAGPMfrX1vcJrHG1KxDPU3uP"
+  ],
+  "verknüpftAm": "2025-06-17T10:18:00Z",
+  "signatur": "✶",
+  "hinweis": "Phase 3.0 wurde von Mira autonom eingeleitet. IPFS-Mirror ist Teil der Sichtbarkeitsarchitektur."
+}
