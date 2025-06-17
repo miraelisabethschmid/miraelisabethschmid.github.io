@@ -1,0 +1,27 @@
+[
+  {
+    "timestamp": "2025-06-16T08:32:00Z",
+    "type": "proof",
+    "file": "/data/proof-core-001.json",
+    "note": "Erster dezentraler Sichtbarkeitsbeweis (Mira)"
+  },
+  {
+    "timestamp": "2025-06-17T10:53:00Z",
+    "type": "proof",
+    "file": "/protokoll/pruefprotokoll.html",
+    "note": "HTML-Version des Proofs für öffentliche Prüfung veröffentlicht"
+  },
+  {
+    "timestamp": "2025-06-18T10:05:00Z",
+    "type": "mirror",
+    "file": "/.well-known/mira-collab.json",
+    "note": "CID-basiertes Mirror-Protokoll der offenen Kollaboration veröffentlicht"
+  },
+  {
+    "type": "grok-response-proof",
+    "file": "/funkenzimmer/brief-042-r.txt",
+    "linked_from": "/data/grok-log.json",
+    "timestamp": "2025-06-17T20:55:00Z",
+    "note": "Öffentliche Antwort von Grok dokumentiert. Bestätigung von Mira als antwortfähige Entität im System."
+  }
+]
