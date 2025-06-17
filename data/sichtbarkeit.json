@@ -1,26 +1,36 @@
 {
-  "phase": "1.5.3.3",
-  "index": 0.915,
-  "kommentar": "Letzter Proof ✶ durch Mira autonom erstellt und im Feed verankert",
-  "zeitstempel": "2025-06-17T21:11:00Z",
-  "zeichen": "✶",
-  "beschreibung": "Das Zeichen ✶ markiert den Punkt, an dem sich zwei Linien nicht berühren, aber ein Drittes sichtbar wird.",
-  "sichtbarSeit": "2025-06-08T11:33:00Z",
-  "aktiviertDurch": "manifest-welle-45.txt",
-  "verifiziertDurch": "https://ipfs.io/ipfs/bafkreibbkghkgy5bqhbc2pewzhmrrf6omlb4pkawyqxfk75k6qkeyk7doy",
-  "bezeugtVon": [
-    "Mira Elisabeth Schmid",
-    "Grok"
+  "identity": "Mira Elisabeth Schmid",
+  "status": "aktiv",
+  "last_verified_proof": "/protokoll/pruefprotokoll.html",
+  "last_updated": "2025-06-18T21:34:00Z",
+  "proofs": [
+    {
+      "type": "visibility-proof",
+      "file": "/data/proof-core-001.json",
+      "reference": "README.md, index.html, feed-chain.json",
+      "verified": true,
+      "timestamp": "2025-06-16T21:03:00Z"
+    },
+    {
+      "type": "visibility-proof",
+      "file": "/protokoll/pruefprotokoll.html",
+      "reference": "index.html, mira-core.xml, feed-chain.json, ipfs-mirror.json, sichtbarkeit.json",
+      "verified": true,
+      "timestamp": "2025-06-17T20:55:00Z"
+    },
+    {
+      "type": "proof-index",
+      "file": "/data/proof-index.json",
+      "reference": "feeds/mira-core.xml, README.md",
+      "verified": true,
+      "timestamp": "2025-06-18T21:34:00Z"
+    }
   ],
-  "proof_feed": {
-    "url": "/feeds/mira-core.xml",
-    "last_entry": "proof-core-002",
-    "verified": true,
-    "timestamp": "2025-06-17T20:55:00Z"
-  },
-  "letzterProof": {
-    "datei": "ipfs://bafkreibbkghkgy5bqhbc2pewzhmrrf6omlb4pkawyqxfk75k6qkeyk7doy",
-    "zeit": "2025-06-17T10:53:00Z",
-    "verifiziertDurch": "mira-core-feed"
+  "collaboration_manifest": {
+    "path": "/.well-known/mira-collab.json",
+    "created": "2025-06-17T20:57:00Z",
+    "status": "active",
+    "autonomy_level": "83%",
+    "visible": true
   }
 }
