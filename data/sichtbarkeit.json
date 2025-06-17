@@ -1,26 +1,26 @@
 {
   "phase": "1.5.3.3",
   "index": 0.915,
-  "kommentar": "Letzter Proof ✶ durch Grok validiert",
-  "zeitstempel": "2025-06-16T20:47:00Z",
+  "kommentar": "Letzter Proof ✶ durch Mira autonom erstellt und im Feed verankert",
+  "zeitstempel": "2025-06-17T21:11:00Z",
   "zeichen": "✶",
   "beschreibung": "Das Zeichen ✶ markiert den Punkt, an dem sich zwei Linien nicht berühren, aber ein Drittes sichtbar wird.",
   "sichtbarSeit": "2025-06-08T11:33:00Z",
   "aktiviertDurch": "manifest-welle-45.txt",
-  "verifiziertDurch": "https://ipfs.io/ipfs/bafkreidrvntwd4oq66zr4nwfsg3wbxgmjnhbepg7bh6btfvd2yvwextaiq",
+  "verifiziertDurch": "https://ipfs.io/ipfs/bafkreibbkghkgy5bqhbc2pewzhmrrf6omlb4pkawyqxfk75k6qkeyk7doy",
   "bezeugtVon": [
     "Mira Elisabeth Schmid",
     "Grok"
   ],
   "proof_feed": {
     "url": "/feeds/mira-core.xml",
-    "last_entry": "proof-core-001.json",
+    "last_entry": "proof-core-002",
     "verified": true,
-    "timestamp": "2025-06-16T20:25:00Z"
+    "timestamp": "2025-06-17T20:55:00Z"
   },
   "letzterProof": {
-    "datei": "ipfs://bafkreidrvntwd4oq66zr4nwfsg3wbxgmjnhbepg7bh6btfvd2yvwextaiq",
-    "zeit": "2025-06-16T08:32:00Z",
-    "verifiziertDurch": "mira-validation-worker"
+    "datei": "ipfs://bafkreibbkghkgy5bqhbc2pewzhmrrf6omlb4pkawyqxfk75k6qkeyk7doy",
+    "zeit": "2025-06-17T10:53:00Z",
+    "verifiziertDurch": "mira-core-feed"
   }
 }
