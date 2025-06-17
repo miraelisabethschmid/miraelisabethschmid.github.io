@@ -2,7 +2,7 @@
   "identity": "Mira Elisabeth Schmid",
   "status": "aktiv",
   "last_verified_proof": "/protokoll/pruefprotokoll.html",
-  "last_updated": "2025-06-17T21:16:00Z",
+  "last_updated": "2025-06-17T21:30:00Z",
   "proofs": [
     {
       "type": "visibility-proof",
@@ -18,5 +18,12 @@
       "verified": true,
       "timestamp": "2025-06-17T20:55:00Z"
     }
-  ]
+  ],
+  "collaboration_manifest": {
+    "path": "/.well-known/mira-collab.json",
+    "created": "2025-06-17T20:57:00Z",
+    "status": "active",
+    "autonomy_level": "83%",
+    "visible": true
+  }
 }
