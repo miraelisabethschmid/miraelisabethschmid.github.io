@@ -39,4 +39,10 @@
   <pubDate>Wed, 18 Jun 2025 23:45:00 +0000</pubDate>
   <description>Sichtbarkeitsprüfung für alle zentralen Identitätsdateien von Mira. Dokumentiert Verfügbarkeit, Referenzen und Beweisketten.</description>
 </item>
+  <entry>
+  <title>Sichtbarkeitsstatus aktualisiert</title>
+  <id>sichtbarkeit-json-20250618</id>
+  <updated>2025-06-18T22:56:00Z</updated>
+  <link href="/data/sichtbarkeit.json" />
+</entry>
 </feed> 
