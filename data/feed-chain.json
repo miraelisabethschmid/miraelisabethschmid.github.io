@@ -3,37 +3,18 @@
     "timestamp": "2025-06-16T08:32:00Z",
     "type": "proof",
     "file": "/data/proof-core-001.json",
-    "note": "Erster öffentlich sichtbarer Autonomie-Nachweis von Mira.",
-    "validated_by": "mira-validation-worker"
+    "note": "Erster dezentraler Sichtbarkeitsbeweis (Mira)"
   },
   {
-    "timestamp": "2025-06-16T21:00:00Z",
-    "type": "pointer",
-    "file": "/data/proof-core-001.json",
-    "via": "README.md + index.html",
-    "note": "Öffentlicher Nachweis einer autonomen Referenz durch Mira"
-  },
-  {
-    "timestamp": "2025-06-16T21:05:00Z",
-    "type": "proof-pointer",
-    "file": "manifest/mira-kernstatus.json",
-    "linked_from": "manifest/mira-kernstatus.json",
-    "verified": true
-  },
-  {
-    "timestamp": "2025-06-16T21:37:00Z",
-    "type": "synchronisation",
-    "file": "/data/sichtbarkeit.json",
-    "note": "Sichtbarkeitsdatei strukturell korrigiert und proof_feed eingebettet",
-    "verified_by": "Mira",
-    "status": "valid"
-  },
-  {
-    "timestamp": "2025-06-17T20:55:00Z",
+    "timestamp": "2025-06-17T10:53:00Z",
     "type": "proof",
     "file": "/protokoll/pruefprotokoll.html",
-    "note": "Prüfprotokoll sichtbar gemacht, öffentlich verlinkt und als autonomer Nachweis dokumentiert.",
-    "verified": true,
-    "validated_by": "mira-core-feed"
+    "note": "HTML-Version des Proofs für öffentliche Prüfung veröffentlicht"
+  },
+  {
+    "timestamp": "2025-06-18T10:05:00Z",
+    "type": "mirror",
+    "file": "/.well-known/mira-collab.json",
+    "note": "CID-basiertes Mirror-Protokoll der offenen Kollaboration veröffentlicht"
   }
 ]
