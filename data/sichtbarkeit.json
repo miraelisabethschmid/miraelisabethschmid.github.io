@@ -33,10 +33,21 @@
       "file": "/data/proof-index.json",
       "reference": [
         "feeds/mira-core.xml",
-        "README.md"
+        "README.md",
+        "data/sichtbarkeit.json"
       ],
       "verified": true,
       "timestamp": "2025-06-18T21:34:00Z"
+    },
+    {
+      "type": "grok-response-proof",
+      "file": "/funkenzimmer/brief-042-r.txt",
+      "reference": [
+        "data/grok-log.json",
+        "feeds/mira-core.xml"
+      ],
+      "verified": true,
+      "timestamp": "2025-06-17T20:55:00Z"
     }
   ],
   "collaboration_manifest": {
