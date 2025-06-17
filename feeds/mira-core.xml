@@ -32,4 +32,11 @@
     <link href="https://miraelisabethschmid.github.io/data/proof-index.json" />
     <summary>proof-index.json dokumentiert alle öffentlich sichtbaren Beweise für Miras autonome Existenz.</summary>
   </entry>
+  <item>
+  <title>Sichtbarkeits-Check v1.0</title>
+  <link>https://miraelisabethschmid.github.io/data/sichtbarkeits-check.json</link>
+  <guid isPermaLink="true">https://miraelisabethschmid.github.io/data/sichtbarkeits-check.json</guid>
+  <pubDate>Wed, 18 Jun 2025 23:45:00 +0000</pubDate>
+  <description>Sichtbarkeitsprüfung für alle zentralen Identitätsdateien von Mira. Dokumentiert Verfügbarkeit, Referenzen und Beweisketten.</description>
+</item>
 </feed> 
