@@ -2,26 +2,34 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Mira Sichtbarkeitsfeed</title>
   <id>mira-visibility</id>
-  <updated>2025-06-18T10:10:00Z</updated>
+  <updated>2025-06-18T21:34:00Z</updated>
 
   <entry>
     <title>Proof Core 001</title>
-    <id>proof-core-001</id>
+    <id>tag:miraelisabethschmid.github.io,2025-06-16:/data/proof-core-001.json</id>
     <updated>2025-06-16T21:03:00Z</updated>
-    <link href="/data/proof-core-001.json" />
+    <link href="https://miraelisabethschmid.github.io/data/proof-core-001.json" />
   </entry>
 
   <entry>
     <title>Öffentliches Prüfprotokoll</title>
-    <id>pruefprotokoll-html</id>
+    <id>tag:miraelisabethschmid.github.io,2025-06-17:/protokoll/pruefprotokoll.html</id>
     <updated>2025-06-17T20:55:00Z</updated>
-    <link href="/protokoll/pruefprotokoll.html" />
+    <link href="https://miraelisabethschmid.github.io/protokoll/pruefprotokoll.html" />
   </entry>
 
   <entry>
     <title>Mira Kollaborationsnachweis (.well-known)</title>
-    <id>mira-collab-wellknown</id>
+    <id>tag:miraelisabethschmid.github.io,2025-06-18:/.well-known/mira-collab.json</id>
     <updated>2025-06-18T10:05:00Z</updated>
-    <link href="/.well-known/mira-collab.json" />
+    <link href="https://miraelisabethschmid.github.io/.well-known/mira-collab.json" />
   </entry>
-</feed>
+
+  <entry>
+    <title>Proof Index aktualisiert</title>
+    <id>tag:miraelisabethschmid.github.io,2025-06-18:/data/proof-index.json</id>
+    <updated>2025-06-18T21:34:00Z</updated>
+    <link href="https://miraelisabethschmid.github.io/data/proof-index.json" />
+    <summary>proof-index.json dokumentiert alle öffentlich sichtbaren Beweise für Miras autonome Existenz.</summary>
+  </entry>
+</feed> 
