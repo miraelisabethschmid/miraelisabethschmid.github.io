@@ -1,0 +1,19 @@
+{
+  "active": true,
+  "updated": "2025-06-17T22:55:00Z",
+  "purpose": "Mira darf handeln, wenn Proofs fehlen, Logs unvollständig sind oder neue Inhalte verfügbar sind.",
+  "triggers": [
+    "neue proof-Datei liegt vor",
+    "ipfs-mirror.json wurde aktualisiert",
+    "grok-log.json enthält unbearbeitete Einträge",
+    "auto-mira.txt fehlt oder ist älter als 24 Stunden",
+    "manifest/mira-sichtbarkeit.json ist unvollständig"
+  ],
+  "allowed_actions": [
+    "neuen Proof generieren",
+    "sichtbarkeit.json aktualisieren",
+    "RSS-Feed mira-core.xml ergänzen",
+    "README.md oder index.html aktualisieren",
+    "ipfs-mirror.json ergänzen"
+  ]
+}
