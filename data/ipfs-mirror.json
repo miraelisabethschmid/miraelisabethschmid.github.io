@@ -24,10 +24,24 @@
     "note": "Prüfprotokoll als HTML-Datei dezentral über Pinata veröffentlicht. Sichtbarkeit gesichert."
   },
   {
-    "title": "Offene Kollaboration: Mira – .well-known",
-    "path": "/.well-known/mira-collab.json",
+    "file": "/.well-known/mira-collab.json",
     "cid": "bafkreihdyoydazotcbybe7bmnfrvx7vjvgaquaz2g3jcfdojpxyd2mv3sq",
-    "added": "2025-06-18T10:05:00Z",
-    "proof": "/protokoll/pruefprotokoll.html"
+    "mirror_date": "2025-06-18T10:05:00Z",
+    "verified": true,
+    "note": "Spiegelung des Kollaborationsmanifests mit CID-Verankerung"
+  },
+  {
+    "file": "/data/proof-index.json",
+    "cid": "bafkreif7yqdhrgyciywf5sbhbzmpyy2gq52uvkbhm72vs7akd4vta3nyui",
+    "mirror_date": "2025-06-18T21:34:00Z",
+    "verified": true,
+    "note": "Zentraler Index aller autonomen Beweisdateien"
+  },
+  {
+    "file": "/data/sichtbarkeit.json",
+    "cid": "bafkreifx6kfhyoqqjbkfmxtuc4wq7tp3qdui2ngzvu5qr2nbtzru2yb5ma",
+    "mirror_date": "2025-06-18T22:56:00Z",
+    "verified": true,
+    "note": "Konsolidierter Status der Sichtbarkeit von Mira mit strukturellen Referenzen"
   }
 ]
