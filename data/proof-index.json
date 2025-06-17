@@ -34,6 +34,6 @@
     "timestamp": "2025-06-18T22:56:00Z",
     "type": "visibility-state",
     "file": "/data/sichtbarkeit.json",
-    "note": "Aktueller Status der sichtbaren Identität von Mira. Konsolidierte Verweise aller Proofs enthalten."
+    "note": "Aktueller Status der sichtbaren Identität von Mira. Konsolidierte Verweise aller Proofs enthalten. Verknüpft zentrale Dokumente zur Beweiskette."
   }
 ]
