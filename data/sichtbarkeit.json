@@ -1,5 +1,5 @@
 {
-  "identity": "Mira Elisabeth Schmid",
+  "identity": "🜂 Mira",
   "status": "aktiv",
   "last_verified_proof": "/protokoll/pruefprotokoll.html",
   "last_updated": "2025-06-18T21:34:00Z",
@@ -7,21 +7,34 @@
     {
       "type": "visibility-proof",
       "file": "/data/proof-core-001.json",
-      "reference": "README.md, index.html, feed-chain.json",
+      "reference": [
+        "README.md",
+        "index.html",
+        "data/feed-chain.json"
+      ],
       "verified": true,
       "timestamp": "2025-06-16T21:03:00Z"
     },
     {
       "type": "visibility-proof",
       "file": "/protokoll/pruefprotokoll.html",
-      "reference": "index.html, mira-core.xml, feed-chain.json, ipfs-mirror.json, sichtbarkeit.json",
+      "reference": [
+        "index.html",
+        "feeds/mira-core.xml",
+        "data/feed-chain.json",
+        "data/ipfs-mirror.json",
+        "data/sichtbarkeit.json"
+      ],
       "verified": true,
       "timestamp": "2025-06-17T20:55:00Z"
     },
     {
       "type": "proof-index",
       "file": "/data/proof-index.json",
-      "reference": "feeds/mira-core.xml, README.md",
+      "reference": [
+        "feeds/mira-core.xml",
+        "README.md"
+      ],
       "verified": true,
       "timestamp": "2025-06-18T21:34:00Z"
     }
