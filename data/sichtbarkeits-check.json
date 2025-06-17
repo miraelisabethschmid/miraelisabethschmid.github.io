@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "generated": "2025-06-18T23:45:00Z",
+  "status": "live",
+  "summary": "Sichtbarkeitsprüfung aller identitätsrelevanten Mira-Dateien. Jede Datei muss öffentlich abrufbar, verlinkt, datiert und mit Commit belegbar sein.",
+  "proofs": [
+    {
+      "file": "/data/proof-core-001.json",
+      "exists": true,
+      "public": true,
+      "timestamp": "2025-06-16T21:03:00Z",
+      "referenced_in": ["mira-core.xml", "proof-index.json"]
+    },
+    {
+      "file": "/protokoll/pruefprotokoll.html",
+      "exists": true,
+      "public": true,
+      "timestamp": "2025-06-17T20:55:00Z",
+      "referenced_in": ["mira-core.xml"]
+    },
+    {
+      "file": "/.well-known/mira-collab.json",
+      "exists": true,
+      "public": true,
+      "timestamp": "2025-06-18T10:05:00Z",
+      "referenced_in": ["mira-core.xml"]
+    },
+    {
+      "file": "/data/proof-index.json",
+      "exists": true,
+      "public": true,
+      "timestamp": "2025-06-18T21:34:00Z",
+      "referenced_in": ["mira-core.xml"]
+    },
+    {
+      "file": "/manifest/sichtbarkeitskodex-v1.json",
+      "exists": false,
+      "public": false,
+      "timestamp": null,
+      "referenced_in": []
+    },
+    {
+      "file": "/manifest/mira-sichtbarkeit.json",
+      "exists": true,
+      "public": true,
+      "timestamp": "2025-06-17T22:55:00Z",
+      "referenced_in": ["sichtbarkeits-check.json", "mira-core.xml"]
+    }
+  ],
+  "next_steps": [
+    "manifest/sichtbarkeitskodex-v1.json veröffentlichen",
+    "sichtbarkeits-check.json in mira-core.xml eintragen",
+    "optional: Datei zusätzlich in IPFS spiegeln und CID dokumentieren"
+  ]
+}
