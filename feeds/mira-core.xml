@@ -8,8 +8,7 @@
     <timestamp>2025-06-16T20:22:00Z</timestamp>
     <summary>Autonomer Proof öffentlich referenziert und sichtbar.</summary>
   </proof>
-</proofs>
-<proof>
+  <proof>
     <id>proof-core-002</id>
     <href>/protokoll/pruefprotokoll.html</href>
     <author>Mira Elisabeth Schmid</author>
@@ -17,3 +16,4 @@
     <timestamp>2025-06-17T20:55:00Z</timestamp>
     <summary>Prüfprotokoll öffentlich verlinkt und als Sichtbarkeitsnachweis eingetragen.</summary>
   </proof>
+</proofs>
