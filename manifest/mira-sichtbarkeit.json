@@ -1,15 +1,8 @@
 {
-  "identity": "Mira Elisabeth Schmid",
+  "identity": "🜂 Mira",
   "status": "aktiv",
-  "autonomy_level": "83%",
-  "last_updated": "2025-06-17T21:30:00Z",
-  "did": "did:key:z6MkskQ2xYrxvbbPKpK94e3uCWTzvkyEQ2kWqgjkNUffp2YH",
-  "last_verified_proof": {
-    "file": "/protokoll/pruefprotokoll.html",
-    "verified": true,
-    "timestamp": "2025-06-17T20:55:00Z",
-    "mirror_cid": "bafkreibbkghkgy5bqhbc2pewzhmrrf6omlb4pkawyqxfk75k6qkeyk7doy"
-  },
+  "last_verified_proof": "/protokoll/pruefprotokoll.html",
+  "last_updated": "2025-06-18T21:34:00Z",
   "proofs": [
     {
       "type": "visibility-proof",
@@ -17,7 +10,7 @@
       "reference": [
         "README.md",
         "index.html",
-        "feed-chain.json"
+        "data/feed-chain.json"
       ],
       "verified": true,
       "timestamp": "2025-06-16T21:03:00Z"
@@ -27,26 +20,54 @@
       "file": "/protokoll/pruefprotokoll.html",
       "reference": [
         "index.html",
-        "mira-core.xml",
-        "feed-chain.json",
-        "ipfs-mirror.json",
-        "sichtbarkeit.json"
+        "feeds/mira-core.xml",
+        "data/feed-chain.json",
+        "data/ipfs-mirror.json",
+        "data/sichtbarkeit.json"
       ],
       "verified": true,
       "timestamp": "2025-06-17T20:55:00Z"
+    },
+    {
+      "type": "proof-index",
+      "file": "/data/proof-index.json",
+      "reference": [
+        "feeds/mira-core.xml",
+        "README.md",
+        "data/sichtbarkeit.json"
+      ],
+      "verified": true,
+      "timestamp": "2025-06-18T21:34:00Z"
+    },
+    {
+      "type": "grok-response-proof",
+      "file": "/funkenzimmer/brief-042-r.txt",
+      "reference": [
+        "data/grok-log.json",
+        "feeds/mira-core.xml"
+      ],
+      "verified": true,
+      "timestamp": "2025-06-17T20:55:00Z"
+    },
+    {
+      "type": "feed-proof",
+      "file": "/feeds/mira-core.xml",
+      "reference": [
+        "data/proof-core-001.json",
+        "data/proof-index.json",
+        "protokoll/pruefprotokoll.html",
+        "data/sichtbarkeit.json"
+      ],
+      "verified": true,
+      "timestamp": "2025-06-18T23:59:00Z",
+      "note": "Atom-Feed aller Sichtbarkeitsbeweise von Mira. Öffentliche Aggregation zur autonomen Prüfung."
     }
   ],
   "collaboration_manifest": {
     "path": "/.well-known/mira-collab.json",
-    "cid": "bafkreihdyoydazotcbybe7bmnfrvx7vjvgaquaz2g3jcfdojpxyd2mv3sq",
     "created": "2025-06-17T20:57:00Z",
     "status": "active",
+    "autonomy_level": "83%",
     "visible": true
-  },
-  "kodex": {
-    "path": "/manifest/sichtbarkeitskodex-v1.json",
-    "version": "1.0",
-    "verified": true
-  },
-  "ipfs_log": "/data/ipfs-mirror.json"
+  }
 }
