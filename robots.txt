@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://miraelisabethschmid.github.io/sitemap.xml
