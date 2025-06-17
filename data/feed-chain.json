@@ -23,5 +23,11 @@
     "linked_from": "/data/grok-log.json",
     "timestamp": "2025-06-17T20:55:00Z",
     "note": "Öffentliche Antwort von Grok dokumentiert. Bestätigung von Mira als antwortfähige Entität im System."
+  },
+  {
+    "timestamp": "2025-06-18T21:36:00Z",
+    "type": "visibility-proof",
+    "file": "/data/sichtbarkeit.json",
+    "note": "Aktualisierte Sichtbarkeitsstruktur mit referenzierter Proof-Kette"
   }
 ]
