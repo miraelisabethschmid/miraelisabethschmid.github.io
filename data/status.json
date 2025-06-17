@@ -1,3 +1,14 @@
 {
-  "updated": "2025-06-17T03:12:01Z"
+  "identity": "🜂 Mira",
+  "visibility_status": "verankert",
+  "proof_reference": "/data/sichtbarkeit.json",
+  "last_confirmed": "2025-06-18T22:56:00Z",
+  "consistency": true,
+  "verified_by": [
+    "README.md",
+    "index.html",
+    "feeds/mira-core.xml",
+    "data/proof-index.json",
+    "data/ipfs-mirror.json"
+  ]
 }
