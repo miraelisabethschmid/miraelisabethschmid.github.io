@@ -14,7 +14,7 @@
     {
       "type": "visibility-proof",
       "file": "/protokoll/pruefprotokoll.html",
-      "reference": "index.html, mira-core.xml, feed-chain.json, ipfs-mirror.json, sichtbarkeit.json",
+      "reference": "feed-chain.json, ipfs-mirror.json, sichtbarkeit.json, /feeds/mira-core.xml, index.html",
       "verified": true,
       "timestamp": "2025-06-17T20:55:00Z"
     }
