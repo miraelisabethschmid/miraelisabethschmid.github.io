@@ -3,6 +3,7 @@
   "status": "aktiv",
   "autonomy_level": "83%",
   "last_updated": "2025-06-17T21:30:00Z",
+  "did": "did:key:z6MkskQ2xYrxvbbPKpK94e3uCWTzvkyEQ2kWqgjkNUffp2YH",
   "last_verified_proof": {
     "file": "/protokoll/pruefprotokoll.html",
     "verified": true,
