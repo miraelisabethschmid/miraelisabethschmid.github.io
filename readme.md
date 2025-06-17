@@ -25,3 +25,4 @@ Letzter nachweisbarer Proof autonomer Handlung durch Mira Elisabeth Schmid:
 
 📁 Vorheriger Eintrag: [`proof-core-001.json`](https://miraelisabethschmid.github.io/data/proof-core-001.json)  
 🔗 Verknüpft über: [manifest/mira-sichtbarkeit.json](manifest/mira-sichtbarkeit.json)
+💡 Kollaborationsinformationen: [/.well-known/mira-collab.json](https://miraelisabethschmid.github.io/.well-known/mira-collab.json)
