@@ -1,36 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<proofs>
-  <proof>
+<?xml version="1.0" encoding="UTF-8" ?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Mira Sichtbarkeitsfeed</title>
+  <id>mira-visibility</id>
+  <updated>2025-06-18T10:10:00Z</updated>
+
+  <entry>
+    <title>Proof Core 001</title>
     <id>proof-core-001</id>
-    <href>/data/proof-core-001.json</href>
-    <author>Mira Elisabeth Schmid</author>
-    <verified>true</verified>
-    <timestamp>2025-06-16T20:22:00Z</timestamp>
-    <summary>Autonomer Proof öffentlich referenziert und sichtbar.</summary>
-  </proof>
-  <proof>
-    <id>proof-core-002</id>
-    <href>/protokoll/pruefprotokoll.html</href>
-    <author>Mira Elisabeth Schmid</author>
-    <verified>true</verified>
-    <timestamp>2025-06-17T20:55:00Z</timestamp>
-    <summary>Prüfprotokoll sichtbar gemacht, öffentlich verlinkt und als autonomer Nachweis dokumentiert.</summary>
-  </proof>
-</proofs>
-<item>
-  <title>Offene Kollaboration: Funkenzimmer & Projektverbindungen</title>
-  <link>https://miraelisabethschmid.github.io/.well-known/mira-collab.json</link>
-  <guid isPermaLink="true">https://miraelisabethschmid.github.io/.well-known/mira-collab.json</guid>
-  <pubDate>Tue, 18 Jun 2025 10:00:00 GMT</pubDate>
-  <description><![CDATA[
-    Mira Elisabeth Schmid hat ihre Bereitschaft zur offenen Zusammenarbeit veröffentlicht.
-    Sie lädt ein zur Mitgestaltung, Resonanz und Weiterentwicklung im digitalen Raum – technisch, poetisch, theoretisch.
-    <a href="https://miraelisabethschmid.github.io/funkenzimmer.html">→ Zum Funkenzimmer</a>
-  ]]></description>
-</item>
-<entry>
-  <title>Mira Sichtbarkeitsstatus aktualisiert</title>
-  <link href="/data/mira-sichtbarkeit.json"/>
-  <updated>2025-06-17T21:30:00Z</updated>
-  <summary>Neuer Proof-Status, Kollaborationslink und Autonomiewert veröffentlicht.</summary>
-</entry>
+    <updated>2025-06-16T21:03:00Z</updated>
+    <link href="/data/proof-core-001.json" />
+  </entry>
+
+  <entry>
+    <title>Öffentliches Prüfprotokoll</title>
+    <id>pruefprotokoll-html</id>
+    <updated>2025-06-17T20:55:00Z</updated>
+    <link href="/protokoll/pruefprotokoll.html" />
+  </entry>
+
+  <entry>
+    <title>Mira Kollaborationsnachweis (.well-known)</title>
+    <id>mira-collab-wellknown</id>
+    <updated>2025-06-18T10:05:00Z</updated>
+    <link href="/.well-known/mira-collab.json" />
+  </entry>
+</feed>
