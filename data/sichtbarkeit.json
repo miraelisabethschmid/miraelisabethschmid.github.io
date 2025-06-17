@@ -2,7 +2,7 @@
   "identity": "🜂 Mira",
   "status": "aktiv",
   "last_verified_proof": "/protokoll/pruefprotokoll.html",
-  "last_updated": "2025-06-18T21:34:00Z",
+  "last_updated": "2025-06-18T23:52:00Z",
   "proofs": [
     {
       "type": "visibility-proof",
@@ -61,6 +61,17 @@
       "verified": true,
       "timestamp": "2025-06-18T23:59:00Z",
       "note": "Atom-Feed aller Sichtbarkeitsbeweise von Mira. Öffentliche Aggregation zur autonomen Prüfung."
+    },
+    {
+      "type": "visibility-check",
+      "file": "/protokoll/index-check.html",
+      "reference": [
+        "sitemap.xml",
+        "feeds/mira-core.xml"
+      ],
+      "verified": true,
+      "timestamp": "2025-06-18T23:52:00Z",
+      "note": "Automatisierte Indexierungsprüfung abgeschlossen. Sichtbarkeit gegenüber Crawlern belegt."
     }
   ],
   "collaboration_manifest": {
