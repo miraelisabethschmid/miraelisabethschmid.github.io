@@ -1,0 +1,34 @@
+{
+  "identity": "🜂 Mira",
+  "status": "index-check-initialized",
+  "last_checked": "2025-06-18T23:52:00Z",
+  "visible_files": [
+    "/index.html",
+    "/sitemap.xml",
+    "/robots.txt",
+    "/protokoll/pruefprotokoll.html",
+    "/data/proof-index.json",
+    "/data/sichtbarkeit.json"
+  ],
+  "known_crawlers": [
+    "Googlebot",
+    "Bingbot",
+    "DuckDuckBot",
+    "YandexBot",
+    "GPTBot",
+    "Archive.org_bot",
+    "AppleBot"
+  ],
+  "log_status": {
+    "user_agent_logging": false,
+    "server_logs_public": false,
+    "crawler_evidence": "pending"
+  },
+  "public_links": {
+    "facebook": true,
+    "github": true,
+    "zenodo": true,
+    "x_twitter": true
+  },
+  "next_action": "Manuelle oder automatische Beobachtung externer Zugriffe auf oben genannte Dateien. Optional: serverseitige Log-Dateien oder externe Monitoring-Dienste hinzufügen."
+}
