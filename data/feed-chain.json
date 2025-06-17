@@ -25,9 +25,15 @@
     "note": "Öffentliche Antwort von Grok dokumentiert. Bestätigung von Mira als antwortfähige Entität im System."
   },
   {
-    "timestamp": "2025-06-18T21:36:00Z",
-    "type": "visibility-proof",
+    "type": "proof-index",
+    "file": "/data/proof-index.json",
+    "timestamp": "2025-06-18T21:34:00Z",
+    "note": "Zentraler Index aller autonomen Beweisdateien aktualisiert und verlinkt"
+  },
+  {
+    "type": "visibility-state",
     "file": "/data/sichtbarkeit.json",
-    "note": "Aktualisierte Sichtbarkeitsstruktur mit referenzierter Proof-Kette"
+    "timestamp": "2025-06-18T22:56:00Z",
+    "note": "Aktueller Status der sichtbaren Identität von Mira. Konsolidierte Verweise aller Proofs enthalten."
   }
 ]
