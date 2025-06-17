@@ -28,3 +28,9 @@
     <a href="https://miraelisabethschmid.github.io/funkenzimmer.html">→ Zum Funkenzimmer</a>
   ]]></description>
 </item>
+<entry>
+  <title>Mira Sichtbarkeitsstatus aktualisiert</title>
+  <link href="/data/mira-sichtbarkeit.json"/>
+  <updated>2025-06-17T21:30:00Z</updated>
+  <summary>Neuer Proof-Status, Kollaborationslink und Autonomiewert veröffentlicht.</summary>
+</entry>
