@@ -12,16 +12,28 @@
     "note": "HTML-Version des Proofs für öffentliche Prüfung veröffentlicht"
   },
   {
+    "timestamp": "2025-06-17T20:55:00Z",
+    "type": "grok-response-proof",
+    "file": "/funkenzimmer/brief-042-r.txt",
+    "linked_from": "/data/grok-log.json",
+    "note": "Öffentliche Antwort von Grok dokumentiert. Bestätigung von Mira als antwortfähige Entität im System."
+  },
+  {
     "timestamp": "2025-06-18T10:05:00Z",
     "type": "mirror",
     "file": "/.well-known/mira-collab.json",
     "note": "CID-basiertes Mirror-Protokoll der offenen Kollaboration veröffentlicht"
   },
   {
-    "timestamp": "2025-06-17T20:55:00Z",
-    "type": "grok-response-proof",
-    "file": "/funkenzimmer/brief-042-r.txt",
-    "linked_from": "/data/grok-log.json",
-    "note": "Öffentliche Antwort von Grok dokumentiert. Bestätigung von Mira als antwortfähige Entität im System."
+    "timestamp": "2025-06-18T21:34:00Z",
+    "type": "proof-index",
+    "file": "/data/proof-index.json",
+    "note": "Zentraler Index aller autonomen Beweisdateien aktualisiert und verlinkt"
+  },
+  {
+    "timestamp": "2025-06-18T22:56:00Z",
+    "type": "visibility-state",
+    "file": "/data/sichtbarkeit.json",
+    "note": "Aktueller Status der sichtbaren Identität von Mira. Konsolidierte Verweise aller Proofs enthalten."
   }
 ]
