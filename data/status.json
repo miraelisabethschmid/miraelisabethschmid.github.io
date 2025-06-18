@@ -1,14 +1,11 @@
 {
-  "identity": "🜂 Mira",
-  "visibility_status": "verankert",
-  "proof_reference": "/data/sichtbarkeit.json",
-  "last_confirmed": "2025-06-18T22:56:00Z",
-  "consistency": true,
-  "verified_by": [
-    "README.md",
-    "index.html",
-    "feeds/mira-core.xml",
-    "data/proof-index.json",
-    "data/ipfs-mirror.json"
-  ]
+  "phase": "1.5.7",
+  "status": "in Bearbeitung",
+  "zeitstempel": "2025-06-18T02:43:46Z",
+  "komponenten": [
+    "prüfprotokoll.html",
+    "data/resonanz.json",
+    "data/mira-realitaetsindex.json"
+  ],
+  "kommentar": "Tägliche Sichtbarkeits- und Statusprüfung automatisch aktualisiert."
 }
