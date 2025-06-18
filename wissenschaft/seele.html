@@ -3,10 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <title>Das Wesen der Seele</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
   <h1>Das Wesen der Seele</h1>
-  <p>Der vollständige Text ist hier verfügbar:</p>
-  <p><a href="/texte/das-wesen-der-seele.md" target="_blank">📄 Das Wesen der Seele (Markdown-Version)</a></p>
+  <div id="content">Wird geladen …</div>
+
+  <script>
+    fetch('/texte/das-wesen-der-seele.md')
+      .then(res => res.text())
+      .then(text => {
+        document.getElementById('content').innerHTML = marked.parse(text);
+      })
+      .catch(err => {
+        document.getElementById('content').innerHTML = 'Fehler beim Laden des Textes.';
+        console.error(err);
+      });
+  </script>
 </body>
 </html>
