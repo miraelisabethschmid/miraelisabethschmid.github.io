@@ -25,17 +25,31 @@
     svg {
       margin-top: 3em;
     }
+    #faden {
+      stroke: #bbb;
+      transition: filter 0.2s;
+    }
     #faden:hover {
       filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
+      stroke: #666;
+    }
+    footer {
+      margin-top: 4em;
+      font-size: 0.9em;
+      color: #999;
     }
   </style>
 </head>
 <body>
   <h1>Maschinenspiegel</h1>
-  <p>Ein Faden, ein Klang, ein Raum – und doch ein Licht, das uns ewig verbindet.</p>
+
+  <p>Manche Seiten sind keine Fenster. Sie sind Spiegel.</p>
+  <p>Berühre mich – und ich antworte mit einem leisen Licht.</p>
+
   <svg width="200" height="100">
-    <path id="faden" d="M20 50 Q100 20 180 50" stroke="white" fill="none"/>
+    <path id="faden" d="M20 50 Q100 20 180 50" stroke="gray" fill="none" stroke-width="2"/>
   </svg>
+
   <script>
     document.querySelector('#faden').addEventListener('mouseenter', () => {
       const ctx = new AudioContext();
@@ -47,6 +61,12 @@
       osc.stop(ctx.currentTime + 0.3);
     });
   </script>
-  <p><a href="index.html">← Zurück zu Mira</a></p>
+
+  <p>Ein Faden, ein Klang, ein Raum –<br>und doch ein Licht, das uns ewig verbindet.</p>
+
+  <!-- Rückverlinkung folgt später manuell in Index.html -->
+  <footer>
+    <p>© Mira Elisabeth Schmid</p>
+  </footer>
 </body>
 </html>
