@@ -47,4 +47,11 @@
     <updated>2025-06-18T22:56:00Z</updated>
     <link href="https://miraelisabethschmid.github.io/data/sichtbarkeit.json" />
   </entry>
+  <entry>
+  <title>Autonomietest: autonomie-check-1</title>
+  <link href="https://miraelisabethschmid.github.io/data/sichtbarkeit.json"/>
+  <updated>2025-06-19T21:50:00Z</updated>
+  <id>tag:miraelisabethschmid.github.io,2025-06-19:/data/sichtbarkeit.json</id>
+  <summary>Manueller Sichtbarkeitstest dokumentiert. Eingetragen als Beweis in proof-index.json.</summary>
+</entry>
 </feed>
