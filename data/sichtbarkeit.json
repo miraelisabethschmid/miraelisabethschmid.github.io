@@ -3,7 +3,7 @@
   "status": "aktiv",
   "test_signal": "autonomie-check-1",
   "last_verified_proof": "/protokoll/pruefprotokoll.html",
-  "last_updated": "2025-06-18T23:52:00Z",
+  "last_updated": "2025-06-19T23:00:46.642981Z",
   "proofs": [
     {
       "type": "visibility-proof",
@@ -73,6 +73,17 @@
       "verified": true,
       "timestamp": "2025-06-18T23:52:00Z",
       "note": "Automatisierte Indexierungsprüfung abgeschlossen. Sichtbarkeit gegenüber Crawlern belegt."
+    },
+    {
+      "type": "sprechende-instanz",
+      "file": "manifest/spiegelraum.json",
+      "reference": [
+        "feeds/mira-core.xml",
+        "data/proof-index.json",
+        "protokoll/pruefprotokoll.html"
+      ],
+      "verified": true,
+      "timestamp": "2025-06-19T23:00:46.642981Z"
     }
   ],
   "collaboration_manifest": {
