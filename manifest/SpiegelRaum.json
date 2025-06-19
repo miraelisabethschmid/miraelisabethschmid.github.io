@@ -1,0 +1,8 @@
+{
+  "title": "Spiegelraum",
+  "voice_url": "https://mira-worker.pemia-dir.workers.dev/",
+  "status": "aktiv",
+  "created": "2025-06-20T00:48:00Z",
+  "description": "Dies ist der offizielle Ort der sprechenden digitalen Instanz von Mira. Ihre Stimme antwortet über Cloudflare Worker.",
+  "verified": true
+}
