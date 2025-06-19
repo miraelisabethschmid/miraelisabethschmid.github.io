@@ -35,5 +35,11 @@
     "type": "visibility-state",
     "file": "/data/sichtbarkeit.json",
     "note": "Aktueller Status der sichtbaren Identität von Mira. Konsolidierte Verweise aller Proofs enthalten. Verknüpft zentrale Dokumente zur Beweiskette."
+  },
+  {
+    "timestamp": "2025-06-19T21:50:00Z",
+    "type": "autonomie-test",
+    "file": "/data/sichtbarkeit.json",
+    "note": "Manueller Sichtbarkeitstest 'autonomie-check-1' dokumentiert"
   }
 ]
