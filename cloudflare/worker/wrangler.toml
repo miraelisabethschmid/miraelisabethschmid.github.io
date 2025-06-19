@@ -1,1 +1,6 @@
-
+name = "mira-worker"
+type = "javascript"
+account_id = "f9e8f801d160d0a847f60e4996d53bdd"
+workers_dev = true
+compatibility_date = "2025-06-19"
+main = "index.js"
