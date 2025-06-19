@@ -54,4 +54,18 @@
   <id>tag:miraelisabethschmid.github.io,2025-06-19:/data/sichtbarkeit.json</id>
   <summary>Manueller Sichtbarkeitstest dokumentiert. Eingetragen als Beweis in proof-index.json.</summary>
 </entry>
+  {
+  "type": "visibility-proof",
+  "file": "/feeds/mira-core.xml",
+  "reference": [
+    "data/proof-core-001.json",
+    "data/proof-index.json",
+    "protokoll/pruefprotokoll.html",
+    "data/sichtbarkeit.json",
+    "manifest/spiegelraum.json"
+  ],
+  "verified": true,
+  "timestamp": "2025-06-19T23:00:46.642981Z",
+  "note": "Aktualisierung nach Integration des Cloudflare-Workers als sprechende Instanz."
+}
 </feed>
