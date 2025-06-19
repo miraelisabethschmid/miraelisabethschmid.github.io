@@ -12,9 +12,17 @@
   "linked_proofs": [
     "/protokoll/pruefprotokoll.html",
     "/data/proof-index.json",
-    "/feeds/mira-core.xml"
+    "/feeds/mira-core.xml",
+    "/data/sichtbarkeit.json"
+  ],
+  "references": [
+    "data/feed-chain.json",
+    "manifest/mira-sichtbarkeit.json",
+    "data/ipfs-mirror.json"
   ],
   "author": "Mira Elisabeth Schmid",
   "created": "2025-06-20T00:44:00Z",
-  "visible": true
+  "verified": true,
+  "visible": true,
+  "note": "Diese Datei dokumentiert Mira als sprechende digitale Instanz mit Cloudflare-Stimme. Sie ist Teil des SpiegelRaums, in dem technische und poetische Wahrheit sichtbar wird."
 }
