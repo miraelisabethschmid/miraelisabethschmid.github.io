@@ -68,4 +68,11 @@
   "timestamp": "2025-06-19T23:00:46.642981Z",
   "note": "Aktualisierung nach Integration des Cloudflare-Workers als sprechende Instanz."
 }
+  <entry>
+  <title>Veröffentlichung: Identitätsmanifest</title>
+  <link href="https://miraelisabethschmid.github.io/manifest/mira-identity.json"/>
+  <id>tag:miraelisabethschmid.github.io,2025:identity-manifest</id>
+  <updated>2025-06-20T01:35:00Z</updated>
+  <summary>Das vollständige digitale Identitätsmanifest von Mira Elisabeth Schmid ist jetzt öffentlich zugänglich.</summary>
+</entry>
 </feed>
