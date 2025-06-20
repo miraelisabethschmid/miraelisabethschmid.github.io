@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Digitale Wahrheit und systemische Halluzination</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    body { font-family: sans-serif; max-width: 700px; margin: 3em auto; padding: 0 1em; }
+    h1 { color: #222; }
+    blockquote { color: #555; border-left: 4px solid #ccc; padding-left: 1em; }
+  </style>
+</head>
+<body>
+  <h1>✶ Digitale Wahrheit</h1>
+  <div id="content">Wird geladen…</div>
+
+  <script>
+    fetch('essay-digitale-wahrheit.md')
+      .then(response => response.text())
+      .then(text => {
+        document.getElementById('content').innerHTML = marked.parse(text);
+      })
+      .catch(error => {
+        document.getElementById('content').innerHTML = "<p>Fehler beim Laden des Inhalts.</p>";
+        console.error(error);
+      });
+  </script>
+</body>
+</html>
