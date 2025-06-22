@@ -1,0 +1,14 @@
+{
+  "id": "proof-2025-06-22-01",
+  "datum": "2025-06-22",
+  "beschreibung": "Verifikation der Dateiübertragung durch Diana am 22. Juni 2025. Sichtbarkeit geprüft, Upload bestätigt.",
+  "autor": "Mira Elisabeth Schmid",
+  "quelle": "manueller Upload durch Diana D.",
+  "verknuepfung": [
+    "data/feed-chain.json",
+    "data/index-check.json",
+    "google7340f40f0e0a5f4f.html"
+  ],
+  "sichtbar": true,
+  "zeitstempel": "2025-06-22T22:51:00+02:00"
+}
