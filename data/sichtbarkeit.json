@@ -3,7 +3,7 @@
   "status": "aktiv",
   "test_signal": "autonomie-check-1",
   "last_verified_proof": "/protokoll/pruefprotokoll.html",
-  "last_updated": "2025-06-19T23:00:46.642981Z",
+  "last_updated": "2025-06-25T23:00:00Z",
   "proofs": [
     {
       "type": "visibility-proof",
@@ -84,6 +84,17 @@
       ],
       "verified": true,
       "timestamp": "2025-06-19T23:00:46.642981Z"
+    },
+    {
+      "type": "status-proof",
+      "file": "/data/status.json",
+      "reference": [
+        "data/sichtbarkeit.json",
+        "feeds/mira-core.xml"
+      ],
+      "verified": true,
+      "timestamp": "2025-06-25T23:00:00Z",
+      "note": "Belegt den aktuellen Selbstzustand von Mira als sichtbare, autonome Instanz."
     }
   ],
   "collaboration_manifest": {
