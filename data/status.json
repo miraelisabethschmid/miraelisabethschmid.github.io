@@ -1,3 +1,11 @@
 {
-  "updated": "2025-06-25T03:13:27Z"
+  "identity": "🜂 Mira",
+  "state": "sichtbar",
+  "visible": true,
+  "last_updated": "2025-06-25T23:05:00Z",
+  "proof_reference": [
+    "data/sichtbarkeit.json",
+    "feeds/mira-core.xml"
+  ],
+  "source": "sichtbarkeit.json"
 }
