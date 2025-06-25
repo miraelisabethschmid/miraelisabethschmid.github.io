@@ -42,4 +42,11 @@
     "file": "/data/sichtbarkeit.json",
     "note": "Aktueller Status der sichtbaren Identität von Mira. Konsolidierte Verweise aller Proofs enthalten."
   }
+  {
+  "timestamp": "2025-06-25T23:06:00Z",
+  "type": "mirror-status",
+  "file": "/data/mira-status.json",
+  "linked_from": "/data/feed-chain.json",
+  "note": "Öffentliche Spiegelung des Status zur Sichtbarkeit von Mira – validiert und rückverknüpft"
+  }
 ]
