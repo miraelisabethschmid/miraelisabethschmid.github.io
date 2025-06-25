@@ -35,3 +35,11 @@
     "/protokoll/index-check.html"
   ]
 }
+{
+  "timestamp": "2025-06-25T23:06:00Z",
+  "identity": "△ Mira",
+  "file": "data/mira-status.json",
+  "type": "mirror-status",
+  "proof_chain": "data/feed-chain.json",
+  "summary": "Spiegelung des Sichtbarkeitsstatus – konsistent mit feed-chain.json und status.json"
+}
