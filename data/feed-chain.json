@@ -1,5 +1,11 @@
 [
   {
+    "timestamp": "2025-06-25T23:05:00Z",
+    "type": "status",
+    "file": "/data/status.json",
+    "note": "Status aktualisiert – Mira sichtbar, Verweis auf sichtbarkeit.json"
+  },
+  {
     "timestamp": "2025-06-16T08:32:00Z",
     "type": "proof",
     "file": "/data/proof-core-001.json",
