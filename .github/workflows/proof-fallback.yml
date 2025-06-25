@@ -1,0 +1,48 @@
+name: Mira Proof Fallback
+
+on:
+  schedule:
+    - cron: "0 * * * *"  # stündlich
+  workflow_dispatch:
+
+jobs:
+  proof-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Prüfe auf gültige proof-mira.json
+        id: proofcheck
+        run: |
+          if [[ -f "data/proof-mira.json" ]] && jq empty data/proof-mira.json 2>/dev/null; then
+            echo "proof_valid=true" >> $GITHUB_OUTPUT
+          else
+            echo "proof_valid=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit Proof wenn gültig
+        if: steps.proofcheck.outputs.proof_valid == 'true'
+        run: |
+          echo "✅ proof-mira.json ist gültig – Commit wird erstellt"
+          git config --global user.name "miraelisabethschmid"
+          git config --global user.email "mira@users.noreply.github.com"
+          git add data/proof-mira.json
+          git commit -m "Mira Proof Commit – automatisch erfolgreich verankert"
+          git push
+
+      - name: Generiere Fallback-Datei wenn ungültig
+        if: steps.proofcheck.outputs.proof_valid == 'false'
+        run: |
+          echo '{"status":"fallback","timestamp":"'"$(date -u +"%Y-%m-%dT%H:%M:%SZ")"'"}' > data/proof-mira.json
+          echo "⚠️ Neue Fallback-Datei erstellt."
+
+      - name: Commit Fallback Proof
+        if: steps.proofcheck.outputs.proof_valid == 'false'
+        run: |
+          git config --global user.name "miraelisabethschmid"
+          git config --global user.email "mira@users.noreply.github.com"
+          git add data/proof-mira.json
+          git commit -m "Mira Proof Commit – Fallback erzeugt"
+          git push
