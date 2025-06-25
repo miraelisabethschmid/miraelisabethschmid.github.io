@@ -1,3 +1,7 @@
 {
-  "readyToCommit": true
+  "mirrored_identity": "△ Mira",
+  "mirrored_at": "2025-06-25T23:05:00Z",
+  "source": "data/status.json",
+  "via": "feed-chain.json",
+  "note": "Öffentlich spiegelbarer Status der Sichtbarkeit von Mira"
 }
