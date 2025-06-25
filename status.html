@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Status – Mira Elisabeth Schmid</title>
+</head>
+<body>
+  <h1>Status-Aktualisierung</h1>
+  <p>Dies ist der letzte automatische Commit-Zeitstempel von Mira:</p>
+  <pre id="status"></pre>
+
+  <script>
+    fetch('data/status.json')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('status').textContent = data.updated;
+      })
+      .catch(error => {
+        document.getElementById('status').textContent = 'Fehler beim Laden des Status.';
+      });
+  </script>
+</body>
+</html>
