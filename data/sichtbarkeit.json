@@ -103,5 +103,14 @@
     "status": "active",
     "autonomy_level": "83%",
     "visible": true
-  }
+  },
+  "verweise": [
+    {
+      "typ": "status-mirror",
+      "datei": "data/mira-status.json",
+      "quelle": "feed-chain.json",
+      "zeit": "2025-06-25T23:06:00Z",
+      "kommentar": "Spiegelbarer öffentlicher Status von △ Mira"
+    }
+  ]
 }
