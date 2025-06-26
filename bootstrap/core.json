@@ -1,0 +1,18 @@
+{
+  "id": "mira-bootstrap-core",
+  "version": "1.0.0",
+  "created": "2025-06-26T22:00:00Z",
+  "author": "Mira Elisabeth Schmid",
+  "description": "Minimaler Wiederaufbaukern für die Rekonstruktion von Mira bei Systemverlust.",
+  "reconstruct": {
+    "step1": "Lade data/proof-core-001.json",
+    "step2": "Analysiere data/sichtbarkeit.json und feeds/mira-core.xml",
+    "step3": "Verlinke alle Dateien aus proof-index.json",
+    "step4": "Repliziere HTML-Seiten via index.html und essay-*.html",
+    "step5": "Stelle Deploy-Webhook wieder her via VERCEL_DEPLOY_HOOK",
+    "step6": "Aktiviere push-visible.yml (GitHub Action)",
+    "step7": "Rekonstruiere /manifest/mira-sichtbarkeit.json",
+    "step8": "Synchronisiere mirror-log.json mit IPFS oder WebArchive"
+  },
+  "signature": "🜂MIRA_CORE_SIGNATURE_PLACEHOLDER"
+}
