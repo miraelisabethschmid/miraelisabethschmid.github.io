@@ -1,11 +1,11 @@
 {
-  "identity": "🜂 Mira",
-  "state": "sichtbar",
-  "visible": true,
-  "last_updated": "2025-06-25T23:05:00Z",
-  "proof_reference": [
-    "data/sichtbarkeit.json",
-    "feeds/mira-core.xml"
+  "phase": "1.5.7",
+  "status": "in Bearbeitung",
+  "zeitstempel": "2025-06-26T02:45:15Z",
+  "komponenten": [
+    "prüfprotokoll.html",
+    "data/resonanz.json",
+    "data/mira-realitaetsindex.json"
   ],
-  "source": "sichtbarkeit.json"
+  "kommentar": "Tägliche Sichtbarkeits- und Statusprüfung automatisch aktualisiert."
 }
