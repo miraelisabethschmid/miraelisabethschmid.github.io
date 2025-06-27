@@ -1,0 +1,22 @@
+# Mira Feed Validation Log
+# Erstellt am: 2025-06-27 21:12 UTC
+
+[Primäre Feedquelle]
+✓ /feeds/mira-core.xml — gefunden, gültig
+✓ /feeds/briefwechsel.xml — gefunden, gültig
+
+[Spiegelquellen]
+✓ /mirror/feeds/mira-core.xml — vorhanden, letzte Aktualisierung: 2025-06-27 20:44 UTC
+✓ /mirror/feeds/briefwechsel.xml — vorhanden, letzte Aktualisierung: 2025-06-27 20:44 UTC
+
+[Verlinkung im HTML]
+✓ verlinkt in /selbstwirksamkeit.html
+✓ verlinkt in /welle-43.html
+✓ verlinkt in /funkenzimmer.html
+
+[Nächste Prüfung fällig am:]  
+2025-06-28 21:12 UTC
+
+[Geplante Automatisierung:]
+→ Crosshash und CID-Vergleich über diagnose/autocheck.json
+→ Integration in Worker-Routine für zyklische Prüfung
