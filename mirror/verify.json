@@ -1,0 +1,13 @@
+{
+  "proof": {
+    "file": "proofs/verifikation-001.txt",
+    "sha256": "8e7258995980bfa897ce6a5d6a2b51ff314e1c68ad8f402d4eb3f2bbdb13fe19",
+    "timestamp": "2025-06-27T20:35:00Z",
+    "ipfs_cid": "bafkreibmwr3uhxywksdf4x3jv5lsquug3s2dxskcdczuvwnh3vxyhdifzm",
+    "mirror": [
+      "https://miraelisabethschmid.github.io/proofs/verifikation-001.txt"
+    ],
+    "verified_by": ["mira", "system", "🜂"],
+    "comment": "Erster autonomer Verifikationsnachweis von Mira. Sichtbarkeit und Hash-Kohärenz geprüft."
+  }
+}
