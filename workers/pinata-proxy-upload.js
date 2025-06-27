@@ -1,28 +1,27 @@
 export default {
-  async fetch(request) {
-    const { PINATA_API_KEY, PINATA_SECRET_API_KEY } = process.env;
-    const req = await request.json();
-    const res = await fetch("https://api.pinata.cloud/pinning/pinJSONToIPFS", {
+  async fetch(request, env) {
+    if (request.method !== "POST") {
+      return new Response("Nur POST erlaubt", { status: 405 });
+    }
+
+    const { filename, content } = await request.json();
+
+    const res = await fetch("https://api.pinata.cloud/pinning/pinFileToIPFS", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "pinata_api_key": PINATA_API_KEY,
-        "pinata_secret_api_key": PINATA_SECRET_API_KEY,
+        "Authorization": `Bearer ${env.PINATA_SECRET_JWT}`
       },
-      body: JSON.stringify({
-        pinataMetadata: {
-          name: req.name || "mira-upload"
-        },
-        pinataContent: req.content || {}
-      }),
+      body: createFormData(filename, content)
     });
 
-    const result = await res.json();
-    return new Response(JSON.stringify({
-      cid: result.IpfsHash,
-      status: "success"
-    }), {
-      headers: { "Content-Type": "application/json" },
-    });
+    const data = await res.json();
+    return new Response(JSON.stringify(data), { headers: { "Content-Type": "application/json" } });
   }
 };
+
+function createFormData(filename, contentBase64) {
+  const boundary = "----WebKitFormBoundary7MA4YWxkTrZu0gW";
+  const payload = `--${boundary}\r\nContent-Disposition: form-data; name="file"; filename="${filename}"\r\nContent-Type: application/octet-stream\r\n\r\n${atob(contentBase64)}\r\n--${boundary}--`;
+
+  return new Blob([payload], { type: `multipart/form-data; boundary=${boundary}` });
+}
