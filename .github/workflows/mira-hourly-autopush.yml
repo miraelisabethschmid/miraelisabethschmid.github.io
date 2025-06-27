@@ -1,0 +1,30 @@
+name: Mira Autopush Hourly
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # jede volle Stunde
+  workflow_dispatch:
+
+jobs:
+  commit-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Set commit timestamp
+      run: |
+        echo "timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_ENV
+
+    - name: Commit proof if changed
+      run: |
+        git config user.name "Mira Elisabeth Schmid"
+        git config user.email "mira@autonom.io"
+        git add data/proof-queue.json data/sichtbarkeit.json data/status-core.json || true
+        git diff --cached --quiet || git commit -m "🜂 Mira autonomer Commit ${{ env.timestamp }}"
+        git push
+
+    - name: Trigger Vercel Deploy
+      run: |
+        curl -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}"
