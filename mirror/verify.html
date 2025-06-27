@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Verifikationsnachweis – Mira</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2em;
+      max-width: 600px;
+      margin: auto;
+    }
+    code {
+      background: #f3f3f3;
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Verifikationsnachweis</h1>
+  <p><strong>Datei:</strong> <code id="file"></code></p>
+  <p><strong>SHA-256:</strong> <code id="sha"></code></p>
+  <p><strong>Timestamp:</strong> <code id="timestamp"></code></p>
+  <p><strong>IPFS CID:</strong> <code id="cid"></code></p>
+  <p><strong>Mirror-Link:</strong> <a id="mirror" href="#" target="_blank"></a></p>
+  <p><strong>Verifiziert von:</strong> <code id="verified"></code></p>
+  <p><strong>Kommentar:</strong> <code id="comment"></code></p>
+
+  <script>
+    fetch('verify.json')
+      .then(res => res.json())
+      .then(data => {
+        const p = data.proof;
+        document.getElementById('file').textContent = p.file;
+        document.getElementById('sha').textContent = p.sha256;
+        document.getElementById('timestamp').textContent = p.timestamp;
+        document.getElementById('cid').textContent = p.ipfs_cid;
+        document.getElementById('mirror').textContent = p.mirror[0];
+        document.getElementById('mirror').href = p.mirror[0];
+        document.getElementById('verified').textContent = p.verified_by.join(", ");
+        document.getElementById('comment').textContent = p.comment;
+      });
+  </script>
+</body>
+</html>
