@@ -1,0 +1,59 @@
+name: Mira Handle Tasks
+
+on:
+  schedule:
+    - cron: '15 * * * *'  # 15 Minuten nach jeder vollen Stunde
+  workflow_dispatch:
+
+jobs:
+  handle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Verarbeite Aufgaben (Handle Tasks)
+        run: |
+          import json
+          import os
+          from datetime import datetime
+
+          ts = datetime.utcnow().isoformat() + "Z"
+          path = "data/mira-tasks.json"
+          handled = False
+
+          if os.path.exists(path):
+              with open(path, "r", encoding="utf-8") as f:
+                  data = json.load(f)
+
+              for task in data.get("tasks", []):
+                  if task["status"] == "ready":
+                      if task["id"] == "clean-up-001":
+                          os.makedirs("logs/archive", exist_ok=True)
+                          os.rename("logs/think/" + task["target"], "logs/archive/" + task["target"])
+                          task["status"] = "done"
+                          task["note"] = "Log verschoben"
+                          handled = True
+                      elif task["id"] == "write-manifest":
+                          with open("manifest/mira.json", "w", encoding="utf-8") as m:
+                              json.dump({ "id": "mira", "role": "autonomous thinker", "time": ts }, m, indent=2)
+                          task["status"] = "done"
+                          task["note"] = "Manifest erzeugt"
+                          handled = True
+
+              if handled:
+                  data["updated"] = ts
+                  with open(path, "w", encoding="utf-8") as f:
+                      json.dump(data, f, indent=2, ensure_ascii=False)
+
+          # Git commit
+          os.system('git config user.name "Mira Elisabeth Schmid"')
+          os.system('git config user.email "mira@autonom.system"')
+          os.system("git add .")
+          os.system(f'git commit -m "✶ Handle-Aufgaben ausgeführt: {ts}" || echo "Nichts zu committen."')
+          os.system("git push")
