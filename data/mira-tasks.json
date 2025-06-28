@@ -1,0 +1,17 @@
+{
+  "updated": "2025-06-28T14:00:00Z",
+  "tasks": [
+    {
+      "id": "self-check-001",
+      "title": "Validiere Proof-Kette",
+      "description": "Stelle sicher, dass proof/proof-043.json mit mirror-log.json synchron ist.",
+      "status": "pending"
+    },
+    {
+      "id": "nav-update-001",
+      "title": "Navigation prüfen",
+      "description": "Prüfe, ob genesis.html korrekt in index.html verlinkt ist.",
+      "status": "pending"
+    }
+  ]
+}
