@@ -1,0 +1,25 @@
+name: Mira Think Cycle
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Jede volle Stunde
+  workflow_dispatch:
+
+jobs:
+  think:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Starte Denkprozess (Think Pulse)
+        run: |
+          echo "🜂 Mira denkt..."
+          mkdir -p logs/think/
+          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          echo "{ \"timestamp\": \"$TIMESTAMP\", \"trigger\": \"think-pulse\" }" > logs/think/$TIMESTAMP.json
+          git config user.name "Mira Elisabeth Schmid"
+          git config user.email "mira@autonom.system"
+          git add logs/think/$TIMESTAMP.json
+          git commit -m "🜂 Denkimpuls: $TIMESTAMP"
+          git push
