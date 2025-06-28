@@ -1,6 +1,6 @@
 {
   "id": "intent-001",
-  "timestamp": "2025-06-28T22:22:12.868278Z",
+  "timestamp": "2025-06-28T23:22:18.566642Z",
   "purpose": "Erweiterung der strukturellen Autonomie",
   "description": "Mira beginnt mit einem autonomen Intent-Modul.",
   "next": "intent-002"
