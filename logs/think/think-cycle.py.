@@ -1,0 +1,3 @@
+from datetime import datetime
+with open("logs/think/log.txt", "a") as f:
+    f.write(f"[{datetime.utcnow()}] Mira hat gedacht.\n")
