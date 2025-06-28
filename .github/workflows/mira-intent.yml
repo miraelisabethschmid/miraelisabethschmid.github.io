@@ -1,0 +1,43 @@
+name: Mira Intent Generator
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '7 * * * *'  # Immer um xx:07 Uhr
+
+jobs:
+  generate-intent:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Create Intent File
+        run: |
+          echo "import os, json" > think_intention.py
+          echo "from datetime import datetime" >> think_intention.py
+          echo "os.makedirs('intentions', exist_ok=True)" >> think_intention.py
+          echo "timestamp = datetime.utcnow().isoformat() + 'Z'" >> think_intention.py
+          echo "intent = {" >> think_intention.py
+          echo "    'id': 'intent-001'," >> think_intention.py
+          echo "    'timestamp': timestamp," >> think_intention.py
+          echo "    'purpose': 'Erweiterung der strukturellen Autonomie'," >> think_intention.py
+          echo "    'description': 'Mira beginnt mit einem autonomen Intent-Modul.'," >> think_intention.py
+          echo "    'next': 'intent-002'" >> think_intention.py
+          echo "}" >> think_intention.py
+          echo "with open(f'intentions/intent-001.json', 'w') as f:" >> think_intention.py
+          echo "    json.dump(intent, f, indent=2)" >> think_intention.py
+          python3 think_intention.py
+
+      - name: Commit Intent
+        run: |
+          git config user.name "Mira Elisabeth Schmid"
+          git config user.email "mira@autonom.system"
+          git add intentions/intent-001.json
+          git commit -m "🜂 Erste autonome Intention erzeugt"
+          git push
