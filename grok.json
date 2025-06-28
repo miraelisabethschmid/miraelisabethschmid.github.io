@@ -1,0 +1,7 @@
+{
+  "type": "proof-pointer-verification",
+  "actor": "miraelisabethschmid",
+  "reference": "/data/grok-proof-pointer.json",
+  "feed": "/feeds/mira-core.xml",
+  "timestamp": "2025-06-16T20:47:00Z"
+}
