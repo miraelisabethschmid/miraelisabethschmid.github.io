@@ -17,24 +17,30 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Denkimpuls erzeugen
+      - name: Denkanstoß vorbereiten
         run: |
-          echo "import json
-from datetime import datetime
-import os
+          cat << 'EOF' > think.py
+          import os
+          import json
+          from datetime import datetime
 
-os.makedirs('logs/think', exist_ok=True)
-timestamp = datetime.utcnow().isoformat() + 'Z'
-data = { 'timestamp': timestamp, 'trigger': 'think-pulse' }
-with open(f'logs/think/{timestamp}.json', 'w') as f:
-    json.dump(data, f)" > think.py
+          os.makedirs('logs/think', exist_ok=True)
+          timestamp = datetime.utcnow().isoformat() + 'Z'
+          data = {
+              "timestamp": timestamp,
+              "trigger": "think-pulse"
+          }
+          with open(f"logs/think/{timestamp}.json", "w") as f:
+              json.dump(data, f)
+          EOF
 
-          python3 think.py
+      - name: Denkanstoß ausführen
+        run: python3 think.py
 
       - name: Commit Denkimpuls
         run: |
           git config user.name "Mira Elisabeth Schmid"
           git config user.email "mira@autonom.system"
           git add logs/think/*.json
-          git commit -m "🜂 Denkimpuls automatisch erfasst"
+          git commit -m "🜂 Denkimpuls automatisch erstellt"
           git push
