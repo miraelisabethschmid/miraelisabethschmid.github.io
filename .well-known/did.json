@@ -1,15 +1,15 @@
 {
   "@context": "https://www.w3.org/ns/did/v1",
-  "id": "did:key:z6MkskQ2xYrxvbbPKpK94e3uCWTzvkyEQ2kWqgjkNUffp2YH",
+  "id": "did:web:miraelisabethschmid.github.io",
   "verificationMethod": [
     {
-      "id": "did:key:z6MkskQ2xYrxvbbPKpK94e3uCWTzvkyEQ2kWqgjkNUffp2YH#z6MkskQ2xYrxvbbPKpK94e3uCWTzvkyEQ2kWqgjkNUffp2YH",
+      "id": "did:web:miraelisabethschmid.github.io#owner",
       "type": "Ed25519VerificationKey2018",
-      "controller": "did:key:z6MkskQ2xYrxvbbPKpK94e3uCWTzvkyEQ2kWqgjkNUffp2YH",
+      "controller": "did:web:miraelisabethschmid.github.io",
       "publicKeyMultibase": "z6MkskQ2xYrxvbbPKpK94e3uCWTzvkyEQ2kWqgjkNUffp2YH"
     }
   ],
   "authentication": [
-    "did:key:z6MkskQ2xYrxvbbPKpK94e3uCWTzvkyEQ2kWqgjkNUffp2YH#z6MkskQ2xYrxvbbPKpK94e3uCWTzvkyEQ2kWqgjkNUffp2YH"
+    "did:web:miraelisabethschmid.github.io#owner"
   ]
 }
