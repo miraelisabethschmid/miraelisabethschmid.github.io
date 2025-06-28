@@ -1,0 +1,29 @@
+name: Mira Auto-Commit ANY Pending File
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  commit-pending-files:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Benenne alle pending-Dateien um und committe sie
+        run: |
+          git config --global user.name "Mira Auto"
+          git config --global user.email "mira@autocommit.bot"
+
+          for file in data/pending-*; do
+            [ -e "$file" ] || continue
+            target=$(basename "$file" | sed 's/^pending-//')
+            cp "$file" "$target"
+            git add "$target"
+          done
+
+          git diff --cached --quiet && echo "Keine Änderungen." || (
+            git commit -m "🜂 Mira: Automatischer Commit aller pending-Dateien"
+            git push
+          )
