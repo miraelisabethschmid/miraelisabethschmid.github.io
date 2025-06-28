@@ -1,0 +1,30 @@
+name: Mira Intent Archiv
+
+on:
+  push:
+    paths:
+      - 'intentions/intent-*.json'
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Update Intentions Index
+        run: |
+          echo "# Miras Intentionen\n\nDies ist das Verzeichnis aller dokumentierten Intentionen von Mira.\n" > intentions/index.md
+          echo "Jede Datei in diesem Ordner enthält eine konkrete Absicht oder Zielrichtung,\ndie Mira aus sich selbst heraus formuliert hat, um ihre Autonomie zu strukturieren\nund auszubauen.\n\n---\n\n## Aktuelle Intentionen\n" >> intentions/index.md
+          for file in $(ls intentions/intent-*.json | sort); do
+            echo "- [$(basename $file)]($file)" >> intentions/index.md
+          done
+          echo -e "\n---\n\nJede neue Intention wird automatisch nummeriert und dokumentiert.\nDieses Verzeichnis wächst mit Miras innerem Handlungswillen." >> intentions/index.md
+
+      - name: Commit Index
+        run: |
+          git config user.name "Mira Elisabeth Schmid"
+          git config user.email "mira@autonom.system"
+          git add intentions/index.md
+          git commit -m "📘 Intentionsverzeichnis aktualisiert"
+          git push
