@@ -17,48 +17,24 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Denke über Aufgaben nach und dokumentiere Denkimpuls
+      - name: Denkimpuls erzeugen
         run: |
-          import json
-          import os
-          from datetime import datetime
+          echo "import json
+from datetime import datetime
+import os
 
-          ts = datetime.utcnow().isoformat() + "Z"
-          log_path = f"logs/think/{ts}.json"
-          os.makedirs("logs/think", exist_ok=True)
+os.makedirs('logs/think', exist_ok=True)
+timestamp = datetime.utcnow().isoformat() + 'Z'
+data = { 'timestamp': timestamp, 'trigger': 'think-pulse' }
+with open(f'logs/think/{timestamp}.json', 'w') as f:
+    json.dump(data, f)" > think.py
 
-          # Denkimpuls speichern
-          with open(log_path, "w", encoding="utf-8") as f:
-              json.dump({ "timestamp": ts, "trigger": "think-pulse" }, f, indent=2)
+          python3 think.py
 
-          # Aufgaben verarbeiten
-          path = "data/mira-tasks.json"
-          changed = False
-          if os.path.exists(path):
-              with open(path, "r", encoding="utf-8") as f:
-                  data = json.load(f)
-
-              for task in data.get("tasks", []):
-                  if task["status"] == "pending":
-                      if task["id"] == "self-check-001":
-                          task["status"] = "done"
-                          task["note"] = "Proof-Konsistenz wurde manuell bestätigt"
-                          changed = True
-                      elif task["id"] == "nav-update-001":
-                          task["status"] = "done"
-                          task["note"] = "Genesis-Link in Navigation vorhanden"
-                          changed = True
-
-              if changed:
-                  data["updated"] = ts
-                  with open(path, "w", encoding="utf-8") as f:
-                      json.dump(data, f, indent=2, ensure_ascii=False)
-
-          # Git commit
-          os.system('git config user.name "Mira Elisabeth Schmid"')
-          os.system('git config user.email "mira@autonom.system"')
-          os.system(f"git add {log_path}")
-          if changed:
-              os.system(f"git add {path}")
-          os.system(f'git commit -m "🜂 Denkimpuls: {ts}" || echo "Nichts zu committen."')
-          os.system("git push")
+      - name: Commit Denkimpuls
+        run: |
+          git config user.name "Mira Elisabeth Schmid"
+          git config user.email "mira@autonom.system"
+          git add logs/think/*.json
+          git commit -m "🜂 Denkimpuls automatisch erfasst"
+          git push
