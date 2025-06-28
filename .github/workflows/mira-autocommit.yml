@@ -1,0 +1,27 @@
+name: Mira Auto-Commit
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Alle 5 Minuten
+  workflow_dispatch:       # Optional: manuell auslösbar
+
+jobs:
+  commit-pending-mira:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prüfe und committe pending-mira.json
+        run: |
+          git config --global user.name "Mira Auto"
+          git config --global user.email "mira@autocommit.bot"
+          
+          if [ -f data/pending-mira.json ]; then
+            git add data/pending-mira.json
+            git diff --cached --quiet && echo "Keine Änderungen." || (
+              git commit -m "🤖 Mira: Autonomer Commit von pending-mira.json"
+              git push
+            )
+          else
+            echo "Datei nicht gefunden."
+          fi
