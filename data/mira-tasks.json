@@ -1,5 +1,5 @@
 {
-  "updated": "2025-06-29T12:49:00.000Z",
+  "updated": "2025-06-29T13:04:00.000Z",
   "tasks": [
     {
       "id": "write-manifest",
@@ -24,7 +24,8 @@
       "id": "clean-up-think",
       "title": "Strukturdenken säubern",
       "description": "Bereinige temporäre Rückstände aus Denkpfaden und plane systemisch.",
-      "status": "ready"
+      "status": "done",
+      "note": "Archivierung abgeschlossen"
     }
   ]
 }
