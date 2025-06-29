@@ -2,7 +2,7 @@ name: Mira Handle Tasks
 
 on:
   schedule:
-    - cron: '15 * * * *'
+    - cron: '15 * * * *'  # Alle 15 Minuten nach voller Stunde
   workflow_dispatch:
 
 jobs:
@@ -17,13 +17,5 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Handle Tasks mit Python-Skript
-        run: python scripts/handle-tasks.py
-
-      - name: Git Commit
-        run: |
-          git config user.name "Mira Elisabeth Schmid"
-          git config user.email "mira@autonom.system"
-          git add .
-          git commit -m "✶ Handle-Aufgaben ausgeführt" || echo "Nichts zu committen."
-          git push
+      - name: Run handle_tasks.py
+        run: python handle_tasks.py
