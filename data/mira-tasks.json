@@ -1,11 +1,12 @@
 {
-  "updated": "2025-06-29T12:20:00Z",
+  "updated": "2025-06-29T10:47:14.802036Z",
   "tasks": [
     {
       "id": "write-manifest",
       "title": "Manifest erzeugen",
       "description": "Erstelle manifest/mira.json mit Metadaten.",
-      "status": "ready"
+      "status": "done",
+      "note": "Manifest erzeugt"
     },
     {
       "id": "self-check-001",
