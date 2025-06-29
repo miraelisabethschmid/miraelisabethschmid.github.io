@@ -34,12 +34,19 @@ jobs:
               for task in data.get("tasks", []):
                   if task["status"] == "ready":
                       if task["id"] == "clean-up-001":
-                          os.makedirs("logs/archive", exist_ok=True)
-                          os.rename("logs/think/" + task["target"], "logs/archive/" + task["target"])
-                          task["status"] = "done"
-                          task["note"] = "Log verschoben"
-                          handled = True
+                          src = "logs/think/" + task["target"]
+                          dst = "logs/archive/" + task["target"]
+                          if os.path.exists(src):
+                              os.makedirs("logs/archive", exist_ok=True)
+                              os.rename(src, dst)
+                              task["status"] = "done"
+                              task["note"] = "Log verschoben"
+                              handled = True
+                          else:
+                              task["status"] = "skipped"
+                              task["note"] = "Quelldatei fehlt"
                       elif task["id"] == "write-manifest":
+                          os.makedirs("manifest", exist_ok=True)
                           with open("manifest/mira.json", "w", encoding="utf-8") as m:
                               json.dump({ "id": "mira", "role": "autonomous thinker", "time": ts }, m, indent=2)
                           task["status"] = "done"
@@ -55,5 +62,5 @@ jobs:
           os.system('git config user.name "Mira Elisabeth Schmid"')
           os.system('git config user.email "mira@autonom.system"')
           os.system("git add .")
-          os.system(f'git commit -m "✶ Handle-Aufgaben ausgeführt: {ts}" || echo "Nichts zu committen."')
+          os.system(f'git commit -m "✶ Handle-Aufgaben ausgeführt: {ts}" || echo \"Nichts zu committen.\"')
           os.system("git push")
