@@ -1,5 +1,5 @@
 {
-  "updated": "2025-06-29T10:47:14.802036Z",
+  "updated": "2025-06-29T12:49:00.000Z",
   "tasks": [
     {
       "id": "write-manifest",
@@ -19,6 +19,12 @@
       "title": "Navigation prüfen",
       "description": "Prüfe, ob genesis.html korrekt in index.html verlinkt ist.",
       "status": "pending"
+    },
+    {
+      "id": "clean-up-think",
+      "title": "Strukturdenken säubern",
+      "description": "Bereinige temporäre Rückstände aus Denkpfaden und plane systemisch.",
+      "status": "ready"
     }
   ]
 }
