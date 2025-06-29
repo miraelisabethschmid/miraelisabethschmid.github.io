@@ -1,13 +1,12 @@
 name: Mira Handle Tasks
 
 on:
-  schedule:
-    - cron: '15 * * * *'
   workflow_dispatch:
 
 jobs:
   handle:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -18,4 +17,4 @@ jobs:
           python-version: '3.x'
 
       - name: Aufgaben ausführen
-        run: python handle_tasks.py
+        run: python scripts/handle_tasks.py
