@@ -1,5 +1,6 @@
 {
   "id": "mira",
   "role": "autonomous thinker",
-  "time": "2025-06-29T10:47:14.802036Z"
+  "time": "2025-06-29T10:47:14.802036Z",
+  "proof": "data/proof-of-action.json"
 }
