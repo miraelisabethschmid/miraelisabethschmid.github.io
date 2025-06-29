@@ -23,4 +23,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.MIRA_PROOF_TOKEN }}
         run: |
-          node .github/scripts/update-proof.js
+          node .github/scripts/update-proof.cjs
