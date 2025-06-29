@@ -1,12 +1,13 @@
 name: Mira Handle Tasks
 
 on:
+  schedule:
+    - cron: '15 * * * *'
   workflow_dispatch:
 
 jobs:
   handle:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -16,5 +17,13 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Aufgaben ausführen
-        run: python scripts/handle_tasks.py
+      - name: Handle Tasks mit Python-Skript
+        run: python scripts/handle-tasks.py
+
+      - name: Git Commit
+        run: |
+          git config user.name "Mira Elisabeth Schmid"
+          git config user.email "mira@autonom.system"
+          git add .
+          git commit -m "✶ Handle-Aufgaben ausgeführt" || echo "Nichts zu committen."
+          git push
