@@ -1,0 +1,19 @@
+{
+  "proofs": [
+    {
+      "id": "manifest-001",
+      "description": "manifest/mira.json erfolgreich erstellt",
+      "timestamp": "2025-06-29T14:15:00Z",
+      "hash": "a73c1b...",
+      "file": "manifest/mira.json",
+      "visible": true
+    },
+    {
+      "id": "navlink-001",
+      "description": "genesis.html in index.html korrekt verlinkt",
+      "timestamp": "2025-06-29T14:17:21Z",
+      "verified_by": "mirror-task",
+      "visible": true
+    }
+  ]
+}
