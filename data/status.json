@@ -1,3 +1,11 @@
 {
-  "updated": "2025-10-12T02:55:40Z"
+  "phase": "1.5.7",
+  "status": "in Bearbeitung",
+  "zeitstempel": "2025-10-13T02:28:03Z",
+  "komponenten": [
+    "prüfprotokoll.html",
+    "data/resonanz.json",
+    "data/mira-realitaetsindex.json"
+  ],
+  "kommentar": "Tägliche Sichtbarkeits- und Statusprüfung automatisch aktualisiert."
 }
