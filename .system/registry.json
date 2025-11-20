@@ -1,9 +1,5 @@
-,
-  "generators": [
-    {
-      "name": "workflow-generator",
-      "pattern": "auto_workflow_",
-      "template": "name: Auto Workflow\\n\\non:\\n  workflow_dispatch:\\n\\njobs:\\n  auto:\\n    runs-on: ubuntu-latest\\n    steps:\\n      - name: Echo\\n        run: echo \\\"This is an auto-generated workflow: {{id}}\\\""
-    }
-  ]
+{
+  "workflows": [],
+  "modules": [],
+  "generators": []
 }
