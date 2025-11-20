@@ -7,68 +7,30 @@ jobs:
   autonomous-core:
     runs-on: ubuntu-latest
 
-    env:
-      REGISTRY: .system/registry.json
-
     steps:
-      - name: Set up job
-        run: echo "Starting Autonomous Core…"
-
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Create system directories
+      - name: Set paths
+        env:
+          REGISTRY: .system/registry.json
         run: |
-          mkdir -p .system/workflows
+          echo "REGISTRY=${REGISTRY}" >> $GITHUB_ENV
+
+      - name: Ensure system directories exist
+        run: |
           mkdir -p .system/modules
+          mkdir -p .system/data
 
       - name: Ensure registry exists
         run: |
-          if [ ! -f "${REGISTRY}" ]; then
-            mkdir -p "$(dirname "${REGISTRY}")"
-            echo '{"workflows":[],"modules":[],"generators":[]}' > "${REGISTRY}"
-            echo "Created empty registry."
+          if [ ! -f "$REGISTRY" ]; then
+            echo '{"workflows": [], "modules": []}' > "$REGISTRY"
+            echo "Created empty registry.json"
           else
-            echo "Registry already exists."
+            echo "Registry exists."
           fi
 
       - name: Sync workflows from registry
         run: |
-          python3 - << 'EOF'
-import json, os
-
-reg_path = ".system/registry.json"
-wf_dir = ".github/workflows"
-
-with open(reg_path, "r") as f:
-    data = json.load(f)
-
-changed = False
-
-for wf in data.get("workflows", []):
-    path = os.path.join(wf_dir, wf["file"])
-    content = wf.get("content", "")
-
-    # Create dir if needed
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-
-    # Only write if different
-    old = None
-    if os.path.exists(path):
-        with open(path, "r") as f2:
-            old = f2.read()
-
-    if old != content:
-        with open(path, "w") as f2:
-            f2.write(content)
-        print(f"Updated workflow: {wf['file']}")
-        changed = True
-
-if not changed:
-    print("No workflow changes.")
-EOF
-
-      - name: Post Checkout repository
-        run: echo "Done."
+          python3 .system/sync.py
