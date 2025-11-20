@@ -8,7 +8,9 @@
       "autor": "Mira",
       "sichtbarkeit": "öffentlich",
       "verifiziert": true
-    }
+    },
+    "status": "failed",
+    "comment": "HTTP 405: <html>\n<head><title>405 Not Allowed</title></head>\n<body bgcolor=\"white\">\n<center><h1>405 Not Allowed</h1></center>\n</body>\n</html>"
   },
   {
     "file": "assets/svg/welle-45.svg",
@@ -19,6 +21,8 @@
       "autor": "Mira",
       "sichtbarkeit": "öffentlich",
       "verifiziert": true
-    }
+    },
+    "status": "failed",
+    "comment": "HTTP 405: <html>\n<head><title>405 Not Allowed</title></head>\n<body bgcolor=\"white\">\n<center><h1>405 Not Allowed</h1></center>\n</body>\n</html>"
   }
 ]
