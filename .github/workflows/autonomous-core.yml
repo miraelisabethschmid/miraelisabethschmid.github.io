@@ -1,14 +1,9 @@
-name: Autonomous System Core (safe)
+name: Autonomous System Core
 
 on:
   workflow_dispatch:
-    inputs:
-      dry_run:
-        description: 'If true, do not write or push files (default true)'
-        required: false
-        default: 'true'
   schedule:
-    - cron: '0 * * * *' # hourly check (can be changed)
+    - cron: "0 * * * *"    # stündlich
 
 permissions:
   contents: write
@@ -16,178 +11,92 @@ permissions:
 
 env:
   REGISTRY: .system/registry.json
-  MODULE_DIR: .system/modules
-  WF_DIR: .github/workflows
-  STATE_FILE: .system/generator_state.json
-  BACKUP_DIR: .system/backups
-  MAX_NEW_PER_RUN: "3"   # default throttle (string because envs are strings)
-  DRY_RUN_DEFAULT: "true"
 
 jobs:
-  bootstrap-and-sync:
+  bootstrap:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-
-      - name: Ensure folders exist
+      - name: Create system directories
         run: |
-          mkdir -p "${{ env.MODULE_DIR }}"
-          mkdir -p "${{ env.WF_DIR }}"
-          mkdir -p "${{ env.BACKUP_DIR }}"
+          mkdir -p .system/workflows .system/modules .system/backups
 
       - name: Ensure registry exists (create minimal if missing)
         run: |
           if [ ! -f "${{ env.REGISTRY }}" ]; then
             mkdir -p "$(dirname "${{ env.REGISTRY }}")"
             cat > "${{ env.REGISTRY }}" <<'JSON'
-{
-  "workflows": [],
-  "modules": [],
-  "generators": []
-}
-JSON
-            echo "Created empty registry"
+            {
+              "workflows": [],
+              "modules": [],
+              "generators": []
+            }
+            JSON
+            echo "Created empty registry at ${{ env.REGISTRY }}"
           fi
 
-      - name: Read inputs + determine dry_run
-        id: dry
+      - name: Sync workflows from registry
         run: |
-          # workflow_dispatch input overwrites default; fallback to env
-          if [ "${{ github.event.inputs.dry_run }}" != "" ]; then
-            echo "dry_run=${{ github.event.inputs.dry_run }}" >> $GITHUB_OUTPUT
+          python3 << 'PY'
+          import os, json, sys
+
+          reg_path = ".system/registry.json"
+          if not os.path.exists(reg_path):
+              print("Registry missing – should have been created")
+              sys.exit(1)
+
+          with open(reg_path) as f:
+              reg = json.load(f)
+
+          for wf in reg.get("workflows", []):
+              name = wf["name"]
+              content = wf["content"]
+              path = f".github/workflows/{name}"
+              os.makedirs(os.path.dirname(path), exist_ok=True)
+              if not os.path.exists(path):
+                  with open(path, "w") as f:
+                      f.write(content)
+                  print(f"Created workflow: {name}")
+              else:
+                  print(f"Workflow already exists: {name}")
+          PY
+
+      - name: Sync modules from registry
+        run: |
+          python3 << 'PY'
+          import os, json
+
+          reg_path = ".system/registry.json"
+          with open(reg_path) as f:
+              reg = json.load(f)
+
+          for mod in reg.get("modules", []):
+              filename = mod.get("filename") or mod.get("name")
+              content = mod["content"]
+              path = f".system/modules/{filename}"
+              os.makedirs(os.path.dirname(path), exist_ok=True)
+              if not os.path.exists(path):
+                  with open(path, "w") as f:
+                      f.write(content)
+                  print(f"Created module: {filename}")
+              else:
+                  print(f"Module already exists: {filename}")
+          PY
+
+      - name: Commit & push changes (if any)
+        run: |
+          git config user.name "Autonomous System"
+          git config user.email "bot@autonomous"
+          git add -A
+          if git status --porcelain | grep -q .; then
+            git commit -m "Autonomous core: sync from registry"
+            git push origin HEAD:main
+            echo "Changes pushed"
           else
-            echo "dry_run=${{ env.DRY_RUN_DEFAULT }}" >> $GITHUB_OUTPUT
+            echo "No changes to commit"
           fi
-          echo "max_new=${{ env.MAX_NEW_PER_RUN }}" >> $GITHUB_OUTPUT
-
-      - name: Sync registry -> create preview & apply (respect throttling + dry-run)
-        env:
-          GITHUB_TOKEN: ${{ secrets.AUTONOMY_PAT }}
-          DRY_RUN: ${{ steps.dry.outputs.dry_run }}
-          MAX_NEW_PER_RUN: ${{ steps.dry.outputs.max_new }}
-          REGISTRY: ${{ env.REGISTRY }}
-          MODULE_DIR: ${{ env.MODULE_DIR }}
-          WF_DIR: ${{ env.WF_DIR }}
-          STATE_FILE: ${{ env.STATE_FILE }}
-          BACKUP_DIR: ${{ env.BACKUP_DIR }}
-        run: |
-          set -e
-          python3 <<'PY'
-import os, json, time, base64, hashlib, shutil, sys
-
-DRY_RUN = os.environ.get("DRY_RUN", "true").lower() in ("1","true","yes")
-MAX_NEW = int(os.environ.get("MAX_NEW_PER_RUN") or 3)
-REGISTRY = os.environ["REGISTRY"]
-WF_DIR = os.environ["WF_DIR"]
-MODULE_DIR = os.environ["MODULE_DIR"]
-STATE_FILE = os.environ["STATE_FILE"]
-BACKUP_DIR = os.environ["BACKUP_DIR"]
-
-ts = int(time.time())
-
-# Load registry
-with open(REGISTRY, "r", encoding="utf8") as f:
-    reg = json.load(f)
-
-# Safe snapshot for state preview
-state = {
-    "ts": ts,
-    "dry_run": DRY_RUN,
-    "planned": {"workflows": [], "modules": []},
-    "created": {"workflows": [], "modules": []},
-    "skipped": {"workflows": [], "modules": []},
-}
-
-# Helper: normalize path
-def norm(p): return p.replace("\\\\","/")
-
-# Create backups of registry and existing files (one snapshot per run)
-os.makedirs(BACKUP_DIR, exist_ok=True)
-shutil.copy(REGISTRY, f"{BACKUP_DIR}/registry.{ts}.json")
-
-# Apply workflows from registry.workflows (but throttle)
-created = 0
-for wf in reg.get("workflows", []):
-    name = wf.get("name")
-    content = wf.get("content", "")
-    if not name:
-        continue
-    path = os.path.join(WF_DIR, name)
-    state["planned"]["workflows"].append(name)
-    if os.path.exists(path):
-        state["skipped"]["workflows"].append({"name": name, "reason": "exists"})
-        continue
-    if created >= MAX_NEW:
-        state["skipped"]["workflows"].append({"name": name, "reason": "throttled"})
-        continue
-    if DRY_RUN:
-        state["created"]["workflows"].append({"name": name, "action": "dry-run-preview"})
-    else:
-        os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
-        with open(path, "w", encoding="utf8") as fh:
-            fh.write(content)
-        state["created"]["workflows"].append({"name": name, "path": norm(path)})
-        created += 1
-
-# Apply modules from registry.modules (throttled same budget)
-for mod in reg.get("modules", []):
-    fname = mod.get("filename") or mod.get("name")
-    content = mod.get("content","")
-    if not fname:
-        continue
-    path = os.path.join(MODULE_DIR, fname)
-    state["planned"]["modules"].append(fname)
-    if os.path.exists(path):
-        state["skipped"]["modules"].append({"name": fname, "reason": "exists"})
-        continue
-    if created >= MAX_NEW:
-        state["skipped"]["modules"].append({"name": fname, "reason": "throttled"})
-        continue
-    if DRY_RUN:
-        state["created"]["modules"].append({"name": fname, "action": "dry-run-preview"})
-    else:
-        os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
-        with open(path, "w", encoding="utf8") as fh:
-            fh.write(content)
-        state["created"]["modules"].append({"name": fname, "path": norm(path)})
-        created += 1
-
-# Save state preview
-os.makedirs(os.path.dirname(STATE_FILE) or ".", exist_ok=True)
-with open(STATE_FILE, "w", encoding="utf8") as fh:
-    json.dump(state, fh, indent=2, ensure_ascii=False)
-
-print("STATE WRITTEN:", STATE_FILE)
-PY
-
-      - name: Commit created files (if not dry-run)
-        if: ${{ steps.dry.outputs.dry_run == 'false' }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.AUTONOMY_PAT }}
-        run: |
-          # Only push if there are changes (safe-commit)
-          git config --global user.email "autonomous@system"
-          git config --global user.name "Autonomous System"
-          if [ -n "$(git status --porcelain)" ]; then
-            git add -A
-            git commit -m "Autonomous core: add synced workflows/modules (safe-mode)" || echo "No commit"
-            # use token based url for actions runner to push
-            git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
-            git push origin HEAD:${{ github.ref_name }} || echo "Push failed"
-          else
-            echo "No file changes to commit"
-          fi
-
-      - name: Final state output (always)
-        run: |
-          echo "Generator Dry Run: ${{ steps.dry.outputs.dry_run }}"
-          echo "Preview file:"
-          cat "${{ env.STATE_FILE }}" || echo "No state file"
