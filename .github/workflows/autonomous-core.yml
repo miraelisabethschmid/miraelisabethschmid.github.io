@@ -1,0 +1,88 @@
+name: Autonomous System Core
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *" # stündlich prüfen, sehr sicher
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  bootstrap:
+    name: Initialize System
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Ensure system folders exist
+        run: |
+          mkdir -p .system
+          mkdir -p .system/workflows
+          mkdir -p .system/modules
+
+      - name: Create registry file if missing
+        run: |
+          if [ ! -f ".system/registry.json" ]; then
+            echo '{"workflows":[],"modules":[]}' > .system/registry.json
+          fi
+
+      - name: Sync autonomous sub-workflows
+        run: |
+          echo "🔄 Syncing workflows..."
+          python3 << 'EOF'
+import os, json
+
+# Load registry
+reg_path = ".system/registry.json"
+with open(reg_path, "r") as f:
+    reg = json.load(f)
+
+# Autonomous workflows live in .system/workflows/
+wf_dir = ".system/workflows"
+os.makedirs(wf_dir, exist_ok=True)
+
+# Generate missing workflows from registry
+for wf in reg["workflows"]:
+    path = f".github/workflows/{wf['name']}"
+    if not os.path.exists(path):
+        print(f"⚙️ Creating workflow: {wf['name']}")
+        with open(path, "w") as f:
+            f.write(wf["content"])
+
+EOF
+
+      - name: Auto-generate new modules if required
+        run: |
+          echo "🧩 Checking modules..."
+          python3 << 'EOF'
+import os, json
+
+reg_path = ".system/registry.json"
+with open(reg_path, "r") as f:
+    reg = json.load(f)
+
+mod_dir = ".system/modules"
+os.makedirs(mod_dir, exist_ok=True)
+
+for module in reg["modules"]:
+    file_path = f".system/modules/{module['filename']}"
+    if not os.path.exists(file_path):
+        print(f"📝 Creating module: {module['filename']}")
+        with open(file_path, "w") as f:
+            f.write(module["content"])
+
+EOF
+
+      - name: Autocommit any generated files
+        run: |
+          git config --global user.email "bot@autonomous"
+          git config --global user.name "Autonomous System"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add -A
+            git commit -m "Autonomous system update"
+            git push
+          fi
