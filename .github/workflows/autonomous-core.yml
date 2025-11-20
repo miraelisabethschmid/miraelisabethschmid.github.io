@@ -1,101 +1,45 @@
-name: Autonomous System Core
+name: Autonomous Core
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 * * * *"
-
-permissions:
-  contents: write
-  actions: write
-
-env:
-  REGISTRY: .system/registry.json
+    - cron: "*/30 * * * *"
 
 jobs:
-  bootstrap:
+  autonomous-core:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          fetch-depth: 0
+          python-version: "3.11"
 
-      - name: Create system directories
+      - name: Install dependencies
         run: |
-          mkdir -p .system/workflows .system/modules .system/backups
+          pip install --upgrade pip
+          pip install pyyaml
 
-      - name: Ensure registry exists (create minimal if missing)
+      - name: Run autonomous core
+        run: python .system/modules/agent.py
+
+      - name: Check for changes
+        id: git-check
         run: |
-          if [ ! -f "${{ env.REGISTRY }}" ]; then
-            mkdir -p "$(dirname "${{ env.REGISTRY }}")"
-cat > "${{ env.REGISTRY }}" << 'JSON'
-{
-  "workflows": [],
-  "modules": [],
-  "generators": []
-}
-JSON
-            echo "Created empty registry at ${{ env.REGISTRY }}"
+          git config user.name "autonomous-core"
+          git config user.email "autonomous-core@local"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
-      - name: Sync workflows from registry
+      - name: Commit + Push changes
+        if: steps.git-check.outputs.changed == 'true'
         run: |
-          python3 << 'PY'
-import os, json, sys
-
-reg_path = ".system/registry.json"
-if not os.path.exists(reg_path):
-    print("Registry missing – should have been created")
-    sys.exit(1)
-
-with open(reg_path) as f:
-    reg = json.load(f)
-
-for wf in reg.get("workflows", []):
-    name = wf["name"]
-    content = wf["content"]
-    path = f".github/workflows/{name}"
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    if not os.path.exists(path):
-        with open(path, "w") as f:
-            f.write(content)
-        print(f"Created workflow: {name}")
-    else:
-        print(f"Workflow already exists: {name}")
-PY
-
-      - name: Sync modules from registry
-        run: |
-          python3 << 'PY'
-import os, json
-
-reg_path = ".system/registry.json"
-with open(reg_path) as f:
-    reg = json.load(f)
-
-for mod in reg.get("modules", []):
-    filename = mod.get("filename") or mod.get("name")
-    content = mod["content"]
-    path = f".system/modules/{filename}"
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    if not os.path.exists(path):
-        with open(path, "w") as f:
-            f.write(content)
-        print(f"Created module: {filename}")
-    else:
-        print(f"Module already exists: {filename}")
-PY
-
-      - name: Commit & push changes (if any)
-        run: |
-          git config user.name "Autonomous System"
-          git config user.email "bot@autonomous"
-          git add -A
-          if git status --porcelain | grep -q .; then
-            git commit -m "Autonomous core: sync from registry"
-            git push origin HEAD:main
-            echo "Changes pushed"
-          else
-            echo "No changes to commit"
+          git commit -m "autonomous-core: update"
+          git push
