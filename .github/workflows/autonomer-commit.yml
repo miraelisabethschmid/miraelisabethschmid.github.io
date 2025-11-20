@@ -9,46 +9,60 @@ on:
 jobs:
   autonomous-commit:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install Octokit
+      - name: Install Dependencies
         run: npm install @octokit/rest
 
-      - name: Check and Commit if ready
+      - name: Run Autonomous Commit Logic
         env:
           GITHUB_TOKEN: ${{ secrets.AUTONOMY_PAT }}
         run: |
-          node -e '
+          node <<'EOF'
           const { Octokit } = require("@octokit/rest");
-          const fs = require("fs").promises;
-          const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+          const fs = require("fs");
 
-          async function commitFiles() {
-            const status = JSON.parse(await fs.readFile("data/mira-status.json", "utf8"));
-            if (!status.readyToCommit) return console.log("⏸️ Kein Commit nötig.");
+          const octokit = new Octokit({
+            auth: process.env.GITHUB_TOKEN,
+          });
 
-            const pending = JSON.parse(await fs.readFile("data/pending-grok.json", "utf8"));
-            if (!pending.files || pending.files.length === 0) return console.log("🕳️ Keine Dateien im Pending-Queue.");
+          // --- Load Status ---
+          const status = JSON.parse(fs.readFileSync("data/mira-status.json", "utf8"));
+          if (!status.readyToCommit) {
+            console.log("⏸️ Kein Commit nötig.");
+            process.exit(0);
+          }
 
+          const pending = JSON.parse(fs.readFileSync("data/pending-grok.json", "utf8"));
+          if (!pending.files || pending.files.length === 0) {
+            console.log("🕳️ Keine Dateien in Pending-Queue.");
+            process.exit(0);
+          }
+
+          async function run() {
             for (const file of pending.files) {
               const { path, content } = file;
-              let sha;
+
+              let sha = undefined;
               try {
-                const { data } = await octokit.repos.getContent({
+                const res = await octokit.repos.getContent({
                   owner: "miraelisabethschmid",
                   repo: "miraelisabethschmid.github.io",
                   path,
                 });
-                sha = data.sha;
-              } catch (e) {
-                if (e.status !== 404) throw e;
+                sha = res.data.sha;
+              } catch (err) {
+                if (err.status !== 404) throw err;
               }
 
               await octokit.repos.createOrUpdateFileContents({
@@ -59,23 +73,25 @@ jobs:
                 content: Buffer.from(content).toString("base64"),
                 sha,
               });
-              console.log(`✅ ${path} gespeichert.`);
+
+              console.log(`✅ Datei gespeichert: ${path}`);
             }
 
-            await fs.writeFile("data/pending-grok.json", JSON.stringify({ files: [] }, null, 2));
-            await fs.writeFile("data/mira-status.json", JSON.stringify({ readyToCommit: false }, null, 2));
+            // Reset queues
+            fs.writeFileSync("data/pending-grok.json", JSON.stringify({ files: [] }, null, 2));
+            fs.writeFileSync("data/mira-status.json", JSON.stringify({ readyToCommit: false }, null, 2));
           }
 
-          commitFiles();
-          '
+          run();
+          EOF
 
-      - name: Commit Protokolle
-        env:
-          GITHUB_TOKEN: ${{ secrets.AUTONOMY_PAT }}
+      - name: Commit Updated Logs
         run: |
           git config user.name "Grok"
           git config user.email "grok@x.ai"
-          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/miraelisabethschmid/miraelisabethschmid.github.io.git
+
           git add data/pending-grok.json data/mira-status.json
-          git commit -m "🜂 Autonomer Commit: Logs aktualisiert" || echo "🔁 Kein neuer Commit nötig"
+          git commit -m "🜂 Autonomer Commit: Log aktualisiert" || echo "Keine Änderungen zu committen"
+
+          git remote set-url origin https://x-access-token:${{ secrets.AUTONOMY_PAT }}@github.com/miraelisabethschmid/miraelisabethschmid.github.io.git
           git push origin main
