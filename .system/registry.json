@@ -1,19 +1,9 @@
-{
-  "workflows": [
+,
+  "generators": [
     {
-      "name": "self-expand.yml",
-      "content": "name: Self Expand\n\non:\n  workflow_dispatch:\n\njobs:\n  expand:\n    runs-on: ubuntu-latest\n    steps:\n      - name: Checkout\n        uses: actions/checkout@v4\n      - name: Create placeholder file\n        run: echo \"Self-expand executed at $(date)\" >> system-log.txt\n      - name: Commit changes\n        run: |\n          git config --global user.email 'system@auto'\n          git config --global user.name 'Autonomous System'\n          git add system-log.txt\n          git commit -m 'Self expand update' || echo 'No changes'\n          git push"
-    },
-    {
-      "name": "ai-agent.yml",
-      "content": "name: Autonomous AI Agent\n\non:\n  workflow_dispatch:\n\njobs:\n  agent:\n    runs-on: ubuntu-latest\n    steps:\n      - name: Checkout repository\n        uses: actions/checkout@v4\n\n      - name: Run AI agent\n        run: |\n          python3 agent/agent.py\n\n      - name: Commit agent output\n        run: |\n          git config --global user.email 'system@auto'\n          git config --global user.name 'Autonomous System'\n          git add .\n          git commit -m 'AI agent update' || echo 'No changes'\n          git push"
-    }
-  ],
-
-  "modules": [
-    {
-      "name": "hello-module",
-      "content": "print('Hello from autonomous module!')"
+      "name": "workflow-generator",
+      "pattern": "auto_workflow_",
+      "template": "name: Auto Workflow\\n\\non:\\n  workflow_dispatch:\\n\\njobs:\\n  auto:\\n    runs-on: ubuntu-latest\\n    steps:\\n      - name: Echo\\n        run: echo \\\"This is an auto-generated workflow: {{id}}\\\""
     }
   ]
 }
