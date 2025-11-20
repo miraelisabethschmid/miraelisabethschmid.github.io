@@ -1,45 +1,38 @@
 name: Autonomous Core
 
 on:
+  push:
+    branches: ["main"]
   workflow_dispatch:
-  schedule:
-    - cron: "*/30 * * * *"
+
+permissions:
+  contents: write
 
 jobs:
   autonomous-core:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          fetch-depth: 0
 
-      - name: Install dependencies
+      - name: Create system directories
         run: |
-          pip install --upgrade pip
-          pip install pyyaml
+          mkdir -p .system/workflows
+          mkdir -p .system/modules
+          mkdir -p .system/generators
 
-      - name: Run autonomous core
-        run: python .system/modules/agent.py
-
-      - name: Check for changes
-        id: git-check
+      - name: Ensure registry exists
         run: |
-          git config user.name "autonomous-core"
-          git config user.email "autonomous-core@local"
-          git add -A
-          if git diff --cached --quiet; then
-            echo "changed=false" >> $GITHUB_OUTPUT
+          if [ ! -f ".system/registry.json" ]; then
+            echo '{ "workflows": [], "modules": [], "generators": [] }' > .system/registry.json
+            echo "Created empty registry.json"
           else
-            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "registry.json already exists"
           fi
 
-      - name: Commit + Push changes
-        if: steps.git-check.outputs.changed == 'true'
+      - name: Sync workflows from registry
         run: |
-          git commit -m "autonomous-core: update"
-          git push
+          python3 sync.py
