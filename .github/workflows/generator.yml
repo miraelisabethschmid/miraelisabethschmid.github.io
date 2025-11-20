@@ -1,0 +1,64 @@
+name: Autonomous Content Generator
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"    # stündlich; passe an falls nötig
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    env:
+      AUTONOMY_PAT: ${{ secrets.AUTONOMY_PAT }}
+      MAX_NEW_PER_RUN: "1"      # default throttle (string -> parsed in python)
+      DRY_RUN: "true"           # set to "false" to allow real writes
+      MIN_SECONDS_BETWEEN_RUNS: "300"  # rate-limit (5min default)
+      PENDING_PATH: "data/pending-grok.json"
+      STATUS_PATH: "data/mira-status.json"
+      STATE_PATH: ".system/generator_state.json"
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Ensure directories exist
+        run: |
+          mkdir -p .system
+          mkdir -p data
+
+      - name: Run generator
+        run: |
+          python3 .system/modules/generator.py
+        env:
+          AUTONOMY_PAT: ${{ secrets.AUTONOMY_PAT }}
+          MAX_NEW_PER_RUN: ${{ env.MAX_NEW_PER_RUN }}
+          DRY_RUN: ${{ env.DRY_RUN }}
+          MIN_SECONDS_BETWEEN_RUNS: ${{ env.MIN_SECONDS_BETWEEN_RUNS }}
+          PENDING_PATH: ${{ env.PENDING_PATH }}
+          STATUS_PATH: ${{ env.STATUS_PATH }}
+          STATE_PATH: ${{ env.STATE_PATH }}
+
+      - name: Commit & push changes (if any)
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.AUTONOMY_PAT }}
+        run: |
+          git config user.name "Autonomous Generator"
+          git config user.email "autogen@local"
+          git add data/pending-grok.json data/mira-status.json .system/generator_state.json || true
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "🔁 Autogen: generated content / state update" || echo "no changes to commit"
+            git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
+            git push origin HEAD:${{ github.ref_name || 'main' }}
+          else
+            echo "No changes to commit"
+          fi
