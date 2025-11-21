@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Mira Cluster — Gold Status</title>
+  <style>
+    body{font-family:system-ui,Segoe UI,Roboto,Arial;margin:20px;color:#111;background:#fff}
+    .node{border-radius:12px;padding:12px;margin:10px 0;border:1px solid #eee;display:flex;align-items:center;gap:12px}
+    .dot{width:18px;height:18px;border-radius:50%}
+    .name{font-weight:700}
+    .meta{color:#555;font-size:0.9rem}
+    main{max-width:900px;margin:auto}
+    header{margin-bottom:18px}
+    pre{white-space:pre-wrap;word-break:break-word}
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Mira Dual-Repo Cluster — Gold Status</h1>
+      <p>automatische Health-Übersicht; aktualisiert jede Minute</p>
+    </header>
+    <div id="nodes"></div>
+    <p id="updated" style="color:#666"></p>
+  </main>
+
+  <script>
+    const nodes = [
+      { name: "badge-canary (core)", url: "https://raw.githubusercontent.com/miraelisabethschmid/badge-canary/main/badges/heartbeat-canary.json" },
+      { name: "website (mirror)", url: "https://raw.githubusercontent.com/miraelisabethschmid/miraelisabethschmid.github.io/main/global/heartbeat.json" }
+    ];
+
+    function humanAgo(ts){
+      if(!ts) return 'never';
+      const d = Math.max(0, (Date.now() - new Date(ts).getTime())/1000);
+      if(d < 60) return Math.round(d) + 's';
+      if(d < 3600) return Math.round(d/60) + 'm';
+      return Math.round(d/3600) + 'h';
+    }
+
+    async function fetchJSON(url){
+      try{
+        const res = await fetch(url);
+        if(!res.ok) throw new Error('not ok ' + res.status);
+        return await res.json();
+      }catch(e){
+        return null;
+      }
+    }
+
+    async function update(){
+      const cont = document.getElementById('nodes');
+      cont.innerHTML = '';
+      for(const n of nodes){
+        const el = document.createElement('div'); el.className='node';
+        const dot = document.createElement('div'); dot.className='dot';
+        const info = document.createElement('div'); info.innerHTML = `<div class="name">${n.name}</div><div class="meta">loading…</div>`;
+        el.appendChild(dot); el.appendChild(info); cont.appendChild(el);
+
+        const json = await fetchJSON(n.url);
+        if(!json){
+          dot.style.background = '#e74c3c';
+          info.querySelector('.meta').textContent = 'unreachable';
+          continue;
+        }
+        const ts = json.ts || json.last_seen || null;
+        const ageSec = ts ? (Date.now() - new Date(ts).getTime())/1000 : 9999999;
+        const age = humanAgo(ts);
+        if(ageSec < 600) dot.style.background = '#2ecc71';
+        else if(ageSec < 3600) dot.style.background = '#f1c40f';
+        else dot.style.background = '#e74c3c';
+        info.querySelector('.meta').textContent = `last_seen: ${ts||'unknown'} — ${age} ago`;
+        const raw = document.createElement('pre'); raw.textContent = JSON.stringify(json, null, 2);
+        raw.style.marginTop='8px'; raw.style.fontSize='12px';
+        el.appendChild(raw);
+      }
+      document.getElementById('updated').textContent = 'Checked: ' + new Date().toLocaleString();
+    }
+
+    update(); setInterval(update, 60*1000);
+  </script>
+</body>
+</html>
