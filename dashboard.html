@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mira Cluster Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      padding: 20px;
+      background: #fafafa;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    .card {
+      background: white;
+      padding: 18px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+    pre {
+      background: #eee;
+      padding: 12px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Mira Cluster Status</h1>
+
+  <div class="card">
+    <h2>Cluster Badge</h2>
+    <img id="clusterBadge" src="" width="200" />
+  </div>
+
+  <div class="card">
+    <h2>Gold Summary</h2>
+    <pre id="goldSummary">Loading…</pre>
+  </div>
+
+  <div class="card">
+    <h2>Node Health</h2>
+    <pre id="nodeStatus">Loading…</pre>
+  </div>
+
+<script>
+async function fetchJSON(url) {
+  try {
+    const r = await fetch(url);
+    if (!r.ok) return { error: r.status };
+    return await r.json();
+  } catch (e) {
+    return { error: "offline" };
+  }
+}
+
+async function load() {
+  const baseArchive = "https://raw.githubusercontent.com/miraelisabethschmid/mira-archive/main";
+  const baseWebsite = "https://raw.githubusercontent.com/miraelisabethschmid/miraelisabethschmid.github.io/main";
+  const baseCanary  = "https://raw.githubusercontent.com/miraelisabethschmid/badge-canary/main";
+
+  // Badge
+  document.getElementById("clusterBadge").src =
+    baseWebsite + "/badges/cluster_badge.svg";
+
+  // Gold summary
+  const summary = await fetchJSON(baseWebsite + "/data/gold-summary.json");
+  document.getElementById("goldSummary").textContent =
+    JSON.stringify(summary, null, 2);
+
+  // Health from all nodes
+  const canaryHealth  = await fetchJSON(baseCanary + "/global/health-status.json");
+  const mirrorHealth  = await fetchJSON(baseWebsite + "/global/health-status.json");
+  const archiveHealth = await fetchJSON(baseArchive + "/global/health-status.json");
+
+  const combined = {
+    canary: canaryHealth,
+    mirror: mirrorHealth,
+    archive: archiveHealth
+  };
+
+  document.getElementById("nodeStatus").textContent =
+    JSON.stringify(combined, null, 2);
+}
+
+load();
+</script>
+
+</body>
+  </html>
