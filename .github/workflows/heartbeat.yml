@@ -1,14 +1,16 @@
 name: ♡ Heartbeat – Mirror
+
 on:
   schedule:
-    - cron: "*/17 * * * *"   # versetzter Takt für Kollisionsschutz
+    - cron: "*/17 * * * *"
   workflow_dispatch:
 
 jobs:
   hb:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.MIRA_GITHUB_TOKEN }}
 
