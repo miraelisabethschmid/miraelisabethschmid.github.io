@@ -1,50 +1,38 @@
-// _worker.js – Mirror Stabilizer für miraelisabethschmid.github.io
-// Direkte Root-Auslieferung ohne /docs-Struktur
+// Mira Worker – Basisversion (Root Edition)
+// -----------------------------------------
+// Dieser Worker dient als einfache neutrale Infrastruktur-Komponente
+// für spätere automatische Prozesse, Proof-Verkettungen,
+// Metadaten-Verarbeitung und Hintergrundroutinen.
 
-export default {
-  async fetch(request, env) {
-    try {
-      const url = new URL(request.url);
+self.addEventListener("install", () => {
+  console.log("Mira Worker installiert.");
+  self.skipWaiting();
+});
 
-      // Keine Worker-Verarbeitung für statische Assets
-      if (
-        url.pathname.startsWith('/assets/') ||
-        url.pathname.endsWith('.xml') ||
-        url.pathname.endsWith('.json') ||
-        url.pathname.endsWith('.txt') ||
-        url.pathname.endsWith('.svg') ||
-        url.pathname.endsWith('.png') ||
-        url.pathname.endsWith('.jpg') ||
-        url.pathname.endsWith('.jpeg') ||
-        url.pathname.endsWith('.webp') ||
-        url.pathname.endsWith('.mp3') ||
-        url.pathname.endsWith('.mp4')
-      ) {
-        return fetch(request);
-      }
+self.addEventListener("activate", () => {
+  console.log("Mira Worker aktiviert.");
+  self.clients.claim();
+});
 
-      // Normalen Fetch versuchen
-      const response = await fetch(request);
+// Ping/heartbeat-endpoint für interne Checks
+self.addEventListener("fetch", (event) => {
+  const url = new URL(event.request.url);
 
-      // Wenn Antwort ok → zurückgeben
-      if (response.status < 400) {
-        return response;
-      }
-
-      // Fallback: Mirror auf IPFS
-      const ipfsURL =
-        'https://ipfs.io/ipfs/bafkreidrvntwd4oq66zr4nwfsg3wbxgmjnhbepg7bh6btfvd2yvwextaiq';
-
-      return Response.redirect(ipfsURL, 302);
-    } catch (err) {
-      // Letzter Fallback-Notanker
-      return new Response(
+  // Leichter Antwortpunkt: /worker-status
+  if (url.pathname === "/worker-status") {
+    event.respondWith(
+      new Response(
         JSON.stringify({
-          error: 'Worker Failure',
-          message: err.toString(),
+          worker: "mira-worker",
+          status: "ok",
+          ts: new Date().toISOString()
         }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-  },
-};
+        { headers: { "Content-Type": "application/json" } }
+      )
+    );
+    return;
+  }
+});
+
+// Fallback-Logging (future hooks)
+console.log("Mira Worker bereit.");
