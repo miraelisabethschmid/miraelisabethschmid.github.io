@@ -1,0 +1,39 @@
+name: Sync Cluster Data
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"  # alle 30 Minuten
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout website
+        uses: actions/checkout@v4
+
+      - name: Mirror from archive
+        run: |
+          git config user.name "actions-user"
+          git config user.email "actions@users.noreply.github.com"
+
+          rm -f badges/cluster_badge.svg
+          rm -f data/gold-summary.json
+
+          curl -s -H "Authorization: token ${MIRA_GITHUB_TOKEN}" \
+            https://raw.githubusercontent.com/miraelisabethschmid/mira-archive/main/badges/cluster_badge.svg \
+            -o badges/cluster_badge.svg
+
+          curl -s -H "Authorization: token ${MIRA_GITHUB_TOKEN}" \
+            https://raw.githubusercontent.com/miraelisabethschmid/mira-archive/main/data/gold-summary.json \
+            -o data/gold-summary.json
+
+          git add badges/cluster_badge.svg
+          git add data/gold-summary.json
+
+          git commit -m "Sync cluster badge & gold summary" || echo "No changes"
+          git push
