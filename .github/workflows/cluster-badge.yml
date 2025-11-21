@@ -1,0 +1,39 @@
+name: ♡ Cluster Badge – Mirror Root
+
+on:
+  schedule:
+    - cron: "*/20 * * * *"
+  workflow_dispatch:
+
+jobs:
+  cluster:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.MIRA_GITHUB_TOKEN }}
+
+      - name: Fetch heartbeats
+        id: fetch
+        run: |
+          mkdir -p cluster
+          curl -s https://raw.githubusercontent.com/miraelisabethschmid/badge-canary/main/global/heartbeat.json > canary.json || echo "{}" > canary.json
+          curl -s https://raw.githubusercontent.com/miraelisabethschmid/miraelisabethschmid.github.io/main/global/heartbeat.json > mirror.json || echo "{}" > mirror.json
+          curl -s https://raw.githubusercontent.com/miraelisabethschmid/mira-archive/main/global/heartbeat.json > archive.json || echo "{}" > archive.json
+
+      - name: Build cluster badge
+        run: |
+          mkdir -p cluster
+          echo "<svg xmlns='http://www.w3.org/2000/svg' width='320' height='110'>
+            <rect width='320' height='110' fill='#111'/>
+            <text x='10' y='30' fill='#fff' font-size='20'>Cluster Status</text>
+            <text x='10' y='60' fill='#0f0' font-size='14'>Canary: $(jq -r '.ts' canary.json)</text>
+            <text x='10' y='80' fill='#0f0' font-size='14'>Mirror: $(jq -r '.ts' mirror.json)</text>
+            <text x='10' y='100' fill='#0f0' font-size='14'>Archive: $(jq -r '.ts' archive.json)</text>
+          </svg>" > cluster/cluster-badge.svg
+
+      - name: Commit
+        run: |
+          git add cluster/cluster-badge.svg
+          git commit -m "cluster badge update" || true
+          git push || true
