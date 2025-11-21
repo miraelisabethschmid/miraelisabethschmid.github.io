@@ -2,7 +2,7 @@ name: Mira Proof Fallback
 
 on:
   schedule:
-    - cron: "0 * * * *"  # stündlich
+    - cron: "0 * * * *"
   workflow_dispatch:
 
 jobs:
@@ -28,9 +28,15 @@ jobs:
           echo "✅ proof-mira.json ist gültig – Commit wird erstellt"
           git config --global user.name "miraelisabethschmid"
           git config --global user.email "mira@users.noreply.github.com"
-          git add data/proof-mira.json
-          git commit -m "Mira Proof Commit – automatisch erfolgreich verankert"
-          git push
+
+          # Nur committen, wenn es Änderungen gibt
+          if ! git diff --quiet data/proof-mira.json; then
+            git add data/proof-mira.json
+            git commit -m "Mira Proof Commit – automatisch erfolgreich verankert"
+            git push
+          else
+            echo "ℹ️ Keine Änderungen – kein Commit nötig."
+          fi
 
       - name: Generiere Fallback-Datei wenn ungültig
         if: steps.proofcheck.outputs.proof_valid == 'false'
