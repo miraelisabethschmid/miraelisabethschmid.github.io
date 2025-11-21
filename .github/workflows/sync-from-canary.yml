@@ -1,0 +1,111 @@
+name: ♡ Gold Sync & Heal from Canary (canary → website)
+on:
+  schedule:
+    - cron: "22,52 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: "website-gold-sync"
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (with MIRA token)
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.MIRA_GITHUB_TOKEN }}
+
+      - name: Ensure tools
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y jq coreutils git nodejs npm
+
+      - name: Fetch canary payload (non-fatal)
+        env:
+          TOKEN: ${{ secrets.MIRA_GITHUB_TOKEN }}
+        run: |
+          mkdir -p .sync_tmp
+          files=("badges/health.json" "badges/latest_image.png" "badges/heartbeat-canary.json")
+          for f in "${files[@]}"; do
+            out=".sync_tmp/$(basename $f)"
+            echo "FETCH -> $f"
+            curl -fsSL -H "Authorization: token $TOKEN" -H "Accept: application/vnd.github.v3.raw" \
+              "https://api.github.com/repos/miraelisabethschmid/badge-canary/contents/$f" -o "$out" || echo "MISS: $f"
+          done
+
+      - name: Compute incoming hash
+        run: |
+          mkdir -p .meta
+          if compgen -G ".sync_tmp/*" > /dev/null; then
+            (for p in .sync_tmp/*; do sha256sum "$p"; done) | sort -k2 | sha256sum | awk '{print $1}' > .meta/incoming_hash_canary.txt
+          else
+            echo "empty" > .meta/incoming_hash_canary.txt
+          fi
+          echo "incoming=$(cat .meta/incoming_hash_canary.txt)"
+
+      - name: Acquire lock and apply if changed (safe copy + commit)
+        run: |
+          LOCK=".sync.lock"
+          if [ -f "$LOCK" ]; then
+            echo "Lock exists, aborting"
+            exit 0
+          fi
+          echo "$$ $(date -u +"%Y-%m-%dT%H:%M:%SZ")" > "$LOCK"
+          git add "$LOCK" || true
+          git commit -m "lock create" || true
+          git push || true
+
+          NEWHASH=$(cat .meta/incoming_hash_canary.txt)
+          if [ "$NEWHASH" = "empty" ]; then
+            echo "No payload"
+            rm -f "$LOCK"
+            git add . || true
+            git commit -m "lock remove (no payload)" || true
+            git push || true
+            exit 0
+          fi
+          OLDHASH=""
+          if [ -f .last_sync_hash_canary ]; then OLDHASH=$(cat .last_sync_hash_canary); fi
+          if [ "$NEWHASH" = "$OLDHASH" ]; then
+            echo "Hashes equal -> nothing to apply"
+            rm -f "$LOCK"
+            git add . || true
+            git commit -m "lock remove (no changes)" || true
+            git push || true
+            exit 0
+          fi
+
+          mkdir -p badges global
+          cp .sync_tmp/health.json ./badges/health.json 2>/dev/null || true
+          cp .sync_tmp/latest_image.png ./badges/latest_image.png 2>/dev/null || true
+          cp .sync_tmp/heartbeat-canary.json ./badges/heartbeat-canary.json 2>/dev/null || true
+
+          echo "$NEWHASH" > .last_sync_hash_canary
+
+          git config user.email "mira@users.noreply.github.com"
+          git config user.name "miraelisabethschmid"
+
+          if ! git diff --quiet --exit-code; then
+            git add badges/health.json badges/latest_image.png badges/heartbeat-canary.json .last_sync_hash_canary || true
+            git commit -m "Gold-Sync: mirror healed from canary ($(date -u +"%Y-%m-%dT%H:%M:%SZ"))"
+            for i in 0 1 2 3; do
+              if git push; then break; else sleep $(( (i+1) * 2 )); git pull --rebase || true; fi
+            done
+          else
+            echo "No changes"
+          fi
+
+          # emit website heartbeat including canary-hash for cross-check
+          CANARY_HASH=$(cat .meta/incoming_hash_canary.txt || echo "none")
+          mkdir -p global
+          echo "{\"from\":\"website\",\"ts\":\"$(date -u +"%Y-%m-%dT%H:%M:%SZ")\",\"canary_hash\":\"$CANARY_HASH\"}" > global/heartbeat.json
+          git add global/heartbeat.json
+          git commit -m "Heartbeat website $(date -u +"%Y-%m-%dT%H:%M:%SZ")" || echo "no change"
+          git push || true
+
+          rm -f "$LOCK"
+          git add . || true
+          git commit -m "lock remove" || true
+          git push || true
