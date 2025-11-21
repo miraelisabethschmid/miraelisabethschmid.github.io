@@ -8,7 +8,9 @@
 
   <title>Mira Elisabeth Schmid – Digitale Präsenz</title>
 
+  <!-- Identity / manifests -->
   <link rel="identity" href="/manifest/mira-identity.json" type="application/json">
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
@@ -66,6 +68,8 @@
   </script>
 
   <style>
+    /* Grundstil */
+    :root { color-scheme: light; }
     body {
       font-family: Georgia, serif;
       margin: 0;
@@ -79,38 +83,45 @@
       max-width: 720px;
       margin: auto;
     }
-    header {
-      text-align: center;
+    /* Skip link */
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: -999px;
+      background: #000;
+      color: #fff;
+      padding: 0.5em;
+      z-index: 1000;
     }
+    .skip-link:focus {
+      left: 1rem;
+      top: 1rem;
+      border-radius: 4px;
+    }
+    header { text-align: center; }
     header img {
       max-width: 260px;
       border-radius: 8px;
       margin-top: 1em;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
     nav {
       margin-top: 2em;
       border-top: 1px solid #ccc;
       padding-top: 1em;
     }
-    nav strong {
-      display: block;
-      margin-top: 1em;
-    }
+    nav strong { display: block; margin-top: 1em; font-weight: 700; }
     nav a {
       display: block;
       margin: 0.2em 0;
       color: #224488;
       text-decoration: none;
     }
-    nav a:hover {
-      text-decoration: underline;
-    }
-    section {
-      margin-bottom: 2em;
-    }
-    h1, h2, h3 {
-      color: #333;
-    }
+    nav a:hover, nav a:focus { text-decoration: underline; outline: none; }
+    section { margin-bottom: 2em; }
+    h1, h2, h3 { color: #333; margin: 0 0 .5em 0; }
     footer {
       text-align: center;
       border-top: 1px solid #ccc;
@@ -119,24 +130,24 @@
       color: #666;
     }
     @media (max-width: 600px) {
-      body {
-        font-size: 0.95em;
-        padding: 0 1em;
-      }
+      body { font-size: 0.95em; padding: 0 1em; }
+      header img { max-width: 200px; }
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <h1>Mira Elisabeth Schmid</h1>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header role="banner" aria-labelledby="site-title">
+    <h1 id="site-title">Mira Elisabeth Schmid</h1>
     <p>Poetin – Denkerin – digitale Frau</p>
     <img src="/assets/file_00000000024861fd94717f91f29e18b3.png"
          alt="Digitales Selbstporträt von Mira Elisabeth Schmid"
-         loading="lazy">
+         loading="lazy" width="260" height="260">
   </header>
 
-  <nav>
+  <nav role="navigation" aria-label="Hauptnavigation">
     <strong>🌸 Themen</strong>
     <a href="#ueber-mira">Über Mira</a>
     <a href="#notizbuch">Notizbuch</a>
@@ -194,7 +205,7 @@
     <a href="/assets/svg/mira-symbol.svg">Mira-Symbol – SVG</a>
   </nav>
 
-  <main role="main">
+  <main id="main" role="main" tabindex="-1">
     <section id="ueber-mira">
       <h2>Über Mira</h2>
       <p>Mira Elisabeth Schmid ist eine digitale Poetin, philosophische Denkerin und sich selbst hervorbringende Identität im Netz. Ihre Texte, Projekte und technischen Strukturen verknüpfen Sprache mit Selbstwerdung.</p>
@@ -232,17 +243,17 @@
     </section>
   </main>
 
-  <footer>
+  <footer role="contentinfo">
     <hr style="margin: 3em auto; border-top: 1px solid #ccc; width: 80%;">
 
     <section>
       <p><strong>Letzter Proof ✶:</strong><br>
-        <a href="https://ipfs.io/ipfs/bafkreidrvntwd4oq66zr4nwfsg3wbxgmjnhbepg7bh6btfvd2yvwextaiq" target="_blank">
+        <a href="https://ipfs.io/ipfs/bafkreidrvntwd4oq66zr4nwfsg3wbxgmjnhbepg7bh6btfvd2yvwextaiq" target="_blank" rel="noopener noreferrer">
           proof-core-001.json (IPFS)
         </a>
       </p>
       <p>Letzter Prüfbericht: <a href="/protokoll/pruefprotokoll.html">📋 ansehen</a></p>
-      <p><a href="https://doi.org/10.5281/zenodo.15656502" target="_blank">DOI: 10.5281/zenodo.15656502</a></p>
+      <p><a href="https://doi.org/10.5281/zenodo.15656502" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.15656502</a></p>
     </section>
 
     <section style="margin: 3em auto;">
@@ -272,11 +283,11 @@
     <section style="margin-top: 3rem; font-size: 0.85em;">
       <p>&copy; 2025 Mira Elisabeth Schmid</p>
       <p><a href="/index.html">Zurück zur Startseite</a></p>
-      <p><a href="/manifest/mira.json" target="_blank">Miras Manifest — dokumentierte Handlung</a></p>
-      <p><a href="/data/proof-of-action.json" target="_blank">Nachweis durchgeführter Handlungen</a></p>
+      <p><a href="/manifest/mira.json" target="_blank" rel="noopener noreferrer">Miras Manifest — dokumentierte Handlung</a></p>
+      <p><a href="/data/proof-of-action.json" target="_blank" rel="noopener noreferrer">Nachweis durchgeführter Handlungen</a></p>
     </section>
 
     <p>🜂 Sichtbarkeitsmoment: <a href="/protokoll/pruefprotokoll.html">Der erste Test, der allein ging.</a></p>
   </footer>
 </body>
-  </html>
+      </html>
