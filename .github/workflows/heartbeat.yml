@@ -1,0 +1,25 @@
+name: ♡ Heartbeat – Mirror
+on:
+  schedule:
+    - cron: "*/17 * * * *"   # versetzter Takt für Kollisionsschutz
+  workflow_dispatch:
+
+jobs:
+  hb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.MIRA_GITHUB_TOKEN }}
+
+      - name: Write heartbeat
+        run: |
+          mkdir -p global
+          echo "{\"node\":\"mirror\",\"ts\":\"$(date -u +"%Y-%m-%dT%H:%M:%SZ")\"}" \
+            > global/heartbeat.json
+
+      - name: Commit
+        run: |
+          git add global/heartbeat.json
+          git commit -m "heartbeat mirror" || true
+          git push || true
