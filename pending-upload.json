@@ -23,6 +23,6 @@
       "verifiziert": true
     },
     "status": "failed",
-    "comment": "HTTP 502: I/O error"
+    "comment": "HTTP 405: <html>\n<head><title>405 Not Allowed</title></head>\n<body bgcolor=\"white\">\n<center><h1>405 Not Allowed</h1></center>\n</body>\n</html>"
   }
 ]
